@@ -1,0 +1,680 @@
+/*
+  XL story styles
+  ---------------
+  Loaded only by xl-story.html, after css/style.css.
+
+  The story is seven sections. Three of them are pinned to the screen
+  while the page keeps scrolling vertically:
+
+  1. Hook
+  4. Before / after
+  6. Short journey
+
+  Change --scene-hook, --scene-compare, and --scene-journey if a scene
+  feels too long or too short. The JavaScript reads the real height of
+  the section, so you do not need to edit the script when you change these.
+
+  Scroll progress is stored in custom properties:
+  --shown   0 to 1, how visible a line or a journey photo is
+  --p       0 to 1, how far the before/after wipe has moved
+  --shift   a small vertical nudge for the quieter photographs
+*/
+
+:root {
+  --history-bg: #e6d5bf;
+  --struggle-bg: #d5d1cb;
+  --today-bg: #f5f4f1;
+  --ending-bg: #f7f2e8;
+
+  --scene-hook: 320vh;
+  --scene-compare: 280vh;
+  --scene-journey: 340vh;
+}
+
+/* The story keeps the warm paper. Homepage and articles use --canvas (white). */
+.page-story {
+  padding-top: 0;
+  background: var(--paper);
+}
+
+.page-story .site-header {
+  background: #ffffff;
+  color: var(--ink);
+}
+
+.page-story .site-footer {
+  margin-top: 0;
+}
+
+/* The header stays white over dark scenes so the black wordmark stays readable. */
+.page-story .site-header.is-on-dark {
+  background: #ffffff;
+  color: var(--ink);
+}
+
+/* --------------------------------------------
+   Shared scene pieces
+-------------------------------------------- */
+
+.scene--history,
+.scene--struggle,
+.scene--today,
+.scene--ending {
+  padding: clamp(4.5rem, 12vh, 8rem) 0;
+}
+
+.scene--history {
+  padding-top: calc(var(--header-h) + clamp(2.5rem, 8vh, 5.5rem));
+}
+
+.scene__pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.prose p + p {
+  margin-top: 1.15em;
+}
+
+.prose p {
+  max-width: 38rem;
+  font-size: 1.175rem;
+  line-height: 1.65;
+}
+
+/* Text fades in once, then stays put so it can be read. */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(0.85rem);
+  transition: opacity var(--fade) var(--ease), transform var(--fade) var(--ease);
+}
+
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* A very small scroll-linked nudge. Edit the 1.06 if you want less zoom. */
+.parallax img {
+  transform: translateY(var(--shift, 0px)) scale(1.06);
+}
+
+/* --------------------------------------------
+   1. Hook
+-------------------------------------------- */
+
+.scene--hook {
+  height: var(--scene-hook);
+  background: var(--night);
+  color: var(--night-text);
+}
+
+.scene--hook .scene__pin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--header-h) var(--gutter) 2rem;
+}
+
+.hook__quote {
+  position: relative;
+  z-index: 1;
+  width: min(16em, 100%);
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(1.85rem, 4.7vw, 4.15rem);
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+}
+
+.hook__line {
+  display: block;
+}
+
+.hook__blackout {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: #000;
+  opacity: var(--shown, 0);
+  pointer-events: none;
+}
+
+/* Hidden until scroll reveals them. The first line starts visible. */
+.js .hook__line {
+  opacity: var(--shown, 0);
+  transform: translateY(calc((1 - var(--shown, 0)) * 0.75rem));
+}
+
+.js .hook__line:first-child {
+  --shown: 1;
+}
+
+/* --------------------------------------------
+   2. Before the city
+-------------------------------------------- */
+
+.scene--history {
+  --muted: #5c4d3f;
+  background: var(--history-bg);
+  color: #2b2118;
+}
+
+.history__intro .kicker + h2 {
+  max-width: 12em;
+  margin-top: 0.7rem;
+  font-size: clamp(2.4rem, 5vw, 4.4rem);
+}
+
+.history__figure {
+  width: 100%;
+  max-height: 82vh;
+  margin-block: clamp(2rem, 6vh, 3.5rem);
+}
+
+.history__text {
+  width: min(var(--measure), calc(100% - (2 * var(--gutter))));
+  margin-inline: auto;
+}
+
+/* --------------------------------------------
+   3. Change / struggle
+-------------------------------------------- */
+
+.scene--struggle {
+  --muted: #4a4641;
+  background: var(--struggle-bg);
+  color: #23211e;
+}
+
+.struggle__inner {
+  width: min(44rem, calc(100% - (2 * var(--gutter))));
+  margin-inline: auto;
+}
+
+.struggle__inner h2 {
+  max-width: 14em;
+  margin-top: 0.7rem;
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+}
+
+.struggle__blocks {
+  display: grid;
+  gap: clamp(4.5rem, 14vh, 8.5rem);
+  margin-top: clamp(3rem, 9vh, 5.5rem);
+}
+
+.struggle__block {
+  max-width: 20em;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(1.4rem, 2.5vw, 1.95rem);
+  line-height: 1.32;
+  letter-spacing: -0.025em;
+}
+
+/* --------------------------------------------
+   4. Before / after
+   No visible text on the photographs.
+   --p is 0 at the start (old photo) and 1 at the end (new photo).
+-------------------------------------------- */
+
+.scene--compare {
+  height: var(--scene-compare);
+  background: var(--night);
+}
+
+.compare {
+  position: relative;
+  height: 100%;
+  background: #1a1613;
+}
+
+.compare__old,
+.compare__new {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Alt text stays out of the way until the photograph file exists. */
+  color: transparent;
+}
+
+.compare__old {
+  background: #3c2e26;
+  transform: scale(calc(1.04 - (var(--p, 0) * 0.04)));
+}
+
+.compare__new {
+  background: #2a3338;
+}
+
+.compare__new {
+  clip-path: inset(0 calc((1 - var(--p, 0)) * 100%) 0 0);
+}
+
+.compare__edge {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--p, 0) * 100%);
+  width: 1px;
+  background: rgba(244, 239, 230, 0.92);
+  transform: translateX(-50%);
+  pointer-events: none;
+  opacity: clamp(
+    0,
+    min(calc(var(--p, 0) * 16), calc((1 - var(--p, 0)) * 16)),
+    1
+  );
+}
+
+.compare__label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --------------------------------------------
+   5. Today
+-------------------------------------------- */
+
+.scene--today {
+  background: var(--today-bg);
+}
+
+.today__grid {
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 4.5rem);
+  align-items: start;
+}
+
+.today__copy h2 {
+  max-width: 12em;
+  margin-top: 0.65rem;
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+}
+
+.today__copy .prose {
+  margin-top: 1.4rem;
+}
+
+.today__copy .figure {
+  margin-block: 1.8rem;
+}
+
+.frame--equipment,
+.frame--today {
+  aspect-ratio: 3 / 2;
+}
+
+/* --------------------------------------------
+   6. Short journey
+-------------------------------------------- */
+
+.scene--journey {
+  height: var(--scene-journey);
+  background: var(--night);
+  color: var(--night-text);
+}
+
+.journey__stage {
+  position: absolute;
+  inset: 0;
+}
+
+.journey__frame {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  overflow: hidden;
+  background: #1a1613;
+}
+
+.js .journey__frame {
+  opacity: var(--shown, 0);
+}
+
+.js .journey__frame:first-child {
+  --shown: 1;
+}
+
+.journey__frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  color: transparent;
+  transform: scale(calc(1.045 - (var(--shown, 1) * 0.045)));
+}
+
+.journey__caption {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  padding: 5rem var(--gutter) clamp(1.4rem, 4vw, 2.5rem);
+  background: linear-gradient(to top, rgba(10, 8, 7, 0.84), rgba(10, 8, 7, 0));
+  color: var(--night-text);
+  font-size: clamp(1.08rem, 2vw, 1.35rem);
+  font-style: normal;
+  line-height: 1.4;
+}
+
+.journey__caption .kicker {
+  display: block;
+  margin-bottom: 0.45rem;
+  color: #f0b2a8;
+}
+
+.journey__support {
+  display: block;
+  max-width: 36rem;
+  margin-top: 0.35rem;
+  color: rgba(244, 239, 230, 0.86);
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+/* --------------------------------------------
+   7. Ending
+-------------------------------------------- */
+
+.scene--ending {
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--ending-bg);
+  padding-top: calc(var(--header-h) + 3rem);
+}
+
+.ending__grid {
+  display: grid;
+  gap: clamp(1.75rem, 5vw, 5.5rem);
+  align-items: end;
+  width: min(var(--page), calc(100% - (2 * var(--gutter))));
+  margin-inline: auto;
+}
+
+.ending__portrait {
+  max-width: 22rem;
+}
+
+.ending__copy h2 {
+  max-width: 10em;
+  margin-top: 0.65rem;
+  font-size: clamp(2.3rem, 4.5vw, 4rem);
+}
+
+.ending__copy .prose {
+  margin-top: 1.3rem;
+}
+
+/* --------------------------------------------
+   Wider screens
+-------------------------------------------- */
+
+@media (min-width: 800px) {
+  .struggle__block:nth-child(2) {
+    margin-left: 3.5rem;
+  }
+
+  .struggle__block:nth-child(4) {
+    margin-left: 1.25rem;
+  }
+}
+
+@media (min-width: 900px) {
+  .today__grid {
+    grid-template-columns: minmax(0, 1.05fr) minmax(18rem, 0.9fr);
+  }
+
+  .today__figure {
+    position: sticky;
+    top: calc(var(--header-h) + 1.25rem);
+    align-self: start;
+  }
+
+  .frame--today {
+    aspect-ratio: 4 / 5;
+    max-height: calc(100dvh - var(--header-h) - 2.5rem);
+  }
+
+  .ending__grid {
+    grid-template-columns: minmax(14rem, 22rem) minmax(0, 34rem);
+  }
+}
+
+@media (max-width: 899px) {
+  .frame--today {
+    aspect-ratio: 3 / 2;
+    max-height: none;
+  }
+}
+
+/* Shorter runways on phones. The motion is the same, the distance is not. */
+@media (max-width: 700px) {
+  :root {
+    --scene-hook: 240vh;
+    --scene-compare: 210vh;
+    --scene-journey: 260vh;
+  }
+}
+
+@media (max-height: 700px) {
+  .hook__quote {
+    font-size: clamp(1.35rem, 4.2vh, 2.1rem);
+  }
+}
+
+/* --------------------------------------------
+   Less motion, or no JavaScript
+   The scenes become ordinary stacked sections.
+-------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal,
+  .js .reveal.is-visible,
+  .js .hook__line,
+  .js .hook__line:first-child {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .hook__blackout {
+    display: none;
+  }
+
+  .parallax img,
+  .compare__old,
+  .journey__frame img {
+    transform: none;
+  }
+
+  .scene--hook,
+  .scene--compare,
+  .scene--journey {
+    height: auto;
+  }
+
+  .scene__pin {
+    position: relative;
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+  }
+
+  .scene--hook .scene__pin {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  .compare,
+  .journey__stage {
+    position: relative;
+    display: grid;
+    height: auto;
+    gap: 2.5rem;
+    padding: calc(var(--header-h) + 2rem) var(--gutter) 3rem;
+    background: var(--paper);
+    color: var(--ink);
+  }
+
+  .js .journey__frame,
+  .compare__old,
+  .compare__new,
+  .journey__frame {
+    position: relative;
+    inset: auto;
+    height: auto;
+    opacity: 1;
+    clip-path: none;
+    overflow: visible;
+  }
+
+  .compare__old,
+  .compare__new,
+  .journey__frame img {
+    height: 72vh;
+    transform: none;
+  }
+
+  .compare__edge {
+    display: none;
+  }
+
+  .compare__label {
+    position: static;
+    width: auto;
+    height: auto;
+    margin: -1.4rem 0 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  .journey__caption {
+    position: relative;
+    padding: 0.75rem 0 0;
+    background: none;
+    color: var(--ink);
+  }
+
+  .journey__caption .kicker {
+    color: var(--accent);
+  }
+
+  .journey__support {
+    color: var(--muted);
+  }
+}
+
+html:not(.js) .scene--hook,
+html:not(.js) .scene--compare,
+html:not(.js) .scene--journey {
+  height: auto;
+}
+
+html:not(.js) .scene__pin {
+  position: relative;
+  height: auto;
+  overflow: visible;
+}
+
+html:not(.js) .scene--hook .scene__pin {
+  display: flex;
+  min-height: 100vh;
+  min-height: 100dvh;
+  align-items: center;
+}
+
+html:not(.js) .hook__blackout {
+  display: none;
+}
+
+html:not(.js) .compare,
+html:not(.js) .journey__stage {
+  position: relative;
+  display: grid;
+  height: auto;
+  gap: 2.5rem;
+  padding: calc(var(--header-h) + 2rem) var(--gutter) 3rem;
+  background: var(--paper);
+}
+
+html:not(.js) .compare__old,
+html:not(.js) .compare__new,
+html:not(.js) .journey__frame {
+  position: relative;
+  inset: auto;
+  height: auto;
+  opacity: 1;
+  clip-path: none;
+  overflow: visible;
+  transform: none;
+}
+
+html:not(.js) .compare__old,
+html:not(.js) .compare__new,
+html:not(.js) .journey__frame img {
+  height: 72vh;
+}
+
+html:not(.js) .compare__edge {
+  display: none;
+}
+
+html:not(.js) .compare__label {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: -1.4rem 0 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+  color: var(--muted);
+  font-style: italic;
+}
+
+html:not(.js) .journey__caption {
+  position: relative;
+  padding: 0.75rem 0 0;
+  background: none;
+  color: var(--ink);
+}
+
+html:not(.js) .journey__caption .kicker {
+  color: var(--accent);
+}
+
+html:not(.js) .journey__support {
+  color: var(--muted);
+}
+
+/* The open phone menu must stay readable over the dark story scenes. */
+@media (max-width: 880px) {
+  .page-story .site-nav {
+    background: #ffffff;
+  }
+
+  .site-header.is-on-dark.is-menu-open {
+    background: #ffffff;
+    color: var(--ink);
+  }
+}

@@ -1,0 +1,907 @@
+/*
+  GVI / Gruppe 6 — shared styles
+  ----------------------
+  This file is used by every page.
+
+  Edit the variables in :root first if you want to change the look.
+  Colors, type, spacing, and timing all live there.
+
+  Fonts are files in the fonts/ folder, so the site works offline.
+  Fraunces and Source Sans 3 are used under the SIL Open Font License.
+  The license texts are fonts/OFL-fraunces.txt and fonts/OFL-source-sans-3.txt.
+  The files include Western European letters, including æ, ø, and å.
+*/
+
+/* --------------------------------------------
+   Fonts
+-------------------------------------------- */
+
+@font-face {
+  font-family: Fraunces;
+  src: url("../fonts/fraunces-500.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Fraunces;
+  src: url("../fonts/fraunces-600.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Fraunces;
+  src: url("../fonts/fraunces-500-italic.woff2") format("woff2");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Source Sans 3";
+  src: url("../fonts/source-sans-3-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Source Sans 3";
+  src: url("../fonts/source-sans-3-600.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Source Sans 3";
+  src: url("../fonts/source-sans-3-400-italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* --------------------------------------------
+   Design tokens
+   Change these to restyle the whole site.
+-------------------------------------------- */
+
+:root {
+  --ink: #1c1714;
+  --ink-soft: #3f362f;
+  --muted: #5f564e;
+  --paper: #f3efe6; /* warm paper, used by the XL story */
+  --canvas: #ffffff; /* homepage and article pages */
+  --line: #1c1714;
+  --line-soft: #d9d0c4;
+  --accent: #9a3328;
+
+  --night: #110e0c;
+  --night-text: #f4efe6;
+
+  --serif: Fraunces, "Iowan Old Style", Palatino, "Palatino Linotype", Georgia, serif;
+  --sans: "Source Sans 3", "Avenir Next", "Segoe UI", Helvetica, Arial, sans-serif;
+
+  --header-logo: clamp(4.15rem, 7vw, 6.15rem);
+  --header-brand-pad: 0.85rem;
+  --header-brand-h: calc(var(--header-logo) + (var(--header-brand-pad) * 2));
+  --header-nav-block: 2.8rem;
+  --header-side: 6.25rem;
+  --header-compact: 72px;
+  /* Logo row + nav row + the two hairline dividers. Phones drop the nav row. */
+  --header-h: calc(var(--header-brand-h) + var(--header-nav-block) + 2px);
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --page: 74rem;
+  --measure: 40rem;
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --fade: 0.75s;
+
+  /* Keep this number in sync with the matchMedia query in js/script.js */
+  --nav-break: 880px;
+}
+
+/* --------------------------------------------
+   Base
+-------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: clip;
+  scroll-padding-top: var(--header-h);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding-top: var(--header-h);
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+  overflow-wrap: break-word;
+}
+
+body,
+h1,
+h2,
+h3,
+p,
+figure,
+blockquote,
+ul,
+ol {
+  margin: 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+::selection {
+  background: #efc7bf;
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* The skip link moves focus to <main>. A box around the whole page is noisy. */
+main:focus {
+  outline: none;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  left: var(--gutter);
+  top: 0.75rem;
+  z-index: 80;
+  padding: 0.55rem 0.8rem;
+  background: var(--ink);
+  color: var(--paper);
+  text-decoration: none;
+  transform: translateY(-150%);
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+/* Shared content width. The header and footer use the same measure. */
+.wrap,
+.site-footer__inner {
+  width: min(var(--page), calc(100% - (2 * var(--gutter))));
+  margin-inline: auto;
+}
+
+.kicker {
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.editor-note {
+  margin-top: 0.85rem;
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  font-style: italic;
+  color: var(--muted);
+}
+
+.deck {
+  margin-top: 1.15rem;
+  max-width: 34em;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(1.25rem, 2vw, 1.6rem);
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  color: var(--ink-soft);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--serif);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 0.98;
+}
+
+/* --------------------------------------------
+   Header and navigation
+   The same header markup is copied on every page.
+   Logo row, then a centered nav row. White throughout.
+-------------------------------------------- */
+
+.site-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  height: var(--header-h);
+  background: #ffffff;
+  color: var(--ink);
+  border-bottom: 1px solid var(--line-soft);
+  transition: height 0.42s var(--ease);
+}
+
+.site-header.is-compact {
+  height: var(--header-compact);
+}
+
+.site-header__brand {
+  position: relative;
+  display: flex;
+  flex: 0 0 var(--header-brand-h);
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  padding-inline: var(--gutter);
+  overflow: hidden;
+  border-bottom: 1px solid var(--line-soft);
+  transition:
+    flex-basis 0.42s var(--ease),
+    opacity 0.28s var(--ease),
+    border-color 0.28s var(--ease),
+    border-width 0.42s var(--ease);
+}
+
+.site-header.is-compact .site-header__brand {
+  flex-basis: 0px;
+  opacity: 0;
+  border-bottom-width: 0;
+  pointer-events: none;
+}
+
+.site-header__main {
+  display: grid;
+  flex: 1 1 auto;
+  grid-template-columns: var(--header-side) minmax(0, 1fr) var(--header-side);
+  align-items: center;
+  min-height: 0;
+  padding-inline: var(--gutter);
+}
+
+.site-header .logo {
+  display: block;
+  line-height: 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-header .logo--full {
+  transition: opacity 0.28s var(--ease);
+}
+
+.site-header.is-compact .logo--full {
+  opacity: 0;
+}
+
+.site-header .logo__img {
+  display: block;
+  height: var(--header-logo);
+  width: auto;
+}
+
+/* Rotated SS monogram. The crop only removes empty canvas around the letters. */
+.logo--mark {
+  justify-self: start;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.28s var(--ease), visibility 0s linear 0.28s;
+}
+
+.site-header.is-compact .logo--mark {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 0.34s var(--ease) 0.1s, visibility 0s linear 0.1s;
+}
+
+.logo__mark-rot {
+  --mark: 2.85rem;
+  position: relative;
+  display: block;
+  width: calc(var(--mark) * 655 / 445);
+  height: var(--mark);
+  overflow: hidden;
+}
+
+.logo__mark-rot img {
+  position: absolute;
+  width: calc(var(--mark) * 728 / 445);
+  height: calc(var(--mark) * 902 / 445);
+  max-width: none;
+  left: calc(var(--mark) * -46 / 445);
+  top: calc(var(--mark) * -209 / 445);
+  transform: rotate(90deg);
+  transform-origin: center center;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 0.55rem;
+  flex: 0 0 auto;
+  color: inherit;
+  text-decoration: none;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.logo__img {
+  display: block;
+  height: 2.7rem;
+  width: auto;
+}
+
+.logo__name {
+  padding-bottom: 0.15rem;
+  font-family: var(--sans);
+  font-size: 0.98rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.site-nav ul {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1.1rem, 2.6vw, 2.5rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-nav a {
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+.site-nav a:hover,
+.site-nav a[aria-current="page"] {
+  text-decoration: underline;
+  text-underline-offset: 0.28em;
+  text-decoration-thickness: 1px;
+}
+
+.nav-toggle {
+  display: none;
+  border: 1px solid currentColor;
+  padding: 0.35rem 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.nav-toggle__close {
+  display: none;
+}
+
+@media (min-width: 881px) {
+  .site-nav {
+    display: flex;
+    grid-column: 2;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+}
+
+/* --------------------------------------------
+   Homepage
+-------------------------------------------- */
+
+.cover {
+  padding: clamp(3.2rem, 8vw, 6.5rem) 0 clamp(2.2rem, 5vw, 3.5rem);
+}
+
+.cover h1 {
+  max-width: 9em;
+  margin-top: 0.85rem;
+  font-size: clamp(3.1rem, 7.6vw, 6.5rem);
+  line-height: 0.9;
+}
+
+.cover__grid {
+  display: grid;
+  gap: 2rem;
+  align-items: end;
+}
+
+.cover__aside {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0.85rem 0 0;
+  border-top: 1px solid var(--line-soft);
+  list-style: none;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.featured {
+  padding: clamp(2rem, 5vw, 3.5rem) 0 clamp(3rem, 7vw, 5.5rem);
+  border-top: 1px solid var(--line);
+}
+
+.featured__link {
+  display: grid;
+  gap: clamp(1.25rem, 3vw, 3.25rem);
+  align-items: end;
+  color: inherit;
+  text-decoration: none;
+}
+
+.featured h2 {
+  margin-top: 0.65rem;
+  font-size: clamp(2.15rem, 4vw, 3.7rem);
+}
+
+.featured__link p {
+  margin-top: 1rem;
+  max-width: 36em;
+  color: var(--ink-soft);
+}
+
+.text-link {
+  display: inline-block;
+  margin-top: 1.15rem;
+  padding-bottom: 0.12rem;
+  border-bottom: 1px solid currentColor;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.featured__link:hover .text-link,
+.story-row:hover .text-link {
+  color: var(--accent);
+}
+
+.index-list {
+  padding-bottom: clamp(1rem, 4vw, 2rem);
+  border-top: 1px solid var(--line);
+}
+
+.index-list h2 {
+  padding-top: clamp(2rem, 5vw, 3rem);
+  font-size: clamp(2rem, 4vw, 2.8rem);
+}
+
+.index-list ol {
+  margin-top: 1.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.story-row {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr) minmax(14rem, 22rem);
+  grid-template-areas: "num text image";
+  gap: 1.25rem 2rem;
+  align-items: center;
+  padding: 1.6rem 0;
+  border-top: 1px solid var(--line-soft);
+  color: inherit;
+  text-decoration: none;
+}
+
+.index-list li:last-child .story-row {
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.story-row__num {
+  grid-area: num;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.8rem;
+  letter-spacing: -0.03em;
+}
+
+.story-row__text {
+  grid-area: text;
+}
+
+.story-row h3 {
+  font-size: clamp(1.55rem, 2.4vw, 2.15rem);
+}
+
+.story-row p {
+  margin-top: 0.55rem;
+  max-width: 40em;
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+.story-row .frame {
+  grid-area: image;
+}
+
+.story-row:hover .story-row__num,
+.story-row:focus-visible .story-row__num {
+  color: var(--accent);
+}
+
+/* --------------------------------------------
+   Pictures
+   Empty frames stay visible until you add files
+   to the images/ folder. The file name is the src.
+-------------------------------------------- */
+
+.frame {
+  position: relative;
+  background-color: #e3dbd1;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, 0.35) 0 10px,
+    rgba(70, 54, 40, 0.05) 10px 11px
+  );
+  overflow: hidden;
+}
+
+.frame--wide {
+  aspect-ratio: 16 / 9;
+}
+
+.frame--feature {
+  aspect-ratio: 4 / 3;
+}
+
+.frame--portrait {
+  aspect-ratio: 4 / 5;
+}
+
+.frame > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: transparent;
+  color: var(--ink-soft);
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.story-row .frame {
+  aspect-ratio: 3 / 2;
+}
+
+.story-row .frame > img,
+.featured__link .frame > img {
+  transition: transform 0.8s var(--ease);
+}
+
+.story-row:hover .frame > img,
+.featured__link:hover .frame > img {
+  transform: scale(1.035);
+}
+
+figcaption {
+  padding-top: 0.6rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+/* --------------------------------------------
+   Articles
+   article1.html, article2.html, and article3.html
+   share these classes. Keep the structure, change the words.
+-------------------------------------------- */
+
+.article__header {
+  width: min(46rem, calc(100% - (2 * var(--gutter))));
+  margin-inline: auto;
+  padding-top: clamp(2.6rem, 7vw, 5rem);
+}
+
+.article__header h1 {
+  max-width: 14em;
+  margin-top: 0.7rem;
+  font-size: clamp(2.6rem, 6vw, 4.75rem);
+}
+
+.byline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.25rem;
+  margin-top: 1.5rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--line-soft);
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.article__hero {
+  width: min(var(--page), calc(100% - (2 * var(--gutter))));
+  margin: clamp(2rem, 5vw, 3.2rem) auto 0;
+}
+
+.article__body {
+  width: min(var(--measure), calc(100% - (2 * var(--gutter))));
+  margin: clamp(2rem, 5vw, 3rem) auto 0;
+  color: var(--ink-soft);
+}
+
+.article__body p {
+  margin-top: 1.1em;
+}
+
+.article__body h2 {
+  margin-top: 2.3em;
+  margin-bottom: 0.35em;
+  color: var(--ink);
+  font-size: clamp(1.7rem, 3vw, 2.25rem);
+}
+
+.article__body .figure {
+  margin-block: 2rem;
+}
+
+.pull {
+  margin: 2.3rem 0;
+  padding: 0;
+  border: 0;
+  color: var(--ink);
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(1.65rem, 3vw, 2.2rem);
+  line-height: 1.22;
+  letter-spacing: -0.02em;
+}
+
+.pull p::before {
+  content: "";
+  display: block;
+  width: 2.5rem;
+  height: 1px;
+  margin-bottom: 1rem;
+  background: var(--accent);
+}
+
+/* --------------------------------------------
+   Footer
+-------------------------------------------- */
+
+.site-footer {
+  margin-top: clamp(3.5rem, 9vw, 6.5rem);
+  padding: clamp(2.2rem, 5vw, 3.5rem) 0;
+  border-top: 1px solid var(--line);
+}
+
+.site-footer__inner {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.site-footer .logo {
+  align-items: center;
+}
+
+.site-footer .logo__img {
+  height: clamp(3.8rem, 7vw, 4.6rem);
+  width: auto;
+}
+
+.site-footer__note {
+  max-width: 28em;
+  margin-top: 0.75rem;
+  color: var(--muted);
+}
+
+.site-footer ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem 1.2rem;
+  padding: 0;
+  list-style: none;
+}
+
+.site-footer a {
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+/* --------------------------------------------
+   Small screens
+-------------------------------------------- */
+
+@media (min-width: 900px) {
+  .cover__grid {
+    grid-template-columns: minmax(0, 1fr) 16rem;
+    gap: 3rem;
+  }
+
+  .cover__aside {
+    padding: 0 0 0.35rem 1.5rem;
+    border-top: 0;
+    border-left: 1px solid var(--line-soft);
+  }
+
+  .featured__link {
+    grid-template-columns: 1.3fr 0.9fr;
+  }
+}
+
+@media (max-width: 880px) {
+  :root {
+    --header-h: calc(var(--header-brand-h) + 1px);
+    --header-compact: 68px;
+  }
+
+  .site-header__brand {
+    border-bottom: 0;
+  }
+
+  .site-header__main {
+    display: flex;
+    flex: 0 0 0px;
+    align-items: center;
+    height: 0;
+    min-height: 0;
+    padding: 0;
+    overflow: visible;
+  }
+
+  .site-header.is-compact .site-header__main {
+    flex-basis: 0px;
+  }
+
+  .logo--mark {
+    position: absolute;
+    top: 50%;
+    left: var(--gutter);
+    z-index: 2;
+    transform: translateY(-50%);
+  }
+
+  .logo__mark-rot {
+    --mark: 2.35rem;
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+    position: absolute;
+    top: 50%;
+    right: var(--gutter);
+    z-index: 2;
+    transform: translateY(-50%);
+    background: #ffffff;
+  }
+
+  .site-header.is-menu-open .nav-toggle__open {
+    display: none;
+  }
+
+  .site-header.is-menu-open .nav-toggle__close {
+    display: inline;
+  }
+
+  .site-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding: 0.35rem var(--gutter) 1rem;
+    background: #ffffff;
+    color: var(--ink);
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .site-nav.is-open {
+    display: block;
+  }
+
+  .site-nav ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+    padding-top: 0.2rem;
+  }
+
+  .site-nav a {
+    display: inline-block;
+    padding: 0.45rem 0.4rem;
+    font-size: 1.05rem;
+  }
+
+  .site-header.is-menu-open {
+    background: #ffffff;
+    color: var(--ink);
+    border-bottom-color: transparent;
+  }
+}
+
+@media (max-width: 700px) {
+  .story-row {
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      "image image"
+      "num text";
+    align-items: start;
+  }
+
+  .frame--feature {
+    aspect-ratio: 3 / 2;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header,
+  .site-header__brand,
+  .site-header__main,
+  .logo--full,
+  .logo--mark {
+    transition: none;
+  }
+
+  .story-row .frame > img,
+  .featured__link .frame > img {
+    transition: none;
+  }
+
+  .story-row:hover .frame > img,
+  .featured__link:hover .frame > img {
+    transform: none;
+  }
+}

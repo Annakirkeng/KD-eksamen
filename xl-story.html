@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GVI — The station, 1911 to today</title>
+  <meta name="description" content="Placeholder XL story. A local fire station from 1911 to today, told in seven scrolling sections.">
+  <meta name="theme-color" content="#110e0c">
+  <link rel="icon" href="images/logo-mark.png">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/xl-story.css">
+  <!--
+    Adds the class "js" before the page paints, so the scroll scenes
+    can start hidden instead of flashing on and then disappearing.
+  -->
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<!--
+  XL STORY — seven sections, in this order:
+  1. Hook
+  2. Before the city
+  3. Change / struggle
+  4. Before / after
+  5. Today
+  6. The short journey
+  7. Ending
+
+  Do not write over the class names. Replace the placeholder sentences.
+  The final story can be much longer. Text sections are normal columns,
+  so extra paragraphs will simply make the page taller.
+
+  Images, dropped into the images/ folder:
+  - images/station-history.jpg       section 2, and journey photo 1
+  - images/station-old.jpg           before/after, old photo, and journey photo 2
+  - images/station-new.jpg           before/after, new photo
+  - images/station-today.jpg         section 5, and journey photo 3
+  - images/fire-equipment.jpg        section 5, equipment
+  - images/firefighter-portrait.jpg  ending
+-->
+<body class="page-story">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header is-on-dark">
+    <div class="site-header__brand">
+      <a class="logo logo--full" href="index.html" aria-label="Sixth Sense">
+        <img class="logo__img" src="images/sixthsense-black.png" alt="">
+      </a>
+    </div>
+    <div class="site-header__main">
+      <a class="logo logo--mark" href="index.html" aria-label="Sixth Sense" tabindex="-1" aria-hidden="true">
+        <span class="logo__mark-rot">
+          <img src="images/ss-black.png" alt="">
+        </span>
+      </a>
+      <nav class="site-nav" id="site-nav" aria-label="Primary">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="article1.html">Article 1</a></li>
+          <li><a href="article2.html">Article 2</a></li>
+          <li><a href="article3.html">Article 3</a></li>
+          <li><a href="xl-story.html" aria-current="page">XL Story</a></li>
+        </ul>
+      </nav>
+    </div>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span class="nav-toggle__open">Menu</span>
+      <span class="nav-toggle__close">Close</span>
+    </button>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <article>
+      <h1 class="visually-hidden">Placeholder title: a local fire station, 1911 to today</h1>
+
+      <!-- SECTION 1 — HOOK
+           One sentence per .hook__line. Keep the lines short.
+           Scroll progress reveals them, then fades the screen to black. -->
+      <section class="scene scene--hook" data-scene="hook" data-header="dark" aria-labelledby="hook-title">
+        <h2 id="hook-title" class="visually-hidden">Hook</h2>
+        <div class="scene__pin">
+          <blockquote class="hook__quote">
+            <span class="hook__line">Placeholder — a bell, before there was a siren.</span>
+            <span class="hook__line">Placeholder — a door the whole street could find.</span>
+            <span class="hook__line">Placeholder — a job that outlasted the building.</span>
+            <span class="hook__line">Placeholder — and then the picture goes dark.</span>
+          </blockquote>
+          <div class="hook__blackout" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      <!-- SECTION 2 — BEFORE THE CITY -->
+      <section class="scene scene--history" data-header="light" aria-labelledby="history-title">
+        <div class="history__intro wrap">
+          <p class="kicker">Before the city</p>
+          <h2 id="history-title" class="reveal">Placeholder — before the streets caught up</h2>
+          <p class="editor-note">Placeholder section. Replace this copy with the early history, from 1911, in the words your interviews support.</p>
+        </div>
+
+        <figure class="figure">
+          <div class="frame frame--wide history__figure parallax" data-parallax>
+            <img src="images/station-history.jpg" alt="Placeholder: a large historical photograph of the early fire station">
+          </div>
+        </figure>
+
+        <div class="history__text prose">
+          <p class="reveal">In 1911 the station is still more agreement than architecture. This paragraph is placeholder history: a shed, a bell, neighbours who came when they were called. The final version should say where the first engine was kept, and who was expected to run.</p>
+          <p class="reveal">The photograph is standing in for the earliest picture you have. Let it stay large. Warmth in this part of the story belongs to the paper and the picture, not to nostalgia written in advance of the research.</p>
+          <p class="reveal">What the town was then, and what it asked of the people who answered the bell, is the substance this opening has to earn. Two or three concrete details will do more than a century summarized in one breath. Leave the difficulty of the later years for the next section.</p>
+        </div>
+      </section>
+
+      <!-- SECTION 3 — CHANGE / STRUGGLE -->
+      <section class="scene scene--struggle" data-header="light" aria-labelledby="struggle-title">
+        <div class="struggle__inner">
+          <p class="kicker reveal">Change / struggle</p>
+          <h2 id="struggle-title" class="reveal">Placeholder — the years the station had to argue for itself</h2>
+          <div class="struggle__blocks">
+            <p class="struggle__block reveal">There is a long middle in which the old arrangement no longer fits and the new one is not yet allowed. Use this passage for delay, resistance, and the arguments that were not only about a building.</p>
+            <p class="struggle__block reveal">Money belongs here if money was the lever. So does politics, if politics was why a decision stalled. Tie each claim to something a person can remember: a meeting, a refusal, a winter when the equipment was already wrong for the work.</p>
+            <p class="struggle__block reveal">The job itself was changing while the argument went on. Fires, roads, training, and what counted as safe were not the same as in 1911. Tell that shift from inside the work, not only as a list of dates.</p>
+            <p class="struggle__block reveal">The move, when it comes, should feel like the result of that pressure. If the relocation was forced, the interviews will know the difference between a choice and a corner. Say it plainly. Then let the photographs take over.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 4 — BEFORE / AFTER
+           No text on top of the images.
+           Scroll progress wipes station-old.jpg into station-new.jpg. -->
+      <section class="scene scene--compare" data-scene="compare" data-header="dark" aria-labelledby="compare-title">
+        <h2 id="compare-title" class="visually-hidden">Before and after</h2>
+        <div class="scene__pin">
+          <div class="compare">
+            <img class="compare__old" src="images/station-old.jpg" alt="Placeholder: the fire station in an earlier building">
+            <p class="compare__label">Earlier building</p>
+            <img class="compare__new" src="images/station-new.jpg" alt="Placeholder: the fire station in its later building">
+            <p class="compare__label">Later building</p>
+            <div class="compare__edge" aria-hidden="true"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 5 — TODAY -->
+      <section class="scene scene--today" data-header="light" aria-labelledby="today-title">
+        <div class="today__grid wrap">
+          <figure class="figure today__figure">
+            <div class="frame frame--today parallax" data-parallax>
+              <img src="images/station-today.jpg" alt="Placeholder: the fire station as it is used today">
+            </div>
+          </figure>
+          <div class="today__copy">
+            <p class="kicker">Today</p>
+            <h2 id="today-title" class="reveal">Placeholder — the station as it is now</h2>
+            <div class="prose">
+              <p class="reveal">The current station gets a cleaner page because the story has arrived in the present. This is placeholder copy for the rooms, the equipment, and the way people speak to each other on an ordinary shift. It should sound different from the historical sections.</p>
+              <p class="reveal">The final text can draw on the firefighter who works here now: what the watch looks like, which habits are non-negotiable, and which parts of the job would be unrecognisable to the crew of 1911.</p>
+            </div>
+            <figure class="figure reveal">
+              <div class="frame frame--equipment">
+                <img src="images/fire-equipment.jpg" alt="Placeholder: equipment used at the station today">
+              </div>
+              <figcaption>Placeholder caption. A piece of kit, and what it says about how the crew works.</figcaption>
+            </figure>
+            <div class="prose">
+              <p class="reveal">Choose the picture that makes the safety culture visible without a lecture. A labeled rack, a map, a helmet that has clearly been used. Explain only what the picture cannot.</p>
+              <p class="reveal">Staffing belongs in this chapter too. Who is on the watch, who is still learning, and which jobs no longer exist. Generational difference can be named here if it helps. Save the last look forward for the ending.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 6 — THE SHORT JOURNEY
+           Three photographs. Vertical scroll crossfades them. No buttons. -->
+      <section class="scene scene--journey" data-scene="journey" data-header="dark" aria-labelledby="journey-title">
+        <h2 id="journey-title" class="visually-hidden">The short journey</h2>
+        <div class="scene__pin">
+          <div class="journey__stage">
+            <figure class="journey__frame">
+              <img src="images/station-history.jpg" alt="Placeholder: the earliest stage of the station">
+              <figcaption class="journey__caption">
+                <span class="kicker">01 — Early</span>
+                Placeholder caption. The first moment on the timeline, closest to 1911.
+                <span class="journey__support">Replace with one sentence about what this picture shows.</span>
+              </figcaption>
+            </figure>
+            <figure class="journey__frame">
+              <img src="images/station-old.jpg" alt="Placeholder: a middle stage of the station">
+              <figcaption class="journey__caption">
+                <span class="kicker">02 — Between</span>
+                Placeholder caption. A middle stage, after the first years and before now.
+                <span class="journey__support">Replace with one sentence about what had changed.</span>
+              </figcaption>
+            </figure>
+            <figure class="journey__frame">
+              <img src="images/station-today.jpg" alt="Placeholder: the station in the present">
+              <figcaption class="journey__caption">
+                <span class="kicker">03 — Now</span>
+                Placeholder caption. The station in its present form.
+                <span class="journey__support">Replace with one sentence about what remains.</span>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 7 — ENDING -->
+      <section class="scene scene--ending" data-header="light" aria-labelledby="ending-title">
+        <div class="ending__grid reveal">
+          <figure class="figure ending__portrait">
+            <div class="frame frame--portrait">
+              <img src="images/firefighter-portrait.jpg" alt="Placeholder: a portrait to close the story">
+            </div>
+          </figure>
+          <div class="ending__copy">
+            <p class="kicker">Ending</p>
+            <h2 id="ending-title">Placeholder — the next watch</h2>
+            <div class="prose">
+              <p>The portrait is a placeholder for whichever face should close the story. It may be the trainee, the retired chief, or someone who has not been the focus yet. The page stays quiet so that choice can be simple.</p>
+              <p>What remains is a short look forward. The station is still answering the same streets, with different equipment and a different idea of what care requires. Replace these sentences with the hope, or the uncertainty, that the interviews actually support.</p>
+              <p>The story should end as if the reader is being set down gently. No last revelation, and no summary of the whole century. One person, and the work still ahead of them, is enough.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <div>
+        <a class="logo" href="index.html">
+          <img class="logo__img" src="images/sixthsense-black.png" alt="Sixth Sense">
+        </a>
+        <p class="site-footer__note">Placeholder colophon. Replace this with your name, the course, and the year.</p>
+      </div>
+      <nav aria-label="Footer">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="article1.html">Article 1</a></li>
+          <li><a href="article2.html">Article 2</a></li>
+          <li><a href="article3.html">Article 3</a></li>
+          <li><a href="xl-story.html">XL Story</a></li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <script src="js/xl-story.js"></script>
+</body>
+</html>

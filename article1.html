@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GVI — Hvorfor? AfD i Sachsen-Anhalt</title>
+  <meta name="description" content="AfD ble største parti i delstatsvalget i Sachsen-Anhalt med 43,8 prosent, uten absolutt flertall. En sak om hvorfor.">
+  <meta name="theme-color" content="#110e0c">
+  <link rel="icon" href="images/logo-mark.png">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/article1.css">
+  <!--
+    Adds "js" before the page paints, so scroll scenes can start
+    in their first frame instead of flashing everything at once.
+  -->
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<!--
+  STORY 1 — AfD i Sachsen-Anhalt
+  Eight sections, in this order:
+  1. Hook
+  2. What happened
+  3. Why / the Statista chart
+  4. Andree and Lennard
+  5. What AfD says it offers
+  6. Sondre Lindahl and the former East
+  7. The expert quote, then criticism
+  8. Ending
+
+  Quotes are copied exactly from the article. Do not smooth them.
+  Image frames are placeholders. Do not add an image address
+  until the real file is in the images/ folder.
+
+  Scroll scenes read position only. They do not take over the wheel.
+-->
+<body class="page-afd">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header is-on-dark">
+    <div class="site-header__brand">
+      <a class="logo logo--full" href="index.html" aria-label="Sixth Sense">
+        <img class="logo__img" src="images/sixthsense-black.png" alt="">
+      </a>
+    </div>
+    <div class="site-header__main">
+      <a class="logo logo--mark" href="index.html" aria-label="Sixth Sense" tabindex="-1" aria-hidden="true">
+        <span class="logo__mark-rot">
+          <img src="images/ss-black.png" alt="">
+        </span>
+      </a>
+      <nav class="site-nav" id="site-nav" aria-label="Primary">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="article1.html" aria-current="page">Article 1</a></li>
+          <li><a href="article2.html">Article 2</a></li>
+          <li><a href="article3.html">Article 3</a></li>
+          <li><a href="xl-story.html">XL Story</a></li>
+        </ul>
+      </nav>
+    </div>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span class="nav-toggle__open">Menu</span>
+      <span class="nav-toggle__close">Close</span>
+    </button>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <article>
+      <h1 class="visually-hidden">Hvorfor? AfD ble største parti i Sachsen-Anhalt med 43,8 prosent, uten absolutt flertall</h1>
+
+      <!-- SECTION 1 — HOOK -->
+      <section class="hook" data-scene="hook" data-header="dark" aria-labelledby="hook-title">
+        <h2 id="hook-title" class="visually-hidden">Innledning</h2>
+        <div class="hook__pin">
+          <p class="hook__line hook__line--num">43,8&nbsp;%</p>
+          <p class="hook__line hook__line--place">Sachsen-Anhalt</p>
+          <p class="hook__line hook__line--date">6. september 2026</p>
+          <p class="hook__line hook__line--why">Hvorfor?</p>
+        </div>
+      </section>
+
+      <!-- SECTION 2 — WHAT HAPPENED -->
+      <section class="chapter chapter--vote" data-header="light" aria-labelledby="vote-title">
+        <figure class="ph ph--wide">
+          <div class="ph__frame" role="img" aria-label="Placeholder: Sachsen-Anhalt / election">
+            <span class="ph__label">[IMAGE: Sachsen-Anhalt / election]</span>
+          </div>
+        </figure>
+
+        <div class="chapter__intro">
+          <p class="kicker">Valget</p>
+          <h2 id="vote-title">Hva skjedde?</h2>
+          <p class="vote__num" data-fade>43,8&nbsp;%</p>
+          <div class="prose">
+            <p data-fade>Det tyske partiet AfD (Alternativt for Tyskland) ble det største partiet i delstatsvalget i Sachsen-Anhalt, med 43,8 prosent av stemmene, <a class="source" href="https://www.bbc.com/news/articles/cy4zejgz3z9o">skriver BBC</a>.</p>
+            <p data-fade>I delstatsforsamlingen hadde partiet likevel ikke nok seter til et absolutt flertall. Ingen av de store partiene ønsker å samarbeide med dem. Valget ble holdt 6. september, <a class="source" href="https://www.dw.com/en/afd-makes-gains-in-state-elections-but-has-no-government-options/a-79348308">skriver Deutsche Welle</a>.</p>
+            <p data-fade>Valgresultatet har fått betydelig oppmerksomhet både i Tyskland og resten av Europa. I følge <a class="source" href="https://www.bbc.com/news/articles/cy4zejgz3z9o">BBC</a> er AfD regnet som høyre-ekstremistisk av innenlandsk sikkerhetstjeneste.</p>
+            <p data-fade>Sachsen-Anhalt er fortsatt en relativt liten delstat. Når et parti med så stor oppslutning blir omtalt slik, melder spørsmålet seg igjen.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 3 — WHY / ONE BAR CHART -->
+      <section class="chapter chapter--problems" data-header="light" aria-labelledby="problems-title">
+        <div class="chapter__intro">
+          <p class="kicker">Problemene</p>
+          <h2 id="problems-title">Hva mener tyskerne er de viktigste politiske problemene?</h2>
+          <div class="prose">
+            <p data-fade>For å forstå hva som skaper denne driven mot høyresiden i Tyskland, kan vi se på hva innbyggerne mener er landets største problemer og utfordringer.</p>
+            <p data-fade>I undersøkelsen under, fra <a class="source" href="https://www.statista.com/statistics/1478805/most-relevant-political-issues-germany/">Statista</a> og ARD-DeutschlandTREND i november 2025, oppga 32 prosent innvandring og flyktninger som ett av de viktigste politiske problemene. 28 prosent oppga økonomi. Det betyr ikke at 32 prosent mener innvandring er det ene største problemet. Respondentene kunne nevne to.</p>
+          </div>
+        </div>
+
+        <div class="chart-scroll" data-scene="chart">
+          <div class="chart-pin">
+            <figure class="chart">
+              <ol class="chart__list">
+                <li class="chart__row" style="--value: 32">
+                  <span class="chart__label">Innvandring / flyktninger</span>
+                  <span class="chart__track" aria-hidden="true"><span class="chart__bar"></span></span>
+                  <span class="chart__pct">32&nbsp;%</span>
+                </li>
+                <li class="chart__row" style="--value: 28">
+                  <span class="chart__label">Økonomi</span>
+                  <span class="chart__track" aria-hidden="true"><span class="chart__bar"></span></span>
+                  <span class="chart__pct">28&nbsp;%</span>
+                </li>
+                <li class="chart__row" style="--value: 18">
+                  <span class="chart__label">Sosial urettferdighet / fattigdom</span>
+                  <span class="chart__track" aria-hidden="true"><span class="chart__bar"></span></span>
+                  <span class="chart__pct">18&nbsp;%</span>
+                </li>
+                <li class="chart__row" style="--value: 14">
+                  <span class="chart__label">Miljø / klimaendringer</span>
+                  <span class="chart__track" aria-hidden="true"><span class="chart__bar"></span></span>
+                  <span class="chart__pct">14&nbsp;%</span>
+                </li>
+                <li class="chart__row" style="--value: 10">
+                  <span class="chart__label">Pensjon / alderdomssikring</span>
+                  <span class="chart__track" aria-hidden="true"><span class="chart__bar"></span></span>
+                  <span class="chart__pct">10&nbsp;%</span>
+                </li>
+                <li class="chart__row" style="--value: 9">
+                  <span class="chart__label">Væpnede konflikter / fred / utenrikspolitikk</span>
+                  <span class="chart__track" aria-hidden="true"><span class="chart__bar"></span></span>
+                  <span class="chart__pct">9&nbsp;%</span>
+                </li>
+                <li class="chart__row" style="--value: 8">
+                  <span class="chart__label">Utdanning / skole / yrkesopplæring</span>
+                  <span class="chart__track" aria-hidden="true"><span class="chart__bar"></span></span>
+                  <span class="chart__pct">8&nbsp;%</span>
+                </li>
+                <li class="chart__row" style="--value: 8">
+                  <span class="chart__label">Indre sikkerhet / kriminalitet / terror</span>
+                  <span class="chart__track" aria-hidden="true"><span class="chart__bar"></span></span>
+                  <span class="chart__pct">8&nbsp;%</span>
+                </li>
+                <li class="chart__row" style="--value: 7">
+                  <span class="chart__label">Helsevesen / medisinsk behandling / pleie</span>
+                  <span class="chart__track" aria-hidden="true"><span class="chart__bar"></span></span>
+                  <span class="chart__pct">7&nbsp;%</span>
+                </li>
+                <li class="chart__row" style="--value: 6">
+                  <span class="chart__label">Politisk fremmedgjøring / politikerforakt</span>
+                  <span class="chart__track" aria-hidden="true"><span class="chart__bar"></span></span>
+                  <span class="chart__pct">6&nbsp;%</span>
+                </li>
+              </ol>
+              <figcaption class="chart__note">
+                <p>Kilde: <a class="source" href="https://www.statista.com/statistics/1478805/most-relevant-political-issues-germany/">Statista</a> / ARD-DeutschlandTREND, november 2025.</p>
+                <p>1&nbsp;300 respondenter. To svar var mulig. Skalaen går fra 0 til 100 prosent.</p>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="chapter__intro chapter__intro--after">
+          <div class="prose">
+            <p data-fade>Begge temaene står sentralt i den politiske debatten, og AfD har gjort begge til viktige områder for sin politikk. Når et samfunn står overfor slike problemer, ser befolkningen raskt etter noen med tydelige og klare løsninger.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 4 — ANDREE AND LENNARD -->
+      <section class="chapter chapter--people" data-header="light" aria-labelledby="people-title">
+        <div class="chapter__intro">
+          <p class="kicker">To stemmer</p>
+          <h2 id="people-title">Andree og Lennard</h2>
+          <div class="prose">
+            <p data-fade>Vi har snakket med to tyske utvekslingsstudenter for å høre hva de tenker om valget, AfD og hvordan dette har påvirket dem. De sier selv at de ikke er særlig politisk interessert hvilket gjorde svarene deres veldig interessante.</p>
+          </div>
+        </div>
+
+        <div class="person">
+          <figure class="person__photo" data-parallax>
+            <div class="ph ph--portrait" role="img" aria-label="Placeholder: Andree portrait">
+              <span class="ph__label">[IMAGE: Andree portrait]</span>
+            </div>
+          </figure>
+          <div class="person__copy">
+            <p class="person__name" data-fade>Andree</p>
+            <p class="person__age" data-fade>29 år</p>
+            <div class="prose">
+              <p data-fade>De var ikke særlig partiske i svarene sine, men la vekt på AfDs holdninger til innvandring, minoriteter og grunnleggende rettigheter. De mente AfD vekker assosiasjoner til Tysklands tidligere mørkere tider. De poengterer også at mange nok stemmer på AfD i mangel på et alternativ og frustrasjon over nåværende styre.</p>
+            </div>
+            <blockquote class="person__quote" data-fade>
+              <p>«De andre store partiene kan komme til å bøye seg litt i retning av deres standpunkter for å vinne tilbake velgere, særlig når det gjelder innvandring.»</p>
+              <footer>— Andree</footer>
+            </blockquote>
+          </div>
+        </div>
+
+        <div class="person">
+          <figure class="person__photo" data-parallax>
+            <div class="ph ph--portrait" role="img" aria-label="Placeholder: Lennard portrait">
+              <span class="ph__label">[IMAGE: Lennard portrait]</span>
+            </div>
+          </figure>
+          <div class="person__copy">
+            <p class="person__name" data-fade>Lennard</p>
+            <p class="person__age" data-fade>25 år</p>
+            <blockquote class="person__quote" data-fade>
+              <p>«Jeg håper at alle som stemmer på dem i protest mot den nåværende regjeringen, våkner opp og ser hvem de gir makt til.»</p>
+              <footer>— Lennard</footer>
+            </blockquote>
+            <div class="prose">
+              <p data-fade>At AfD fikk så stor oppslutning mente de det var en skummel utvikling for Tyskland og noen minoriteters rettigheter, eventuelt om andre partier føler seg nødt til å følge noe av den høyreekstreme politikken for å få stemmer.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 5 — WHAT AfD SAYS IT OFFERS -->
+      <section class="policy" data-scene="policy" data-header="dark" aria-labelledby="policy-title">
+        <div class="policy__scroll">
+          <div class="policy__pin">
+            <p class="kicker">Partiets egne ord</p>
+            <h2 id="policy-title">Så hva tilbyr egentlig AfD?</h2>
+            <p class="policy__label">Dette er hvordan AfD selv beskriver deler av partiets politikk.</p>
+            <ul class="policy__words">
+              <li class="policy__word">Direkte demokrati</li>
+              <li class="policy__word">Lavere skatt</li>
+              <li class="policy__word">Mindre byråkrati</li>
+              <li class="policy__word">Mindre stat</li>
+              <li class="policy__word">Strengere innvandring</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="policy__text">
+          <div class="prose prose--on-dark">
+            <p data-fade>AfD sier de ønsker en mindre stat, og at de politiske partiene skal få mindre makt. Da vil makten gå videre til folket. De ønsker et direkte demokrati med folkeavstemning, og at statsoverhodet skal velges direkte av folket, ikke et parti. AfD mener partiene har hevet seg over befolkningen og ønsker å endre dette.</p>
+            <p data-fade>Samtidig ønsker AfD å gjennomføre ny skattepolitikk med mindre skatt, reduksjon av byråkrati og mere muligheter for små og mellomstore bedrifter. Når det gjelder utenrikspolitikk mener AfD at en selvstendig stat skal få slippe innblanding av andre stater og særlig fra andre ikke-statlige organisasjoner.</p>
+            <p data-fade>De er strenge når det gjelder innvandring, <a class="source" href="https://www.afd.de/zuwanderung-asyl/">skriver AfD selv</a>. De ser på både massemigrasjon fra Afrika og Islam som fiendtlig. De ønsker negativ innvandring på grunn av den belastende effekten det allerede har vært for Tyskland og sier:</p>
+          </div>
+          <blockquote class="policy__quote" data-fade>
+            <p>"Internasjonal islamsk terrorisme er en alvorlig trussel mot det internasjonale samfunnet. Dens fremvekst og spredning må bekjempes med alle tilgjengelige juridiske midler"</p>
+            <footer>— <a class="source" href="https://www.afd.de/zuwanderung-asyl/">AfD</a></footer>
+          </blockquote>
+        </div>
+      </section>
+
+      <!-- SECTION 6 — EAST GERMANY -->
+      <section class="chapter chapter--east" data-header="light" aria-labelledby="east-title">
+        <div class="east__grid">
+          <div>
+            <p class="kicker">Et annet lag</p>
+            <h2 id="east-title">Men innvandring og økonomi forklarer ikke alt.</h2>
+            <div class="prose">
+              <p data-fade>Ifølge Sondre Lindahl, lærer i internasjonal politikk ved Høgskolen i Østfold, er det likevel ikke mulig å forklare AfDs framgang med innvandring og økonomi alene. Han mener valgresultatet må ses i sammenheng med Sachsen-Anhalts historie som en del av det tidligere Øst-Tyskland.</p>
+              <p data-fade>Etter gjenforeningen forsvant mange av industriarbeidsplassene som tidligere hadde vært fundamentet i lokalsamfunnene. Selv om Tyskland i dag er samlet, er det fremdeles store økonomiske og sosiale forskjeller mellom øst og vest.</p>
+            </div>
+          </div>
+
+          <div class="timeline-wrap" data-scene="timeline">
+            <p class="timeline__note">Tidslinjen følger dette poenget. Den er ikke en egen statistikk.</p>
+            <ol class="timeline">
+              <li class="timeline__item" data-step>
+                <span class="timeline__when">1990</span>
+                <span class="timeline__what">Gjenforeningen</span>
+              </li>
+              <li class="timeline__item" data-step>
+                <span class="timeline__when">Etterpå</span>
+                <span class="timeline__what">Endringer i industrien</span>
+              </li>
+              <li class="timeline__item" data-step>
+                <span class="timeline__when">Lokalsamfunnene</span>
+                <span class="timeline__what">Tap av mange tradisjonelle industriarbeidsplasser</span>
+              </li>
+              <li class="timeline__item" data-step>
+                <span class="timeline__when">Øst og vest</span>
+                <span class="timeline__what">Vedvarende økonomiske og sosiale forskjeller</span>
+              </li>
+              <li class="timeline__item timeline__item--now" data-step>
+                <span class="timeline__when">2026</span>
+                <span class="timeline__what">43,8&nbsp;%</span>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 7 — EXPERT QUOTE, THEN CRITICISM -->
+      <section class="expert" data-scene="expert" data-header="light" aria-labelledby="expert-title">
+        <div class="expert__scroll">
+          <div class="expert__pin">
+            <figure class="expert__photo" data-parallax>
+              <div class="ph ph--portrait" role="img" aria-label="Placeholder: Sondre Lindahl portrait">
+                <span class="ph__label">[IMAGE: Sondre Lindahl portrait]</span>
+              </div>
+            </figure>
+            <div class="expert__quote-wrap">
+              <p class="kicker">Analysen</p>
+              <h2 id="expert-title" class="visually-hidden">Sondre Lindahl</h2>
+              <blockquote class="expert__quote">
+                <p>
+                  <span class="expert__line" data-line>AfD er ikke populært fordi tyskerne liker nynazister.</span>
+                  <span class="expert__line" data-line>Partiet gjør det bra fordi de etablerte partiene ikke har klart å komme med politiske løsninger som ivaretar folk.</span>
+                </p>
+                <footer>— Sondre Lindahl</footer>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+
+        <div class="chapter__intro">
+          <div class="prose">
+            <p data-fade>Han sier at mange velgere opplever at de etablerte partiene verken representerer dem eller tilbyr konkrete løsninger på problemene deres. Lindahl trekker særlig frem misnøyen med de etablerte partiene. Han spør hva som skjer når folket ikke føler at politikerne representerer dem.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="chapter chapter--critic" data-header="light" aria-labelledby="critic-title">
+        <div class="chapter__intro">
+          <p class="kicker">Kritikk</p>
+          <h2 id="critic-title">Hvem er «folket»?</h2>
+          <p class="critic__aside" data-fade>Dette er kritikk av AfD. Det er ikke partiets egen beskrivelse, ikke sitatene fra Andree og Lennard, og ikke Lindahls analyse.</p>
+          <div class="prose">
+            <p data-fade>AfD sin politikk er veldig annerledes enn det som har blitt ført i Tyskland og Europa generelt på veldig lenge. Det er kanskje konsekvensene av forandringene vi har sett i verden de siste årene som gjør at folket ser etter nye løsninger. Politiske problemer har ofte nyanserte løsninger som kan være vanskelig å se. Men AfD lover store, tydelige og ekstreme løsninger.</p>
+            <p data-fade>Noen mener at AfDs politikk setter folket opp mot politikere. Og når AfD vil være «folkets» parti, er det mange som spør hvem AfD mener «folket» er. Fordi de har en veldig nasjonalistisk politikk og har gitt utsagn om at Tyskere er en veldig spesifikk gruppe mennesker. De er også anklaget for å undergrave uavhengige institusjoner som domstoler, medier og minoritetsvern.</p>
+            <p data-fade>Så mens AfD ønsker et klart, tydelig og direkte demokrati og lover tydelig løsninger på de største problemene i Tyskland, står de overfor mye kritikk som handler om konsekvensene av deres politikk. Valgresultatet viser likevel at AfD har klart å nå fram til en stor gruppe velgere som ikke føler seg hørt av de etablerte partiene.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 8 — ENDING -->
+      <section class="ending" data-scene="ending" data-header="dark" aria-labelledby="ending-ask">
+        <div class="ending__scroll">
+          <div class="ending__pin">
+            <p class="ending__num">43,8&nbsp;%</p>
+            <p class="ending__why">Men hvorfor?</p>
+          </div>
+        </div>
+
+        <div class="ending__rest">
+          <div class="prose prose--on-dark">
+            <p data-fade>Oppslutningen kan ikke nødvendigvis forklares med én sak alene.</p>
+          </div>
+          <ul class="ending__themes">
+            <li data-fade>Innvandring</li>
+            <li data-fade>Økonomi</li>
+            <li data-fade>Misnøye med de etablerte partiene</li>
+            <li data-fade>Regional historie</li>
+            <li data-fade>Politisk representasjon</li>
+            <li data-fade>AfDs politiske budskap</li>
+          </ul>
+          <div class="ending__next">
+            <h2 id="ending-ask" class="ending__ask">Hva skjer videre?</h2>
+            <div class="prose prose--on-dark">
+              <p data-fade>Hvordan resten av det politiske Tyskland møter velgere som ikke føler seg hørt, står igjen som et åpent spørsmål.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <div>
+        <a class="logo" href="index.html">
+          <img class="logo__img" src="images/sixthsense-black.png" alt="Sixth Sense">
+        </a>
+        <p class="site-footer__note">Placeholder colophon. Replace this with your name, the course, and the year.</p>
+      </div>
+      <nav aria-label="Footer">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="article1.html">Article 1</a></li>
+          <li><a href="article2.html">Article 2</a></li>
+          <li><a href="article3.html">Article 3</a></li>
+          <li><a href="xl-story.html">XL Story</a></li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <script src="js/article1.js"></script>
+</body>
+</html>

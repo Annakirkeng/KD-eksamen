@@ -1,0 +1,933 @@
+/*
+  Story 1 — AfD i Sachsen-Anhalt
+  ------------------------------
+  Loaded only by article1.html, after css/style.css.
+
+  Eight sections. Four of them are pinned while the page
+  scrolls vertically: the hook, the chart, AfD's own phrases,
+  and the opening of the ending.
+
+  Change the --scene-* heights if a part feels too long.
+  The script reads the real height, so you do not need to
+  edit article1.js when you change these.
+
+  --shown   0 to 1, how visible a line is
+  --grow    0 to 1, how far the chart bars have filled
+  --p       0 to 1, how far the timeline line has drawn
+  --shift   a small nudge on the portraits
+*/
+
+.page-afd {
+  --scene-hook: 220vh;
+  --scene-chart: 190vh;
+  --scene-policy: 230vh;
+  --scene-expert: 190vh;
+  --scene-ending: 160vh;
+
+  --stone: #e6e1d8;
+  --east: #efe6d6;
+  --critic: #e4e0da;
+  --placeholder: #2a2623;
+
+  padding-top: 0;
+  background: var(--canvas);
+}
+
+.page-afd .site-header {
+  background: #ffffff;
+  color: var(--ink);
+}
+
+.page-afd .site-footer {
+  margin-top: 0;
+  background: var(--canvas);
+}
+
+.page-afd .site-header.is-on-dark {
+  background: #ffffff;
+  color: var(--ink);
+}
+
+.page-afd .prose p + p {
+  margin-top: 1.15em;
+}
+
+.prose {
+  max-width: var(--measure);
+  font-size: 1.2rem;
+  line-height: 1.55;
+}
+
+.prose--on-dark {
+  color: var(--night-text);
+}
+
+.chapter__intro {
+  width: min(var(--page), calc(100% - (2 * var(--gutter))));
+  margin-inline: auto;
+  padding-block: clamp(4.5rem, 12vh, 8rem);
+}
+
+.chapter__intro--after {
+  padding-top: clamp(2rem, 6vh, 4rem);
+}
+
+.chapter__intro h2 {
+  max-width: 16em;
+  margin-top: 0.7rem;
+  font-size: clamp(2.4rem, 6vw, 4.6rem);
+}
+
+/* --------------------------------------------
+   1. Hook
+-------------------------------------------- */
+
+.hook {
+  height: var(--scene-hook);
+  background: var(--night);
+  color: var(--night-text);
+}
+
+.hook__pin {
+  position: sticky;
+  top: 0;
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.hook__line {
+  grid-area: 1 / 1;
+  max-width: 16ch;
+  margin: 0;
+  text-align: center;
+  font-family: var(--serif);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 0.92;
+}
+
+.hook__line--num {
+  font-size: clamp(5.5rem, 18vw, 13rem);
+}
+
+.hook__line--place,
+.hook__line--date {
+  font-size: clamp(2.8rem, 7vw, 6rem);
+}
+
+.hook__line--why {
+  font-style: italic;
+  font-size: clamp(3.4rem, 9vw, 7.5rem);
+}
+
+.js .hook__line {
+  opacity: var(--shown, 0);
+  transform: translateY(calc((1 - var(--shown, 0)) * 1.4rem)) scale(calc(0.96 + (var(--shown, 0) * 0.04)));
+}
+
+.js .hook__line--num {
+  --shown: 1;
+}
+
+/* --------------------------------------------
+   2. What happened
+-------------------------------------------- */
+
+.chapter--vote {
+  background: var(--canvas);
+}
+
+.vote__num {
+  margin: clamp(1.5rem, 4vh, 2.5rem) 0 0.4rem;
+  font-family: var(--serif);
+  font-size: clamp(5rem, 16vw, 11rem);
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  line-height: 0.85;
+}
+
+.js .vote__num {
+  opacity: var(--shown, 0);
+  clip-path: inset(calc((1 - var(--shown, 0)) * 100%) 0 0 0);
+}
+
+/* --------------------------------------------
+   Placeholders
+   Replace the whole .ph block with an <img> later.
+-------------------------------------------- */
+
+.ph {
+  margin: 0;
+}
+
+.ph__frame,
+.ph--portrait {
+  display: grid;
+  align-items: end;
+  width: 100%;
+  min-height: 12rem;
+  padding: 1rem 1.1rem;
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      rgba(244, 239, 230, 0.14) 0 1px,
+      transparent 1px 12px
+    ),
+    var(--placeholder);
+  color: var(--night-text);
+}
+
+.ph--wide .ph__frame {
+  aspect-ratio: 16 / 8;
+}
+
+.ph--portrait {
+  aspect-ratio: 4 / 5;
+}
+
+.ph__label {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------
+   3. Chart
+   Bars use a 0–100 scale. 32% is 32% of the track.
+-------------------------------------------- */
+
+.chapter--problems {
+  background: var(--stone);
+}
+
+.chart-scroll {
+  height: var(--scene-chart);
+}
+
+.chart-pin {
+  position: sticky;
+  top: 0;
+  display: grid;
+  align-items: center;
+  height: 100vh;
+  height: 100dvh;
+  padding: calc(var(--header-h) + 1.25rem) var(--gutter) 1.5rem;
+}
+
+.chart {
+  width: min(68rem, 100%);
+  margin-inline: auto;
+}
+
+.chart__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chart__row {
+  display: grid;
+  grid-template-columns: minmax(11rem, 18rem) minmax(0, 1fr) auto;
+  gap: 0.35rem 1rem;
+  align-items: center;
+  padding: 0.42rem 0;
+  border-top: 1px solid rgba(28, 23, 20, 0.16);
+}
+
+.chart__row:last-child {
+  border-bottom: 1px solid rgba(28, 23, 20, 0.16);
+}
+
+.chart__label,
+.chart__pct {
+  font-size: 0.98rem;
+  line-height: 1.25;
+}
+
+.js .chart__label,
+.js .chart__pct,
+.js .chart__note {
+  opacity: var(--grow, 0);
+}
+
+.chart__track {
+  display: block;
+  height: 0.55rem;
+  background: rgba(28, 23, 20, 0.1);
+}
+
+.chart__bar {
+  display: block;
+  width: calc(var(--value) * 1%);
+  height: 100%;
+  background: var(--ink);
+}
+
+.js .chart__bar {
+  width: calc(var(--value) * var(--grow, 0) * 1%);
+}
+
+.chart__pct {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.chart__note {
+  margin-top: 1.1rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.chart__note p + p {
+  margin-top: 0.15rem;
+}
+
+/* --------------------------------------------
+   4. Andree and Lennard
+-------------------------------------------- */
+
+.chapter--people {
+  background: var(--canvas);
+}
+
+.chapter--people .chapter__intro {
+  padding-bottom: clamp(2rem, 5vh, 3rem);
+}
+
+.person {
+  display: grid;
+  grid-template-columns: minmax(16rem, 0.82fr) minmax(0, 1.15fr);
+  gap: clamp(1.5rem, 4vw, 4.5rem);
+  align-items: start;
+  width: min(var(--page), calc(100% - (2 * var(--gutter))));
+  margin-inline: auto;
+  padding-bottom: clamp(5rem, 14vh, 9rem);
+}
+
+.person__photo {
+  position: sticky;
+  top: calc(var(--header-h) + 1.25rem);
+  width: 100%;
+  margin: 0;
+}
+
+.js .person__photo .ph__frame {
+  transform: translateY(var(--shift, 0px));
+}
+
+.person__name {
+  font-family: var(--sans);
+  font-size: clamp(2.8rem, 6vw, 5.2rem);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.person__age {
+  margin-top: 0.45rem;
+  color: var(--muted);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.35rem;
+}
+
+.person__copy .prose {
+  margin-top: 1.6rem;
+}
+
+.person__quote {
+  max-width: 18em;
+  margin-top: clamp(2rem, 5vh, 3.5rem);
+}
+
+.person__quote p {
+  font-family: var(--serif);
+  font-size: clamp(1.7rem, 3vw, 2.55rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.22;
+}
+
+.person__quote footer,
+.policy__quote footer,
+.expert__quote footer {
+  margin-top: 1rem;
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  font-style: normal;
+}
+
+/* --------------------------------------------
+   5. What AfD says
+-------------------------------------------- */
+
+.policy {
+  background: var(--night);
+  color: var(--night-text);
+}
+
+.policy__scroll {
+  height: var(--scene-policy);
+}
+
+.policy__pin {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  height: 100dvh;
+  padding: calc(var(--header-h) + 1rem) var(--gutter) 2rem;
+  overflow: hidden;
+}
+
+.policy__pin h2 {
+  max-width: 12em;
+  margin-top: 0.55rem;
+  font-size: clamp(2rem, 4.5vw, 3.4rem);
+}
+
+.policy__label {
+  max-width: 36rem;
+  margin-top: 0.8rem;
+  color: rgba(244, 239, 230, 0.72);
+  font-size: 1.05rem;
+}
+
+.policy__words {
+  margin: clamp(1.4rem, 4vh, 2.4rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.policy__word {
+  font-family: var(--serif);
+  font-size: clamp(1.7rem, 5.6vw, 4.4rem);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1.02;
+  text-transform: uppercase;
+}
+
+.js .policy__word {
+  opacity: var(--shown, 0);
+  transform: translateY(calc((1 - var(--shown, 0)) * 0.8rem));
+}
+
+.policy__text {
+  width: min(var(--page), calc(100% - (2 * var(--gutter))));
+  margin-inline: auto;
+  padding-bottom: clamp(4.5rem, 12vh, 8rem);
+}
+
+.policy__quote {
+  max-width: 40rem;
+  margin-top: clamp(2rem, 5vh, 3rem);
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(244, 239, 230, 0.28);
+}
+
+.policy__quote p {
+  font-family: var(--serif);
+  font-size: clamp(1.45rem, 2.6vw, 2.05rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.28;
+}
+
+.policy__quote footer {
+  color: rgba(244, 239, 230, 0.62);
+}
+
+/* --------------------------------------------
+   6. Timeline
+-------------------------------------------- */
+
+.chapter--east {
+  background: var(--east);
+}
+
+.east__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.8fr);
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: start;
+  width: min(var(--page), calc(100% - (2 * var(--gutter))));
+  margin-inline: auto;
+  padding-block: clamp(4.5rem, 12vh, 8rem);
+}
+
+.east__grid h2 {
+  max-width: 12em;
+  margin-top: 0.7rem;
+  margin-bottom: 1.4rem;
+  font-size: clamp(2.3rem, 4.6vw, 3.8rem);
+}
+
+.timeline__note {
+  margin-bottom: 1.4rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.timeline {
+  position: relative;
+  margin: 0;
+  padding: 0 0 0 1.6rem;
+  list-style: none;
+}
+
+.timeline::before,
+.timeline::after {
+  content: "";
+  position: absolute;
+  top: 0.35rem;
+  bottom: 0.35rem;
+  left: 0;
+  width: 1px;
+}
+
+.timeline::before {
+  background: rgba(28, 23, 20, 0.22);
+}
+
+.timeline::after {
+  background: var(--ink);
+  transform: scaleY(var(--p, 1));
+  transform-origin: top;
+}
+
+.js .timeline::after {
+  transform: scaleY(var(--p, 0));
+}
+
+.timeline__item {
+  min-height: 7.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.timeline__item::before {
+  content: "";
+  position: absolute;
+  left: -1.6rem;
+  width: 0.55rem;
+  height: 0.55rem;
+  margin-top: 0.4rem;
+  margin-left: -0.22rem;
+  background: var(--east);
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+}
+
+.js .timeline__item {
+  opacity: var(--shown, 0);
+  transform: translateY(calc((1 - var(--shown, 0)) * 0.6rem));
+}
+
+.timeline__when {
+  display: block;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.timeline__what {
+  display: block;
+  max-width: 16em;
+  margin-top: 0.25rem;
+  font-family: var(--serif);
+  font-size: clamp(1.45rem, 2.4vw, 2rem);
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+.timeline__item--now .timeline__what {
+  font-size: clamp(2.4rem, 4vw, 3.4rem);
+}
+
+/* --------------------------------------------
+   7. Expert, then criticism
+-------------------------------------------- */
+
+.expert {
+  background: var(--canvas);
+}
+
+.expert__scroll {
+  height: var(--scene-expert);
+}
+
+.expert__pin {
+  position: sticky;
+  top: 0;
+  display: grid;
+  grid-template-columns: minmax(14rem, 0.7fr) minmax(0, 1.3fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: center;
+  height: 100vh;
+  height: 100dvh;
+  width: min(var(--page), calc(100% - (2 * var(--gutter))));
+  margin-inline: auto;
+  overflow: hidden;
+}
+
+.expert__photo {
+  margin: 0;
+}
+
+.js .expert__photo .ph__frame {
+  transform: translateY(var(--shift, 0px));
+}
+
+.expert__quote p {
+  display: grid;
+  gap: 0.7em;
+}
+
+.expert__line {
+  font-family: var(--serif);
+  font-size: clamp(1.55rem, 2.8vw, 2.45rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+.js .expert__line {
+  opacity: var(--shown, 0);
+  transform: translateY(calc((1 - var(--shown, 0)) * 0.8rem));
+}
+
+.chapter--critic {
+  background: var(--critic);
+}
+
+.critic__aside {
+  max-width: 38rem;
+  margin-top: 1.1rem;
+  color: var(--ink-soft);
+  font-size: 1.05rem;
+}
+
+.chapter--critic .prose {
+  margin-top: 1.6rem;
+}
+
+/* --------------------------------------------
+   8. Ending
+-------------------------------------------- */
+
+.ending {
+  background: var(--night);
+  color: var(--night-text);
+}
+
+.ending__scroll {
+  height: var(--scene-ending);
+}
+
+.ending__pin {
+  position: sticky;
+  top: 0;
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  height: 100vh;
+  height: 100dvh;
+  padding-inline: var(--gutter);
+}
+
+.ending__num,
+.ending__why {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 0.92;
+}
+
+.ending__num {
+  font-size: clamp(4.5rem, 14vw, 10rem);
+}
+
+.ending__why {
+  margin-top: 0.35rem;
+  font-style: italic;
+  font-size: clamp(2.2rem, 5vw, 4rem);
+}
+
+.js .ending__num {
+  opacity: calc(1 - (var(--dim, 0) * 0.35));
+  transform: translateY(calc(var(--dim, 0) * -0.6rem));
+}
+
+.js .ending__why {
+  opacity: var(--shown, 0);
+  transform: translateY(calc((1 - var(--shown, 0)) * 0.8rem));
+}
+
+.ending__rest {
+  width: min(46rem, calc(100% - (2 * var(--gutter))));
+  margin-inline: auto;
+  padding-bottom: clamp(4.5rem, 12vh, 8rem);
+}
+
+.ending__themes {
+  margin: clamp(1.8rem, 4vh, 2.6rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ending__themes li {
+  padding: 0.45rem 0;
+  border-top: 1px solid rgba(244, 239, 230, 0.2);
+  font-family: var(--serif);
+  font-size: clamp(1.45rem, 2.6vw, 2rem);
+  letter-spacing: -0.03em;
+}
+
+.ending__themes li:last-child {
+  border-bottom: 1px solid rgba(244, 239, 230, 0.2);
+}
+
+.ending__next {
+  margin-top: clamp(2.5rem, 7vh, 4.5rem);
+}
+
+.ending__ask {
+  margin-bottom: 0.8rem;
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+}
+
+/* Source names inside the story, the way a newspaper links an outlet. */
+a.source {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+/* Fade-in copy. The script sets --shown from scroll position. */
+.js [data-fade] {
+  opacity: var(--shown, 0);
+  transform: translateY(calc((1 - var(--shown, 0)) * 0.7rem));
+}
+
+/* --------------------------------------------
+   No JavaScript, or reduced motion
+   Everything stays on the page. Nothing is pinned.
+-------------------------------------------- */
+
+html:not(.js) .hook,
+html:not(.js) .chart-scroll,
+html:not(.js) .policy__scroll,
+html:not(.js) .expert__scroll,
+html:not(.js) .ending__scroll {
+  height: auto;
+}
+
+html:not(.js) .hook__pin,
+html:not(.js) .chart-pin,
+html:not(.js) .policy__pin,
+html:not(.js) .expert__pin,
+html:not(.js) .ending__pin {
+  position: static;
+  height: auto;
+  overflow: visible;
+}
+
+html:not(.js) .hook {
+  padding: calc(var(--header-h) + 3rem) var(--gutter) 4rem;
+}
+
+html:not(.js) .hook__pin {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+}
+
+html:not(.js) .hook__line {
+  max-width: none;
+  text-align: left;
+}
+
+html:not(.js) .chart-pin,
+html:not(.js) .policy__pin,
+html:not(.js) .ending__pin {
+  display: block;
+  padding: clamp(3rem, 8vh, 5rem) var(--gutter);
+}
+
+html:not(.js) .expert__pin {
+  display: grid;
+  height: auto;
+  padding-block: clamp(3rem, 8vh, 5rem);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hook,
+  .chart-scroll,
+  .policy__scroll,
+  .expert__scroll,
+  .ending__scroll {
+    height: auto;
+  }
+
+  .hook__pin,
+  .chart-pin,
+  .policy__pin,
+  .expert__pin,
+  .ending__pin,
+  .person__photo {
+    position: static;
+    height: auto;
+    overflow: visible;
+  }
+
+  .hook {
+    padding: calc(var(--header-h) + 3rem) var(--gutter) 4rem;
+  }
+
+  .hook__pin {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+
+  .js .hook__line,
+  .js .policy__word,
+  .js .timeline__item,
+  .js .expert__line,
+  .js .ending__why,
+  .js .ending__num,
+  .js .vote__num,
+  .js [data-fade] {
+    opacity: 1;
+    transform: none;
+    clip-path: none;
+  }
+
+  .js .chart__label,
+  .js .chart__pct,
+  .js .chart__note {
+    opacity: 1;
+  }
+
+  .js .chart__bar {
+    width: calc(var(--value) * 1%);
+  }
+
+  .js .timeline::after {
+    transform: none;
+  }
+
+  .chart-pin,
+  .policy__pin,
+  .ending__pin {
+    display: block;
+    padding: clamp(3rem, 8vh, 5rem) var(--gutter);
+  }
+
+  .expert__pin {
+    height: auto;
+    padding-block: clamp(3rem, 8vh, 5rem);
+  }
+
+  .js .person__photo .ph__frame,
+  .js .expert__photo .ph__frame {
+    transform: none;
+  }
+}
+
+/* --------------------------------------------
+   Small screens
+-------------------------------------------- */
+
+@media (max-width: 800px) {
+  .prose {
+    font-size: 1.08rem;
+  }
+
+  .chart__row {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .chart__track {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .person,
+  .east__grid,
+  .expert__pin {
+    grid-template-columns: 1fr;
+  }
+
+  .person__photo {
+    position: static;
+    max-width: 28rem;
+  }
+
+  .ph--portrait .ph__frame {
+    aspect-ratio: 4 / 5;
+    max-height: 70vh;
+  }
+
+  .chart-scroll,
+  .policy__scroll,
+  .expert__scroll {
+    height: auto;
+  }
+
+  .chart-pin,
+  .policy__pin,
+  .expert__pin {
+    position: static;
+    height: auto;
+    overflow: visible;
+  }
+
+  .chart-pin {
+    display: block;
+    padding-block: 0 2rem;
+  }
+
+  .policy__pin {
+    display: block;
+    min-height: 0;
+  }
+
+  .policy__word + .policy__word {
+    margin-top: 0.35rem;
+  }
+
+  .expert__pin {
+    display: grid;
+    padding-block: clamp(3rem, 8vh, 5rem);
+  }
+
+  .timeline__item {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 880px) {
+  .page-afd .site-nav {
+    background: #ffffff;
+  }
+
+  .page-afd .site-header.is-on-dark.is-menu-open {
+    background: #ffffff;
+    color: var(--ink);
+  }
+}

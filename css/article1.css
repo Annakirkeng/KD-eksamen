@@ -3,9 +3,11 @@
   ------------------------------
   Loaded only by article1.html, after css/style.css.
 
-  Eight sections. Four of them are pinned while the page
-  scrolls vertically: the hook, the chart, AfD's own phrases,
-  and the opening of the ending.
+  Eight sections. Three of them are pinned while the page
+  scrolls vertically: the hook, AfD's own phrases,
+  and the opening of the ending. The chart and the expert
+  portrait sit in the reading flow, so they do not leave
+  a viewport of empty space.
 
   Change the --scene-* heights if a part feels too long.
   The script reads the real height, so you do not need to
@@ -18,16 +20,22 @@
 */
 
 .page-afd {
-  --scene-hook: 220vh;
-  --scene-chart: 190vh;
-  --scene-policy: 230vh;
-  --scene-expert: 190vh;
-  --scene-ending: 160vh;
+  --scene-hook: 200vh;
+  --scene-ending: 136vh;
 
   --stone: #e6e1d8;
   --east: #efe6d6;
   --critic: #e4e0da;
-  --placeholder: #2a2623;
+
+  /* One serif for headings and quotes, one sans for reading text. */
+  --afd-title: clamp(2.15rem, 4.2vw, 3.2rem);
+  --afd-h2: clamp(1.9rem, 2.45vw, 2.5rem);
+  --afd-name: clamp(1.82rem, 2.15vw, 2rem);
+  --afd-quote: clamp(1.18rem, 1.35vw, 1.38rem);
+  --afd-expert: clamp(1.32rem, 1.8vw, 1.65rem);
+  --afd-body: 1.125rem;
+  --afd-caption: 0.8125rem;
+  --afd-gap: 1.35rem;
 
   padding-top: 0;
   background: var(--canvas);
@@ -40,7 +48,8 @@
 
 .page-afd .site-footer {
   margin-top: 0;
-  background: var(--canvas);
+  background: #ffffff;
+  color: var(--ink);
 }
 
 .page-afd .site-header.is-on-dark {
@@ -49,13 +58,15 @@
 }
 
 .page-afd .prose p + p {
-  margin-top: 1.15em;
+  margin-top: 1.08em;
 }
 
 .prose {
-  max-width: var(--measure);
-  font-size: 1.2rem;
-  line-height: 1.55;
+  max-width: 38rem;
+  font-family: var(--sans);
+  font-size: var(--afd-body);
+  font-weight: 400;
+  line-height: 1.65;
 }
 
 .prose--on-dark {
@@ -65,17 +76,92 @@
 .chapter__intro {
   width: min(var(--page), calc(100% - (2 * var(--gutter))));
   margin-inline: auto;
-  padding-block: clamp(4.5rem, 12vh, 8rem);
+  padding-block: clamp(2.2rem, 4.8vh, 3.5rem);
+}
+
+.chapter--problems > .chapter__intro:not(.chapter__intro--after) {
+  padding-bottom: clamp(3rem, 6vh, 4.25rem);
 }
 
 .chapter__intro--after {
-  padding-top: clamp(2rem, 6vh, 4rem);
+  padding-top: clamp(2.15rem, 4.4vh, 3.1rem);
 }
 
-.chapter__intro h2 {
+.chapter--problems .chapter__intro--after {
+  padding-bottom: clamp(2.8rem, 6vh, 4.15rem);
+}
+
+.chapter__intro h2,
+.east__grid h2,
+.policy__pin h2,
+.ending__ask {
   max-width: 16em;
-  margin-top: 0.7rem;
-  font-size: clamp(2.4rem, 6vw, 4.6rem);
+  margin-top: 0.95rem;
+  font-family: var(--serif);
+  font-size: var(--afd-h2);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.18;
+  text-wrap: balance;
+}
+
+.chapter__intro h2 + .prose,
+.chapter__intro .critic__aside + .prose,
+.vote__num + .prose {
+  margin-top: var(--afd-gap);
+}
+
+.chapter--problems .chapter__intro h2 + .prose,
+.chapter--people .chapter__intro h2 + .prose {
+  margin-top: 1.15rem;
+}
+
+/* --------------------------------------------
+   Opening
+   A centered headline before the dark scroll sequence.
+-------------------------------------------- */
+
+.story-open {
+  display: grid;
+  justify-items: center;
+  width: min(52rem, calc(100% - (2 * var(--gutter))));
+  margin-inline: auto;
+  padding: calc(var(--header-h) + clamp(2.25rem, 5vh, 3.4rem)) 0 clamp(2.6rem, 5.5vh, 3.75rem);
+  text-align: center;
+}
+
+.story-open__kicker {
+  margin: 0;
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.story-open__title {
+  max-width: 16em;
+  margin-top: 1.15rem;
+  color: var(--ink);
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: var(--afd-title);
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+  text-wrap: balance;
+  hyphens: none;
+}
+
+.story-open__deck {
+  max-width: 32em;
+  margin-top: 1.15rem;
+  color: var(--ink-soft);
+  font-family: var(--sans);
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1.5;
 }
 
 /* --------------------------------------------
@@ -141,12 +227,12 @@
 }
 
 .vote__num {
-  margin: clamp(1.5rem, 4vh, 2.5rem) 0 0.4rem;
+  margin: 1.15rem 0 0;
   font-family: var(--serif);
-  font-size: clamp(5rem, 16vw, 11rem);
+  font-size: clamp(3.25rem, 7vw, 5.75rem);
   font-weight: 500;
-  letter-spacing: -0.05em;
-  line-height: 0.85;
+  letter-spacing: -0.045em;
+  line-height: 0.9;
 }
 
 .js .vote__num {
@@ -155,45 +241,38 @@
 }
 
 /* --------------------------------------------
-   Placeholders
-   Replace the whole .ph block with an <img> later.
+   Photos
+   The lead image keeps its own ratio. Portraits use the
+   existing 4:5 frame and cover, so nothing is stretched.
 -------------------------------------------- */
 
-.ph {
+.vote__photo {
   margin: 0;
 }
 
-.ph__frame,
-.ph--portrait {
-  display: grid;
-  align-items: end;
+.vote__photo img {
   width: 100%;
-  min-height: 12rem;
-  padding: 1rem 1.1rem;
-  background:
-    repeating-linear-gradient(
-      -45deg,
-      rgba(244, 239, 230, 0.14) 0 1px,
-      transparent 1px 12px
-    ),
-    var(--placeholder);
-  color: var(--night-text);
+  height: auto;
 }
 
-.ph--wide .ph__frame {
-  aspect-ratio: 16 / 8;
-}
-
-.ph--portrait {
-  aspect-ratio: 4 / 5;
-}
-
-.ph__label {
+.vote__photo figcaption {
+  width: min(var(--page), calc(100% - (2 * var(--gutter))));
+  margin-inline: auto;
+  padding-top: 0.75rem;
+  color: var(--muted);
   font-family: var(--sans);
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-size: var(--afd-caption);
+  font-style: normal;
+  line-height: 1.45;
+}
+
+.person__photo img,
+.expert__photo img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center center;
 }
 
 /* --------------------------------------------
@@ -206,17 +285,14 @@
 }
 
 .chart-scroll {
-  height: var(--scene-chart);
+  height: auto;
 }
 
 .chart-pin {
-  position: sticky;
-  top: 0;
-  display: grid;
-  align-items: center;
-  height: 100vh;
-  height: 100dvh;
-  padding: calc(var(--header-h) + 1.25rem) var(--gutter) 1.5rem;
+  position: static;
+  display: block;
+  height: auto;
+  padding: 0.2rem var(--gutter) clamp(1.15rem, 2.6vh, 1.7rem);
 }
 
 .chart {
@@ -245,8 +321,9 @@
 
 .chart__label,
 .chart__pct {
-  font-size: 0.98rem;
-  line-height: 1.25;
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  line-height: 1.35;
 }
 
 .js .chart__label,
@@ -278,13 +355,14 @@
 }
 
 .chart__note {
-  margin-top: 1.1rem;
+  max-width: 42rem;
+  margin-top: 1.35rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(28, 23, 20, 0.12);
   color: var(--muted);
-  font-size: 0.95rem;
-}
-
-.chart__note p + p {
-  margin-top: 0.15rem;
+  font-family: var(--sans);
+  font-size: var(--afd-caption);
+  line-height: 1.5;
 }
 
 /* --------------------------------------------
@@ -296,17 +374,17 @@
 }
 
 .chapter--people .chapter__intro {
-  padding-bottom: clamp(2rem, 5vh, 3rem);
+  padding-bottom: clamp(1.35rem, 3vh, 2rem);
 }
 
 .person {
   display: grid;
-  grid-template-columns: minmax(16rem, 0.82fr) minmax(0, 1.15fr);
-  gap: clamp(1.5rem, 4vw, 4.5rem);
+  grid-template-columns: minmax(14rem, 0.72fr) minmax(0, 1.2fr);
+  gap: clamp(1.5rem, 2.8vw, 2.75rem);
   align-items: start;
   width: min(var(--page), calc(100% - (2 * var(--gutter))));
   margin-inline: auto;
-  padding-bottom: clamp(5rem, 14vh, 9rem);
+  padding-bottom: clamp(2.35rem, 5vh, 3.5rem);
 }
 
 .person__photo {
@@ -316,52 +394,57 @@
   margin: 0;
 }
 
-.js .person__photo .ph__frame {
+.js .person__photo img {
   transform: translateY(var(--shift, 0px));
 }
 
 .person__name {
-  font-family: var(--sans);
-  font-size: clamp(2.8rem, 6vw, 5.2rem);
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  line-height: 0.9;
-  text-transform: uppercase;
+  font-family: var(--serif);
+  font-size: var(--afd-name);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
 }
 
 .person__age {
-  margin-top: 0.45rem;
+  margin-top: 0.22rem;
   color: var(--muted);
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 1.35rem;
+  font-family: var(--sans);
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.3;
 }
 
 .person__copy .prose {
-  margin-top: 1.6rem;
+  margin-top: 1.2rem;
 }
 
 .person__quote {
-  max-width: 18em;
-  margin-top: clamp(2rem, 5vh, 3.5rem);
+  max-width: 28rem;
+  margin-top: 1.2rem;
 }
 
-.person__quote p {
+.person__quote p,
+.policy__quote p {
   font-family: var(--serif);
-  font-size: clamp(1.7rem, 3vw, 2.55rem);
+  font-size: var(--afd-quote);
+  font-style: italic;
   font-weight: 500;
-  letter-spacing: -0.03em;
-  line-height: 1.22;
+  letter-spacing: -0.02em;
+  line-height: 1.42;
 }
 
 .person__quote footer,
 .policy__quote footer,
 .expert__quote footer {
-  margin-top: 1rem;
+  margin-top: 0.85rem;
   color: var(--muted);
   font-family: var(--sans);
-  font-size: 0.95rem;
+  font-size: var(--afd-caption);
   font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0;
 }
 
 /* --------------------------------------------
@@ -374,73 +457,95 @@
 }
 
 .policy__scroll {
-  height: var(--scene-policy);
+  height: auto;
 }
 
 .policy__pin {
-  position: sticky;
-  top: 0;
+  position: static;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  height: 100vh;
-  height: 100dvh;
-  padding: calc(var(--header-h) + 1rem) var(--gutter) 2rem;
-  overflow: hidden;
+  justify-content: flex-start;
+  width: min(var(--page), calc(100% - (2 * var(--gutter))));
+  height: auto;
+  margin-inline: auto;
+  padding: clamp(2.5rem, 6vh, 3.75rem) 0 0;
+  overflow: visible;
 }
 
 .policy__pin h2 {
-  max-width: 12em;
-  margin-top: 0.55rem;
-  font-size: clamp(2rem, 4.5vw, 3.4rem);
+  max-width: 14em;
 }
 
 .policy__label {
-  max-width: 36rem;
-  margin-top: 0.8rem;
+  max-width: 34rem;
+  margin-top: 0.75rem;
   color: rgba(244, 239, 230, 0.72);
+  font-family: var(--sans);
   font-size: 1.05rem;
+  line-height: 1.5;
 }
 
 .policy__words {
-  margin: clamp(1.4rem, 4vh, 2.4rem) 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.78rem;
+  width: min(28rem, 100%);
+  margin: 1.35rem 0 0;
   padding: 0;
   list-style: none;
 }
 
 .policy__word {
+  position: relative;
+  padding-left: 1.15rem;
   font-family: var(--serif);
-  font-size: clamp(1.7rem, 5.6vw, 4.4rem);
+  font-size: clamp(1.12rem, 1.35vw, 1.28rem);
   font-weight: 500;
-  letter-spacing: -0.04em;
-  line-height: 1.02;
-  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+.policy__word::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.48em;
+  width: 0.32rem;
+  height: 0.32rem;
+  border-radius: 50%;
+  background: rgba(244, 239, 230, 0.42);
 }
 
 .js .policy__word {
+  color: rgba(244, 239, 230, 0.9);
   opacity: var(--shown, 0);
-  transform: translateY(calc((1 - var(--shown, 0)) * 0.8rem));
+  transform: translateY(calc((1 - var(--shown, 0)) * 0.28rem));
+}
+
+.js .policy__word.is-current {
+  color: var(--night-text);
+}
+
+.js .policy__word.is-current::before {
+  background: var(--accent);
 }
 
 .policy__text {
   width: min(var(--page), calc(100% - (2 * var(--gutter))));
   margin-inline: auto;
-  padding-bottom: clamp(4.5rem, 12vh, 8rem);
+  padding-top: 1.65rem;
+  padding-bottom: clamp(2.5rem, 5.5vh, 3.75rem);
 }
 
 .policy__quote {
   max-width: 40rem;
-  margin-top: clamp(2rem, 5vh, 3rem);
+  margin-top: clamp(1.35rem, 3vh, 2rem);
   padding-top: 1.25rem;
   border-top: 1px solid rgba(244, 239, 230, 0.28);
 }
 
 .policy__quote p {
-  font-family: var(--serif);
-  font-size: clamp(1.45rem, 2.6vw, 2.05rem);
-  font-weight: 500;
-  letter-spacing: -0.03em;
-  line-height: 1.28;
+  max-width: 34rem;
 }
 
 .policy__quote footer {
@@ -458,24 +563,24 @@
 .east__grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.8fr);
-  gap: clamp(2rem, 6vw, 6rem);
+  gap: clamp(1.75rem, 3.5vw, 3.25rem);
   align-items: start;
   width: min(var(--page), calc(100% - (2 * var(--gutter))));
   margin-inline: auto;
-  padding-block: clamp(4.5rem, 12vh, 8rem);
+  padding-block: clamp(2.35rem, 5vh, 3.65rem);
 }
 
 .east__grid h2 {
-  max-width: 12em;
-  margin-top: 0.7rem;
-  margin-bottom: 1.4rem;
-  font-size: clamp(2.3rem, 4.6vw, 3.8rem);
+  max-width: 14em;
+  margin-bottom: var(--afd-gap);
 }
 
 .timeline__note {
-  margin-bottom: 1.4rem;
+  margin-bottom: 1.25rem;
   color: var(--muted);
-  font-size: 0.95rem;
+  font-family: var(--sans);
+  font-size: var(--afd-caption);
+  line-height: 1.45;
 }
 
 .timeline {
@@ -510,8 +615,8 @@
 }
 
 .timeline__item {
-  min-height: 7.5rem;
-  padding-bottom: 1.5rem;
+  min-height: 5.1rem;
+  padding-bottom: 1.05rem;
 }
 
 .timeline__item::before {
@@ -544,15 +649,16 @@
 .timeline__what {
   display: block;
   max-width: 16em;
-  margin-top: 0.25rem;
+  margin-top: 0.3rem;
   font-family: var(--serif);
-  font-size: clamp(1.45rem, 2.4vw, 2rem);
-  letter-spacing: -0.03em;
-  line-height: 1.15;
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
 }
 
 .timeline__item--now .timeline__what {
-  font-size: clamp(2.4rem, 4vw, 3.4rem);
+  font-size: 1.65rem;
 }
 
 /* --------------------------------------------
@@ -564,28 +670,27 @@
 }
 
 .expert__scroll {
-  height: var(--scene-expert);
+  height: auto;
 }
 
 .expert__pin {
-  position: sticky;
-  top: 0;
+  position: static;
   display: grid;
-  grid-template-columns: minmax(14rem, 0.7fr) minmax(0, 1.3fr);
-  gap: clamp(1.5rem, 4vw, 4rem);
+  grid-template-columns: minmax(14rem, 0.68fr) minmax(0, 1.25fr);
+  gap: clamp(1.25rem, 3vw, 2.75rem);
   align-items: center;
-  height: 100vh;
-  height: 100dvh;
+  height: auto;
   width: min(var(--page), calc(100% - (2 * var(--gutter))));
   margin-inline: auto;
-  overflow: hidden;
+  padding-block: clamp(2rem, 4.5vh, 3rem) 0.85rem;
+  overflow: visible;
 }
 
 .expert__photo {
   margin: 0;
 }
 
-.js .expert__photo .ph__frame {
+.js .expert__photo img {
   transform: translateY(var(--shift, 0px));
 }
 
@@ -596,10 +701,11 @@
 
 .expert__line {
   font-family: var(--serif);
-  font-size: clamp(1.55rem, 2.8vw, 2.45rem);
+  font-size: var(--afd-expert);
+  font-style: italic;
   font-weight: 500;
-  letter-spacing: -0.03em;
-  line-height: 1.2;
+  letter-spacing: -0.02em;
+  line-height: 1.38;
 }
 
 .js .expert__line {
@@ -613,13 +719,19 @@
 
 .critic__aside {
   max-width: 38rem;
-  margin-top: 1.1rem;
+  margin-top: 0.9rem;
   color: var(--ink-soft);
-  font-size: 1.05rem;
+  font-family: var(--sans);
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
 .chapter--critic .prose {
-  margin-top: 1.6rem;
+  margin-top: 1rem;
+}
+
+.expert .chapter__intro {
+  padding-top: clamp(1.15rem, 2.6vh, 1.8rem);
 }
 
 /* --------------------------------------------
@@ -656,13 +768,13 @@
 }
 
 .ending__num {
-  font-size: clamp(4.5rem, 14vw, 10rem);
+  font-size: clamp(3.75rem, 9vw, 7rem);
 }
 
 .ending__why {
-  margin-top: 0.35rem;
+  margin-top: 0.4rem;
   font-style: italic;
-  font-size: clamp(2.2rem, 5vw, 4rem);
+  font-size: clamp(1.7rem, 3.2vw, 2.65rem);
 }
 
 .js .ending__num {
@@ -676,36 +788,122 @@
 }
 
 .ending__rest {
-  width: min(46rem, calc(100% - (2 * var(--gutter))));
+  width: min(52rem, calc(100% - (2 * var(--gutter))));
   margin-inline: auto;
-  padding-bottom: clamp(4.5rem, 12vh, 8rem);
+  padding-bottom: clamp(3.25rem, 7vh, 4.75rem);
 }
 
-.ending__themes {
-  margin: clamp(1.8rem, 4vh, 2.6rem) 0 0;
+.flow {
+  --draw: 1;
+  width: min(68rem, calc(100vw - (2 * var(--gutter))));
+  margin-top: clamp(1.75rem, 4vh, 2.6rem);
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+.js .flow {
+  --draw: 0;
+}
+
+.flow__title {
+  width: min(52rem, 100%);
+  margin: 0 auto clamp(1.15rem, 2.6vh, 1.75rem);
+  font-family: var(--serif);
+  font-size: var(--afd-h2);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.18;
+  text-wrap: balance;
+}
+
+.flow__stage {
+  position: relative;
+  aspect-ratio: 1000 / 680;
+}
+
+.flow__art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.flow__art--palm {
+  display: none;
+}
+
+.flow__stroke {
+  fill: none;
+  stroke: rgba(244, 239, 230, 0.46);
+  stroke-width: 1.25;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--draw, 0));
+  vector-effect: non-scaling-stroke;
+}
+
+.flow__stops {
+  margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.ending__themes li {
-  padding: 0.45rem 0;
-  border-top: 1px solid rgba(244, 239, 230, 0.2);
-  font-family: var(--serif);
-  font-size: clamp(1.45rem, 2.6vw, 2rem);
-  letter-spacing: -0.03em;
+.flow__stop {
+  position: absolute;
+  padding: 0.18rem 0.55rem;
+  background: var(--night);
+  text-align: center;
+  transform: translate(-50%, -50%);
 }
 
-.ending__themes li:last-child {
-  border-bottom: 1px solid rgba(244, 239, 230, 0.2);
+.flow__stop--inn { top: 9.1%; left: 20%; }
+.flow__stop--okonomi { top: 17.4%; left: 50%; }
+.flow__stop--budskap { top: 37.5%; left: 74%; max-width: 12.5rem; }
+.flow__stop--historie { top: 55.1%; left: 23%; }
+.flow__stop--representasjon { top: 71.3%; left: 64%; max-width: 11.5rem; }
+.flow__stop--misnoye { top: 90%; left: 42%; max-width: 16.5rem; }
+
+.flow__name {
+  display: block;
+  color: rgba(244, 239, 230, 0.9);
+  font-family: var(--serif);
+  font-size: clamp(1.2rem, 1.5vw, 1.5rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
 }
+
+.js .flow__stop {
+  opacity: var(--shown, 0);
+}
+
+.js .flow__stop.is-current .flow__name {
+  color: var(--night-text);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+}
+
+.flow__note {
+  width: min(52rem, 100%);
+  margin: clamp(1rem, 2.2vh, 1.4rem) auto 0;
+  color: rgba(244, 239, 230, 0.68);
+  font-family: var(--sans);
+  font-size: var(--afd-caption);
+  line-height: 1.45;
+}
+
 
 .ending__next {
-  margin-top: clamp(2.5rem, 7vh, 4.5rem);
+  margin-top: clamp(2.75rem, 6vh, 4.25rem);
 }
 
 .ending__ask {
-  margin-bottom: 0.8rem;
-  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  margin-top: 0;
+  margin-bottom: 0.9rem;
 }
 
 /* Source names inside the story, the way a newspaper links an outlet. */
@@ -770,7 +968,7 @@ html:not(.js) .ending__pin {
 html:not(.js) .expert__pin {
   display: grid;
   height: auto;
-  padding-block: clamp(3rem, 8vh, 5rem);
+  padding-block: clamp(1.5rem, 3.5vh, 2.35rem) 0.35rem;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -840,12 +1038,20 @@ html:not(.js) .expert__pin {
 
   .expert__pin {
     height: auto;
-    padding-block: clamp(3rem, 8vh, 5rem);
+    padding-block: clamp(1.5rem, 3.5vh, 2.35rem) 0.35rem;
   }
 
-  .js .person__photo .ph__frame,
-  .js .expert__photo .ph__frame {
+  .js .person__photo img,
+  .js .expert__photo img {
     transform: none;
+  }
+
+  .js .flow {
+    --draw: 1;
+  }
+
+  .js .flow__stop {
+    opacity: 1;
   }
 }
 
@@ -878,8 +1084,8 @@ html:not(.js) .expert__pin {
     max-width: 28rem;
   }
 
-  .ph--portrait .ph__frame {
-    aspect-ratio: 4 / 5;
+  .person__photo img,
+  .expert__photo img {
     max-height: 70vh;
   }
 
@@ -907,17 +1113,46 @@ html:not(.js) .expert__pin {
     min-height: 0;
   }
 
-  .policy__word + .policy__word {
-    margin-top: 0.35rem;
-  }
-
   .expert__pin {
     display: grid;
-    padding-block: clamp(3rem, 8vh, 5rem);
+    padding-block: clamp(1.35rem, 3vh, 2rem) 0.25rem;
   }
 
   .timeline__item {
     min-height: 0;
+  }
+
+  .flow {
+    width: 100%;
+    margin-left: 0;
+    transform: none;
+  }
+
+  .flow__stage {
+    aspect-ratio: 400 / 920;
+  }
+
+  .flow__art--desk {
+    display: none;
+  }
+
+  .flow__art--palm {
+    display: block;
+  }
+
+  .flow__name {
+    font-size: 1.2rem;
+  }
+
+  .flow__stop--inn { top: 7.6%; left: 32.5%; }
+  .flow__stop--okonomi { top: 20.7%; left: 67.5%; }
+  .flow__stop--budskap { top: 39.1%; left: 58%; max-width: 12rem; }
+  .flow__stop--historie { top: 56.5%; left: 30%; }
+  .flow__stop--representasjon { top: 75%; left: 62%; max-width: 11rem; }
+  .flow__stop--misnoye { top: 91.3%; left: 46%; max-width: 15rem; }
+
+  .flow__note {
+    width: 100%;
   }
 }
 

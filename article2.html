@@ -1,27 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nb">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>GVI — Article 2</title>
-  <meta name="description" content="Placeholder short article. Replace the headline and body before submission.">
-  <meta name="theme-color" content="#ffffff">
+  <title>GVI — Dette er høstens største trender, og de gamle favorittene er tilbake</title>
+  <meta name="description" content="I en moteverden hvor det stadig dukker opp nye trender, er det interessant å se hvordan gamle trender stadig finner veien tilbake. Maren Walther i MinMote om høstens mote.">
+  <meta name="theme-color" content="#f6f1ea">
   <link rel="icon" href="images/logo-mark.png">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/article2.css">
+  <!--
+    Adds "js" before the page paints, so the fade-in can start
+    from the first frame instead of flashing everything at once.
+  -->
+  <script>document.documentElement.classList.add("js");</script>
 </head>
 <!--
-  ARTICLE TEMPLATE
-  Same structure as article1.html. Replace the words, keep the layout.
-  Lead image: images/article-2.jpg
-  Inline image: images/article-2-inline.jpg
+  ARTICLE 2 — Høstmoten 2026
+  Layout foundation. The article text is not final.
+
+  Words and image slots: this file.
+  Look: css/article2.css
+  Carousel and the quiet scroll fade: js/article2.js
+
+  Images
+  Add the file, then replace the FINAL IMAGE comment with an img.
+  The label in the frame is covered once the photo is there.
+  Suggested names — change them if you want, and keep the src in sync:
+  - images/moteskisser.png
+  - images/fashion-maren.jpg
+  - images/MoteVarighet.png
+  - images/Lilla2.png
+  - images/Burgunder2.png
+  - images/Ruter.png
+  - images/LangeFrakker.png
+  - images/Støvler.png
+  - images/IMG_8631.jpg
+  - images/IMG_8632.jpg
+
+  Example:
+  <img src="images/fashion-hero.jpg" alt="Beskriv bildet på norsk.">
+
+  Quotes are copied from the article. Do not smooth or extend them.
 -->
-<body>
+<body class="page-fashion">
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">
     <div class="site-header__brand">
       <a class="logo logo--full" href="index.html" aria-label="Sixth Sense">
-        <img class="logo__img" src="images/sixthsense-black.png" alt="">
+        <img class="logo__img" src="images/sixthsense-black.png" width="1488" height="901" alt="">
       </a>
     </div>
     <div class="site-header__main">
@@ -32,11 +60,11 @@
       </a>
       <nav class="site-nav" id="site-nav" aria-label="Primary">
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="article1.html">Article 1</a></li>
-          <li><a href="article2.html" aria-current="page">Article 2</a></li>
-          <li><a href="article3.html">Article 3</a></li>
-          <li><a href="xl-story.html">XL Story</a></li>
+          <li><a href="index.html">Forside</a></li>
+          <li><a href="article1.html">Samfunn</a></li>
+          <li><a href="article2.html" aria-current="page">Mote</a></li>
+          <li><a href="article3.html">Underholdning</a></li>
+          <li><a href="xl-story.html">Reportasje</a></li>
         </ul>
       </nav>
     </div>
@@ -47,74 +75,212 @@
   </header>
 
   <main id="main" tabindex="-1">
-    <article class="article">
-      <header class="article__header">
-        <p class="kicker">Placeholder · Article 2</p>
-        <h1>The person who unlocks the door</h1>
-        <p class="deck">A draft portrait. The person in it is not real yet. Give them a name early, and attach the name to something they do with their hands.</p>
-        <p class="editor-note">Placeholder copy. Replace the headline, standfirst, captions, and body before you submit.</p>
-        <p class="byline">
-          <span>By Placeholder Author</span>
-          <time>Date placeholder</time>
-        </p>
+    <article>
+      <!-- 1. HERO -->
+      <header class="fashion-hero">
+        <div class="fashion-hero__stage">
+          <img
+            class="fashion-hero__image"
+            src="images/moteskisser.png"
+            width="1831"
+            height="859"
+            alt="Moteskisser av tre høstantrekk: en lang kåpe med vide bukser, en vid genser med vide bukser, og en rutete jakke med kort skjørt og støvler."
+          >
+          <div class="fashion-hero__title">
+            <h1>Dette er høstens største trender, <em>og de gamle favorittene er tilbake</em></h1>
+          </div>
+        </div>
+
+        <div class="wrap fashion-hero__text">
+          <p class="fashion-hero__credit">Bildet er KI-generert.</p>
+          <p class="kicker">Mote · Høst 2026</p>
+          <div class="fashion-hero__lower">
+            <p class="fashion-hero__standfirst">I en moteverden hvor det stadig dukker opp nye trender, er det interessant å se hvordan gamle trender stadig finner veien tilbake. Hvilke trender preger høsten, og hvilke gamle favoritter gjør comeback?</p>
+          </div>
+        </div>
       </header>
 
-      <figure class="figure article__hero">
-        <div class="frame frame--wide">
-          <img src="images/article-2.jpg" alt="Placeholder: the lead photograph for article 2">
-        </div>
-        <figcaption>Placeholder caption. A portrait, or the room this person keeps returning to.</figcaption>
-      </figure>
+      <!-- 2. INTRODUCTION AND EXPERT -->
+      <section class="fashion-insight" aria-labelledby="insight-title">
+        <div class="wrap fashion-split">
+          <figure data-reveal>
+            <div class="frame frame--person">
+              <img src="images/fashion-maren.jpg" alt="Portrett av Maren Walther i burgunder pelskåpe og lys hatt.">
+            </div>
+            <figcaption>Foto: Maren Walther / Instagram. Gjengitt med tillatelse.</figcaption>
+          </figure>
 
-      <div class="article__body">
-        <p>Before the street is properly awake, someone is already turning a key in a side door. The draft calls them the caretaker, which is a job and not a person. In the finished article the name should arrive in the first few lines, next to a habit a reader can picture: the way they set a kettle down, or fold a coat over the same chair.</p>
-        <p>They have done the opening round for years. Lights in the hall. A look at the board. A window that sticks in damp weather and has to be persuaded. None of this is the story by itself. It is the ground the story stands on, so that a later sentence about change has a body to happen to.</p>
-        <p>Quotes you collect can replace these sentences. Do not leave the draft in place and only swap a name. A real conversation has a different rhythm, and the column will show it. Keep the paragraphs short enough to breathe, and long enough that a thought can finish.</p>
-
-        <h2>What they keep returning to</h2>
-        <p>In a portrait, the middle is usually the thing a person cannot stop talking about. It might be a duty, a place, a mistake, or a tool they will not throw away. This heading is where that theme should surface. For now the theme is missing on purpose. The layout only shows you that a turn can live here.</p>
-        <p>Leave room for one moment of scene inside the explanation. A person crossing a room, or setting an object down, will do more than a paragraph about their character. If they laugh at themselves, let the laugh stay in the quote. If they do not, do not invent one.</p>
-
-        <blockquote class="pull">
-          <p>A role is not a picture. A hand on a door is.</p>
-        </blockquote>
-
-        <h2>The detail to leave with</h2>
-        <p>The second photograph should show something the conversation made you notice. Not a general mood, and not a portrait that repeats the hero image. A key, a noticeboard, a pair of shoes by a radiator. The caption can carry a detail that did not fit in the body.</p>
-
-        <figure class="figure">
-          <div class="frame frame--wide">
-            <img src="images/article-2-inline.jpg" alt="Placeholder: a second photograph inside article 2">
+          <div class="fashion-prose" data-reveal data-delay="1">
+            <p class="kicker">MinMote</p>
+            <h2 id="insight-title">Maren Walther</h2>
+            <p>Maren Walther jobber i det norske motemagasinet MinMote. Hun har gitt oss et innblikk i høstens motebilde og forteller om hvilke farger, plagg og materialer som preger høsten. Hun deler sine personlige favoritter og tanker om hvilke trender vi vil se fremover.</p>
+            <p>Høstens motebilde preges av mørke farger og varme materialer. Ifølge Walther er lilla en farge som er verdt å merke seg.</p>
+            <blockquote class="pull" data-reveal>
+              <p>«Jeg tror lilla kan bli en av de største, spesielt dype og litt mørkere lillatoner. Den er ganske enkel å kombinere, men gir samtidig antrekket litt mer farge», sier Maren Walther.</p>
+            </blockquote>
           </div>
-          <figcaption>Placeholder caption. Name the object, then say why it stayed with you.</figcaption>
-        </figure>
+        </div>
 
-        <p>End before you start summarizing the person. A short profile closes on a last concrete thing: the door pulled shut, the light they always forget, the remark they made when they thought the interview was over. This paragraph is only standing there until that remark exists.</p>
-        <p>When the real ending is in, read the page aloud once. If a sentence could describe anyone, it is still placeholder. Cut it, or earn it with a fact that could only belong to them.</p>
-      </div>
+        <div class="wrap fashion-split fashion-split--flip fashion-follow">
+          <div class="fashion-prose" data-reveal>
+            <h2>Klassiske høstfavoritter gjør comeback</h2>
+            <p>Samtidig peker klassiske høstfavoritter som brunt, burgunder og mørkegrønt seg ut. Dette er farger vi ser kommer tilbake høst etter høst. Andre trender som Walther trekker frem, er lange kåper, strikkegensere, skinnjakker og vide dressbukser.</p>
+            <p>Lag på lag er også en viktig del av årets høstmote. Strikkegensere kombinert med vide bukser, lange kåper over enkle antrekk og boots som prikken over i-en er eksempler på hvordan man kan sette sammen sesongens plagg.</p>
+            <p>Flere av plaggene som trekkes frem, er imidlertid ikke nye trender. Dette er klassikere som dukker opp igjen sesong etter sesong. Det kan tyde på at høstmoten ikke nødvendigvis handler om å finne nye plagg, men heller om å gi gamle favoritter en ny kombinasjon.</p>
+          </div>
+          <figure data-reveal data-delay="1">
+            <div class="frame frame--still">
+              <img src="images/MoteVarighet.png" alt="Tolv moteskisser av høstplagg: kåper, dresser, kjoler, jeans og støvler.">
+            </div>
+            <figcaption>Bildet er KI-generert.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- 3. TREND CAROUSEL
+           Duplicate an <li class="trend-card"> to add a trend.
+           The script counts the cards, so the numbers update themselves.
+           This row scrolls sideways. It does not take over the page scroll. -->
+      <section class="fashion-trends" data-carousel aria-roledescription="karusell" aria-labelledby="trends-title">
+        <div class="wrap fashion-trends__intro" data-reveal>
+          <p class="kicker">Sesongen</p>
+          <h2 id="trends-title">Høstens største trender</h2>
+          <div class="fashion-prose">
+            <p>Denne høsten er det særlig lilla, burgunder og rutemønster som preger motebildet. Samtidig er det interessant å se hvordan tidligere trender finner veien tilbake.</p>
+            <p>Selv om neste sesongs trender etter hvert tar over, betyr ikke det nødvendigvis at fargene eller mønstrene forsvinner helt. Mange trender dukker opp igjen etter noen sesonger og får en ny plass i motebildet.</p>
+            <p>Klær som kjøpes for å følge en trend, kan fort bli mindre brukt når motebildet endrer seg. Det betyr likevel ikke at plaggene mister sin verdi. Farger, mønstre og materialer som er populære i dag, kan få en ny plass i motebildet senere.</p>
+            <p>Kanskje handler det derfor om å tenke mer langsiktig når vi handler klær. I stedet for å kjøpe alt som er trendy akkurat der og da, kan det være bedre å velge plagg man faktisk liker, og som kan brukes over flere sesonger.</p>
+          </div>
+        </div>
+        <div class="wrap fashion-trends__bar">
+          <div class="fashion-trends__controls" data-reveal data-delay="1">
+            <p class="fashion-trends__count" data-carousel-status aria-hidden="true">01 / 05</p>
+            <div class="fashion-trends__buttons">
+              <button class="trend-btn" type="button" data-carousel-prev aria-controls="trend-track" aria-label="Forrige trend" disabled>
+                <svg viewBox="0 0 32 16" width="28" height="14" aria-hidden="true" focusable="false">
+                  <path d="M31 8H1M8 1.5 1.5 8 8 14.5" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <button class="trend-btn" type="button" data-carousel-next aria-controls="trend-track" aria-label="Neste trend">
+                <svg viewBox="0 0 32 16" width="28" height="14" aria-hidden="true" focusable="false">
+                  <path d="M1 8h30M24 1.5 30.5 8 24 14.5" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <p class="visually-hidden" id="trend-help">Bruk pil venstre og pil høyre for å bytte trend. På berøringsskjerm kan du sveipe sidelengs.</p>
+        <p class="visually-hidden" data-carousel-live aria-live="polite"></p>
+
+        <ul class="trend-track" id="trend-track" data-carousel-track tabindex="0" role="list" aria-label="Trendkort" aria-describedby="trend-help">
+          <li class="trend-card" aria-roledescription="lysbilde" aria-label="1 av 5">
+            <article>
+              <div class="frame frame--trend frame--lilla">
+                <img src="images/Lilla2.png" alt="Kollasj av lilla høstklær: gensere, kjole, skjørt og detaljer i lilla nyanser.">
+              </div>
+              <p class="trend-card__credit">Bildet er KI-generert.</p>
+              <h3>Lilla</h3>
+            </article>
+          </li>
+          <li class="trend-card" aria-roledescription="lysbilde" aria-label="2 av 5">
+            <article>
+              <div class="frame frame--trend frame--burgunder frame--ink">
+                <img src="images/Burgunder2.png" alt="Kollasj av burgunder høstklær: kåpe, strikk, støvler og veske i dyp rød.">
+              </div>
+              <p class="trend-card__credit">Bildet er KI-generert.</p>
+              <h3>Burgunder</h3>
+            </article>
+          </li>
+          <li class="trend-card" aria-roledescription="lysbilde" aria-label="3 av 5">
+            <article>
+              <div class="frame frame--trend frame--plaid">
+                <img src="images/Ruter.png" alt="Kollasj av rutete høstplagg: frakker, skjørt, skjerf og jakker i ruter.">
+              </div>
+              <p class="trend-card__credit">Bildet er KI-generert.</p>
+              <h3>Ruter</h3>
+            </article>
+          </li>
+          <li class="trend-card" aria-roledescription="lysbilde" aria-label="4 av 5">
+            <article>
+              <div class="frame frame--trend frame--coat">
+                <img src="images/LangeFrakker.png" alt="Kollasj av lange høstfrakker i ull, skinn og pelskrage, i burgunder, grått, svart og krem.">
+              </div>
+              <p class="trend-card__credit">Bildet er KI-generert.</p>
+              <h3>Lange frakker</h3>
+            </article>
+          </li>
+          <li class="trend-card" aria-roledescription="lysbilde" aria-label="5 av 5">
+            <article>
+              <div class="frame frame--trend frame--boot frame--ink">
+                <img src="images/Støvler.png" alt="Kollasj av høststøvler: knelange skinnstøvler, semskede støvler og støvler med spenne.">
+              </div>
+              <p class="trend-card__credit">Bildet er KI-generert.</p>
+              <h3>Støvler</h3>
+            </article>
+          </li>
+        </ul>
+      </section>
+
+      <!-- 5. PERSONAL STYLE AND VINTAGE
+           One spread: the argument on the left, the two photographs on the right. -->
+      <section class="fashion-style" aria-labelledby="style-title">
+        <div class="wrap fashion-style__grid">
+          <div class="fashion-style__copy">
+            <div data-reveal>
+              <p class="kicker">Garderoben</p>
+              <h2 id="style-title">Personlig stil fremfor nye trender</h2>
+              <div class="fashion-prose">
+                <p>Maren Walther tror personlig stil og vintage vil få større plass fremover. Hun trekker også frem klær som kan brukes på flere måter.</p>
+              </div>
+            </div>
+
+            <blockquote class="pull" data-reveal>
+              <p>«Jeg tror vi kommer til å se enda mer fokus på personlig stil, vintage og klær som kan brukes på flere måter», sier Maren.</p>
+            </blockquote>
+
+            <div class="fashion-prose" data-reveal>
+              <p>Det viser at det ikke alltid er nødvendig å kjøpe noe nytt når en trend dukker opp. I stedet kan man bruke sesongens farger og uttrykk til å style klær man allerede eier. For selv om trendene stadig endrer seg, trenger ikke garderoben å gjøre det samme.</p>
+            </div>
+          </div>
+
+          <div class="fashion-pair" data-reveal data-delay="1">
+            <figure>
+              <div class="frame frame--pair">
+                <img src="images/IMG_8631.jpg" alt="Person i stor mørk pelsjakke, solbriller og vide jeans, fotografert i snøen.">
+              </div>
+              <figcaption>Foto: Maren Walther / Instagram. Gjengitt med tillatelse.</figcaption>
+            </figure>
+            <figure>
+              <div class="frame frame--pair">
+                <img src="images/IMG_8632.jpg" alt="Person i grå blazer, hvit t-skjorte, svarte leggings og sandaler mot en lys vegg.">
+              </div>
+              <figcaption>Foto: Maren Walther / Instagram. Gjengitt med tillatelse.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
     </article>
   </main>
 
   <footer class="site-footer">
     <div class="site-footer__inner">
-      <div>
-        <a class="logo" href="index.html">
-          <img class="logo__img" src="images/sixthsense-black.png" alt="Sixth Sense">
-        </a>
-        <p class="site-footer__note">Placeholder colophon. Replace this with your name, the course, and the year.</p>
-      </div>
+      <a class="logo" href="index.html">
+        <img class="logo__img" src="images/sixthsense-black.png" width="1488" height="901" alt="Sixth Sense">
+      </a>
       <nav aria-label="Footer">
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="article1.html">Article 1</a></li>
-          <li><a href="article2.html">Article 2</a></li>
-          <li><a href="article3.html">Article 3</a></li>
-          <li><a href="xl-story.html">XL Story</a></li>
+          <li><a href="index.html">Forside</a></li>
+          <li><a href="article1.html">Samfunn</a></li>
+          <li><a href="article2.html">Mote</a></li>
+          <li><a href="article3.html">Underholdning</a></li>
+          <li><a href="xl-story.html">Reportasje</a></li>
         </ul>
       </nav>
     </div>
   </footer>
 
   <script src="js/script.js"></script>
+  <script src="js/article2.js"></script>
 </body>
 </html>

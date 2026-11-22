@@ -30,12 +30,15 @@
   const timeline = document.querySelector('[data-scene="timeline"]');
   const expert = document.querySelector('[data-scene="expert"]');
   const ending = document.querySelector('[data-scene="ending"]');
+  const flow = document.querySelector(".flow");
 
   const hookLines = hook ? hook.querySelectorAll(".hook__line") : [];
   const policyWords = policy ? policy.querySelectorAll(".policy__word") : [];
   const timelineItems = timeline ? timeline.querySelectorAll("[data-step]") : [];
   const expertLines = expert ? expert.querySelectorAll("[data-line]") : [];
   const fades = document.querySelectorAll("[data-fade]");
+  const flowStops = flow ? flow.querySelectorAll(".flow__stop") : [];
+  let flowMeasureKey = "";
   const portraits = document.querySelectorAll("[data-parallax]");
 
   /*
@@ -133,29 +136,23 @@
     if (!chart) {
       return;
     }
-    let grow;
-    if (compact.matches) {
-      grow = visibility(chart, 0.95, 0.2);
-    } else {
-      grow = segment(getScrollProgress(chartScene), 0.06, 0.7);
-    }
-    chart.style.setProperty("--grow", grow.toFixed(3));
+    chart.style.setProperty("--grow", visibility(chart, 0.92, 0.28).toFixed(3));
   }
 
   function updatePolicy() {
     if (!policy) {
       return;
     }
-    if (compact.matches) {
-      policyWords.forEach(function (word) {
-        word.style.setProperty("--shown", visibility(word, 0.92, 0.62).toFixed(3));
-      });
-      return;
-    }
-    const progress = getScrollProgress(policy.querySelector(".policy__scroll") || policy);
+    let current = -1;
     policyWords.forEach(function (word, index) {
-      const start = 0.06 + index * 0.15;
-      word.style.setProperty("--shown", segment(progress, start, start + 0.1).toFixed(3));
+      const shown = visibility(word, 0.9 - index * 0.015, 0.62 - index * 0.03);
+      word.style.setProperty("--shown", shown.toFixed(3));
+      if (shown > 0.08 && shown < 0.98) {
+        current = index;
+      }
+    });
+    policyWords.forEach(function (word, index) {
+      word.classList.toggle("is-current", index === current);
     });
   }
 
@@ -177,16 +174,8 @@
     if (!expert) {
       return;
     }
-    if (compact.matches) {
-      expertLines.forEach(function (line) {
-        line.style.setProperty("--shown", visibility(line, 0.9, 0.58).toFixed(3));
-      });
-      return;
-    }
-    const progress = getScrollProgress(expert.querySelector(".expert__scroll") || expert);
-    expertLines.forEach(function (line, index) {
-      const start = 0.04 + index * 0.3;
-      line.style.setProperty("--shown", segment(progress, start, start + 0.18).toFixed(3));
+    expertLines.forEach(function (line) {
+      line.style.setProperty("--shown", visibility(line, 0.9, 0.55).toFixed(3));
     });
   }
 
@@ -205,6 +194,86 @@
     if (num) {
       num.style.setProperty("--dim", shown.toFixed(3));
     }
+  }
+
+  function flowArt() {
+    const arts = flow.querySelectorAll(".flow__art");
+    for (let i = 0; i < arts.length; i += 1) {
+      if (getComputedStyle(arts[i]).display !== "none") {
+        return arts[i];
+      }
+    }
+    return null;
+  }
+
+  /*
+    Where each phrase sits along the visible curve, so the
+    words can arrive as the line reaches them.
+  */
+  function measureFlow(path, stage) {
+    const len = path.getTotalLength();
+    const stageRect = stage.getBoundingClientRect();
+    const box = path.ownerSVGElement.viewBox.baseVal;
+    if (!len || stageRect.width < 1) {
+      return;
+    }
+    flowStops.forEach(function (stop) {
+      const rect = stop.getBoundingClientRect();
+      const cx = ((rect.left + rect.width / 2 - stageRect.left) / stageRect.width) * box.width;
+      const cy = ((rect.top + rect.height / 2 - stageRect.top) / stageRect.height) * box.height;
+      let best = 0;
+      let bestDistance = Infinity;
+      const steps = 90;
+      for (let i = 0; i <= steps; i += 1) {
+        const point = path.getPointAtLength((len * i) / steps);
+        const distance = (point.x - cx) * (point.x - cx) + (point.y - cy) * (point.y - cy);
+        if (distance < bestDistance) {
+          bestDistance = distance;
+          best = i / steps;
+        }
+      }
+      stop._at = best;
+    });
+  }
+
+  function updateFlow() {
+    if (!flow) {
+      return;
+    }
+    const art = flowArt();
+    const path = art ? art.querySelector(".flow__stroke") : null;
+    const stage = flow.querySelector(".flow__stage");
+    if (!path || !stage) {
+      return;
+    }
+    const width = Math.round(stage.getBoundingClientRect().width);
+    const key = (art.classList.contains("flow__art--palm") ? "palm" : "desk") + ":" + width;
+    if (key !== flowMeasureKey) {
+      measureFlow(path, stage);
+      flowMeasureKey = key;
+    }
+    /*
+      Same idea as the timeline. A reading line sits partway
+      down the screen. The curve draws as the graphic scrolls
+      past it, and each phrase fades in when the line arrives.
+    */
+    const stageRect = stage.getBoundingClientRect();
+    const viewH = window.innerHeight || 1;
+    const passed = (viewH * 0.68 - stageRect.top) / Math.max(stageRect.height, 1);
+    const draw = Math.min(1, Math.max(0, passed));
+    flow.style.setProperty("--draw", draw.toFixed(3));
+    let current = -1;
+    flowStops.forEach(function (stop, index) {
+      const at = typeof stop._at === "number" ? stop._at : index / flowStops.length;
+      const shown = Math.min(1, Math.max(0, (draw - (at - 0.03)) / 0.1));
+      stop.style.setProperty("--shown", shown.toFixed(3));
+      if (shown > 0.08 && shown < 0.98) {
+        current = index;
+      }
+    });
+    flowStops.forEach(function (stop, index) {
+      stop.classList.toggle("is-current", index === current && draw < 0.98);
+    });
   }
 
   function updateFades() {
@@ -255,6 +324,7 @@
     updateTimeline();
     updateExpert();
     updateEnding();
+    updateFlow();
     updateFades();
     updateParallax();
   }

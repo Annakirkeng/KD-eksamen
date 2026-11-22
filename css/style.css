@@ -58,6 +58,14 @@
 
 @font-face {
   font-family: "Source Sans 3";
+  src: url("../fonts/source-sans-3-700.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Source Sans 3";
   src: url("../fonts/source-sans-3-400-italic.woff2") format("woff2");
   font-weight: 400;
   font-style: italic;
@@ -442,31 +450,85 @@ h3 {
 -------------------------------------------- */
 
 .cover {
-  padding: clamp(3.2rem, 8vw, 6.5rem) 0 clamp(2.2rem, 5vw, 3.5rem);
+  padding: clamp(2.4rem, 5vh, 4rem) 0 clamp(2rem, 4vh, 3rem);
+}
+
+.cover__intro {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+    "mark title"
+    "mark copy";
+  align-items: center;
+  justify-content: start;
+  column-gap: clamp(1.25rem, 3vw, 2.75rem);
+  row-gap: 0.9rem;
 }
 
 .cover h1 {
-  max-width: 9em;
-  margin-top: 0.85rem;
-  font-size: clamp(3.1rem, 7.6vw, 6.5rem);
-  line-height: 0.9;
+  grid-area: title;
+  max-width: 11em;
+  margin-top: 0;
+  font-size: clamp(2.55rem, 8vw, 3.4rem);
+  line-height: 0.98;
 }
 
-.cover__grid {
-  display: grid;
-  gap: 2rem;
-  align-items: end;
+@media (min-width: 1040px) {
+  .cover h1 {
+    max-width: none;
+    font-size: clamp(1.85rem, 2.15vw, 2.85rem);
+    line-height: 1.05;
+    white-space: nowrap;
+  }
 }
 
-.cover__aside {
-  display: grid;
-  gap: 0.4rem;
-  margin: 0;
-  padding: 0.85rem 0 0;
-  border-top: 1px solid var(--line-soft);
-  list-style: none;
-  color: var(--muted);
-  font-size: 1rem;
+.cover__lead {
+  grid-area: copy;
+  margin-top: 0;
+  max-width: 34rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--accent);
+  color: var(--ink-soft);
+  font-size: 1.125rem;
+  line-height: 1.55;
+}
+
+/* Same crop and turn as the header mark, at a larger size. */
+.cover__mark {
+  --mark: clamp(3.35rem, 4.4vw, 4.85rem);
+  grid-area: mark;
+  position: relative;
+  width: calc(var(--mark) * 655 / 445);
+  height: var(--mark);
+  justify-self: start;
+  overflow: hidden;
+}
+
+.cover__mark img {
+  position: absolute;
+  width: calc(var(--mark) * 728 / 445);
+  height: calc(var(--mark) * 902 / 445);
+  max-width: none;
+  left: calc(var(--mark) * -46 / 445);
+  top: calc(var(--mark) * -209 / 445);
+  transform: rotate(90deg);
+  transform-origin: center center;
+}
+
+@media (max-width: 880px) {
+  .cover__intro {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "mark"
+      "title"
+      "copy";
+    justify-items: start;
+  }
+
+  .cover__mark {
+    --mark: 3.35rem;
+    justify-self: center;
+  }
 }
 
 .featured {
@@ -516,7 +578,7 @@ h3 {
 
 .index-list h2 {
   padding-top: clamp(2rem, 5vw, 3rem);
-  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-size: clamp(1.75rem, 3.4vw, 2.45rem);
 }
 
 .index-list ol {
@@ -527,11 +589,11 @@ h3 {
 
 .story-row {
   display: grid;
-  grid-template-columns: 4.5rem minmax(0, 1fr) minmax(14rem, 22rem);
+  grid-template-columns: 3rem minmax(0, 1fr) minmax(14rem, 22rem);
   grid-template-areas: "num text image";
-  gap: 1.25rem 2rem;
+  gap: 1.15rem 1.15rem;
   align-items: center;
-  padding: 1.6rem 0;
+  padding: 1.75rem 0;
   border-top: 1px solid var(--line-soft);
   color: inherit;
   text-decoration: none;
@@ -543,10 +605,13 @@ h3 {
 
 .story-row__num {
   grid-area: num;
+  padding-top: 0.28rem;
+  color: var(--muted);
   font-family: var(--serif);
   font-style: italic;
-  font-size: 1.8rem;
+  font-size: 1.15rem;
   letter-spacing: -0.03em;
+  line-height: 1;
 }
 
 .story-row__text {
@@ -554,14 +619,26 @@ h3 {
 }
 
 .story-row h3 {
-  font-size: clamp(1.55rem, 2.4vw, 2.15rem);
+  color: var(--ink);
+  font-size: clamp(1.75rem, 2.6vw, 2.35rem);
+}
+
+.nobr {
+  white-space: nowrap;
 }
 
 .story-row p {
-  margin-top: 0.55rem;
+  margin-top: 0.7rem;
   max-width: 40em;
-  color: var(--muted);
+  color: var(--ink-soft);
   font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.story-row .text-link {
+  margin-top: 0.8rem;
+  color: var(--muted);
+  letter-spacing: 0.12em;
 }
 
 .story-row .frame {
@@ -619,12 +696,70 @@ h3 {
   aspect-ratio: 3 / 2;
 }
 
+.story-row .frame--varighet > img {
+  object-position: center 97%;
+}
+
+.story-row .frame--gta {
+  background-color: #100816;
+  background-image: none;
+  container-type: inline-size;
+}
+
+.frame-gta {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  background:
+    radial-gradient(ellipse 72% 58% at 50% 46%, rgba(255, 61, 138, 0.46), transparent 66%),
+    radial-gradient(ellipse 46% 42% at 76% 64%, rgba(255, 122, 60, 0.3), transparent 64%),
+    #100816;
+}
+
+.story-row .frame-gta__label {
+  margin: 0;
+  color: #ffd2b4;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.story-row .frame-gta__price {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 0.12em;
+  margin: 0;
+  color: #fff6ee;
+  font-family: var(--serif);
+  font-size: 22cqw;
+  font-weight: 500;
+  letter-spacing: -0.06em;
+  line-height: 0.85;
+}
+
+.story-row .frame-gta__price span:last-child {
+  color: #ffc56b;
+  font-size: 0.34em;
+  letter-spacing: 0.16em;
+}
+
 .story-row .frame > img,
+.story-row .frame-gta,
 .featured__link .frame > img {
   transition: transform 0.8s var(--ease);
 }
 
 .story-row:hover .frame > img,
+.story-row:hover .frame-gta,
 .featured__link:hover .frame > img {
   transform: scale(1.035);
 }
@@ -720,45 +855,53 @@ figcaption {
 
 .site-footer {
   margin-top: clamp(3.5rem, 9vw, 6.5rem);
-  padding: clamp(2.2rem, 5vw, 3.5rem) 0;
-  border-top: 1px solid var(--line);
+  padding: clamp(2.6rem, 6vw, 4rem) 0 clamp(3rem, 7vw, 4.75rem);
+  background: #ffffff;
+  color: var(--ink);
+  border-top: 0;
 }
 
 .site-footer__inner {
-  display: grid;
-  gap: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(2rem, 4vw, 3.15rem);
 }
 
 .site-footer .logo {
-  align-items: center;
+  align-items: flex-start;
 }
 
 .site-footer .logo__img {
-  height: clamp(3.8rem, 7vw, 4.6rem);
+  height: clamp(4.15rem, 7vw, 5.75rem);
   width: auto;
-}
-
-.site-footer__note {
-  max-width: 28em;
-  margin-top: 0.75rem;
-  color: var(--muted);
 }
 
 .site-footer ul {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.55rem 1.2rem;
+  align-items: center;
+  justify-content: flex-start;
+  gap: clamp(1.1rem, 2.6vw, 2.5rem);
+  margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .site-footer a {
+  color: var(--ink);
   text-decoration: none;
 }
 
-.site-footer a:hover {
+.site-footer nav a {
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+.site-footer nav a:hover {
   text-decoration: underline;
-  text-underline-offset: 0.25em;
+  text-underline-offset: 0.28em;
+  text-decoration-thickness: 1px;
 }
 
 /* --------------------------------------------
@@ -766,17 +909,6 @@ figcaption {
 -------------------------------------------- */
 
 @media (min-width: 900px) {
-  .cover__grid {
-    grid-template-columns: minmax(0, 1fr) 16rem;
-    gap: 3rem;
-  }
-
-  .cover__aside {
-    padding: 0 0 0.35rem 1.5rem;
-    border-top: 0;
-    border-left: 1px solid var(--line-soft);
-  }
-
   .featured__link {
     grid-template-columns: 1.3fr 0.9fr;
   }
@@ -879,6 +1011,27 @@ figcaption {
       "image image"
       "num text";
     align-items: start;
+    gap: 0.95rem 0.75rem;
+    padding: 1.5rem 0;
+  }
+
+  .story-row__num {
+    padding-top: 0.18rem;
+    font-size: 1rem;
+  }
+
+  .story-row h3 {
+    font-size: 1.5rem;
+  }
+
+  .story-row p {
+    margin-top: 0.55rem;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .story-row .text-link {
+    margin-top: 0.7rem;
   }
 
   .frame--feature {
@@ -896,12 +1049,66 @@ figcaption {
   }
 
   .story-row .frame > img,
+  .story-row .frame-gta,
   .featured__link .frame > img {
     transition: none;
   }
 
   .story-row:hover .frame > img,
+  .story-row:hover .frame-gta,
   .featured__link:hover .frame > img {
     transform: none;
   }
+}
+
+/* --------------------------------------------
+   Failed images
+   The frame keeps its size. A short note sits inside
+   it, so a missing file does not leave a blank gap
+   or push the text around it.
+-------------------------------------------- */
+
+img.is-broken {
+  opacity: 0;
+}
+
+.img-fallback-host,
+.logo.has-img-fallback {
+  position: relative;
+}
+
+.img-fallback-host {
+  width: 100%;
+}
+
+.img-fallback {
+  position: absolute;
+  z-index: 4;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  margin: 0;
+  padding: 0.4rem 0.65rem;
+  border-radius: 2px;
+  background: rgba(255, 252, 248, 0.92);
+  color: #3d342c;
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.35;
+  text-align: center;
+  text-transform: none;
+  pointer-events: none;
+}
+
+.img-fallback--logo {
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.2rem;
+  background: transparent;
+  font-size: 0.68rem;
+  font-weight: 600;
 }

@@ -28,8 +28,7 @@
   8. Ending
 
   Quotes are copied exactly from the article. Do not smooth them.
-  Image frames are placeholders. Do not add an image address
-  until the real file is in the images/ folder.
+  Photos are in the images/ folder. The lead image is Ulrich.webp.
 
   Scroll scenes read position only. They do not take over the wheel.
 -->
@@ -39,7 +38,7 @@
   <header class="site-header is-on-dark">
     <div class="site-header__brand">
       <a class="logo logo--full" href="index.html" aria-label="Sixth Sense">
-        <img class="logo__img" src="images/sixthsense-black.png" alt="">
+        <img class="logo__img" src="images/sixthsense-black.png" width="1488" height="901" alt="">
       </a>
     </div>
     <div class="site-header__main">
@@ -50,11 +49,11 @@
       </a>
       <nav class="site-nav" id="site-nav" aria-label="Primary">
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="article1.html" aria-current="page">Article 1</a></li>
-          <li><a href="article2.html">Article 2</a></li>
-          <li><a href="article3.html">Article 3</a></li>
-          <li><a href="xl-story.html">XL Story</a></li>
+          <li><a href="index.html">Forside</a></li>
+          <li><a href="article1.html" aria-current="page">Samfunn</a></li>
+          <li><a href="article2.html">Mote</a></li>
+          <li><a href="article3.html">Underholdning</a></li>
+          <li><a href="xl-story.html">Reportasje</a></li>
         </ul>
       </nav>
     </div>
@@ -66,7 +65,11 @@
 
   <main id="main" tabindex="-1">
     <article>
-      <h1 class="visually-hidden">Hvorfor? AfD ble største parti i Sachsen-Anhalt med 43,8 prosent, uten absolutt flertall</h1>
+      <header class="story-open" data-header="light">
+        <p class="story-open__kicker">Politikk · Tyskland</p>
+        <h1 class="story-open__title">Et høyreekstremt parti vant valget i Sachsen-Anhalt</h1>
+        <p class="story-open__deck">Hvordan kunne AfD bli den største politiske kraften i Sachsen-Anhalt?</p>
+      </header>
 
       <!-- SECTION 1 — HOOK -->
       <section class="hook" data-scene="hook" data-header="dark" aria-labelledby="hook-title">
@@ -81,10 +84,9 @@
 
       <!-- SECTION 2 — WHAT HAPPENED -->
       <section class="chapter chapter--vote" data-header="light" aria-labelledby="vote-title">
-        <figure class="ph ph--wide">
-          <div class="ph__frame" role="img" aria-label="Placeholder: Sachsen-Anhalt / election">
-            <span class="ph__label">[IMAGE: Sachsen-Anhalt / election]</span>
-          </div>
+        <figure class="vote__photo">
+          <img src="images/Ulrich.webp" alt="Ulrich Siegmund, AfDs toppkandidat i Sachsen-Anhalt, taler fra en talerstol med tyske flagg i bakgrunnen." width="2000" height="1124">
+          <figcaption>Ulrich Siegmund, AfDs toppkandidat i Sachsen-Anhalt. Foto: Jens Schlüter / AFP / Getty Images. Kilde: <a class="source" href="https://www.zeit.de/politik/deutschland/2026-08/ulrich-siegmund-afd-landtagswahl-sachsen-anhalt">DIE ZEIT</a>.</figcaption>
         </figure>
 
         <div class="chapter__intro">
@@ -167,8 +169,7 @@
                 </li>
               </ol>
               <figcaption class="chart__note">
-                <p>Kilde: <a class="source" href="https://www.statista.com/statistics/1478805/most-relevant-political-issues-germany/">Statista</a> / ARD-DeutschlandTREND, november 2025.</p>
-                <p>1&nbsp;300 respondenter. To svar var mulig. Skalaen går fra 0 til 100 prosent.</p>
+                <p>Kilde: <a class="source" href="https://www.statista.com/statistics/1478805/most-relevant-political-issues-germany/">Statista</a> / ARD-DeutschlandTREND, november 2025. Undersøkelsen er basert på 1&nbsp;300 respondenter. Hver respondent kunne velge opptil to svaralternativer.</p>
               </figcaption>
             </figure>
           </div>
@@ -185,7 +186,7 @@
       <section class="chapter chapter--people" data-header="light" aria-labelledby="people-title">
         <div class="chapter__intro">
           <p class="kicker">To stemmer</p>
-          <h2 id="people-title">Andree og Lennard</h2>
+          <h2 id="people-title">De er ikke særlig politisk interessert</h2>
           <div class="prose">
             <p data-fade>Vi har snakket med to tyske utvekslingsstudenter for å høre hva de tenker om valget, AfD og hvordan dette har påvirket dem. De sier selv at de ikke er særlig politisk interessert hvilket gjorde svarene deres veldig interessante.</p>
           </div>
@@ -193,9 +194,7 @@
 
         <div class="person">
           <figure class="person__photo" data-parallax>
-            <div class="ph ph--portrait" role="img" aria-label="Placeholder: Andree portrait">
-              <span class="ph__label">[IMAGE: Andree portrait]</span>
-            </div>
+            <img src="images/Andree.jpg" alt="Portrett av Andree, tysk utvekslingsstudent, i lue, briller og mørk hettegenser." width="480" height="640">
           </figure>
           <div class="person__copy">
             <p class="person__name" data-fade>Andree</p>
@@ -212,9 +211,7 @@
 
         <div class="person">
           <figure class="person__photo" data-parallax>
-            <div class="ph ph--portrait" role="img" aria-label="Placeholder: Lennard portrait">
-              <span class="ph__label">[IMAGE: Lennard portrait]</span>
-            </div>
+            <img src="images/Lennard.jpg" alt="Nærportrett av Lennard, tysk utvekslingsstudent." width="480" height="626">
           </figure>
           <div class="person__copy">
             <p class="person__name" data-fade>Lennard</p>
@@ -305,9 +302,7 @@
         <div class="expert__scroll">
           <div class="expert__pin">
             <figure class="expert__photo" data-parallax>
-              <div class="ph ph--portrait" role="img" aria-label="Placeholder: Sondre Lindahl portrait">
-                <span class="ph__label">[IMAGE: Sondre Lindahl portrait]</span>
-              </div>
+              <img src="images/Sondre.jpg" alt="Portrett av Sondre Lindahl, lærer i internasjonal politikk ved Høgskolen i Østfold, i rutet skjorte og briller." width="960" height="642">
             </figure>
             <div class="expert__quote-wrap">
               <p class="kicker">Analysen</p>
@@ -356,14 +351,26 @@
           <div class="prose prose--on-dark">
             <p data-fade>Oppslutningen kan ikke nødvendigvis forklares med én sak alene.</p>
           </div>
-          <ul class="ending__themes">
-            <li data-fade>Innvandring</li>
-            <li data-fade>Økonomi</li>
-            <li data-fade>Misnøye med de etablerte partiene</li>
-            <li data-fade>Regional historie</li>
-            <li data-fade>Politisk representasjon</li>
-            <li data-fade>AfDs politiske budskap</li>
-          </ul>
+          <figure class="flow">
+            <h2 class="flow__title">Hva kan forklare støtten til AfD?</h2>
+            <div class="flow__stage">
+              <svg class="flow__art flow__art--desk" viewBox="0 0 1000 680" aria-hidden="true">
+                <path class="flow__stroke" pathLength="1" d="M48 118 C58 72 110 56 200 62 C320 72 410 92 500 118 C680 158 880 190 740 255 C660 315 400 335 230 375 C100 415 320 445 640 485 C770 530 560 575 420 612 C270 632 150 628 48 620" />
+              </svg>
+              <svg class="flow__art flow__art--palm" viewBox="0 0 400 920" aria-hidden="true">
+                <path class="flow__stroke" pathLength="1" d="M28 130 C36 80 70 62 130 70 C210 82 270 120 270 190 C270 270 260 310 240 360 C210 440 70 470 120 520 C170 590 250 620 250 690 C250 770 210 800 180 840 C140 885 70 890 36 860" />
+              </svg>
+              <ol class="flow__stops">
+                <li class="flow__stop flow__stop--inn"><span class="flow__name">Innvandring</span></li>
+                <li class="flow__stop flow__stop--okonomi"><span class="flow__name">Økonomi</span></li>
+                <li class="flow__stop flow__stop--budskap"><span class="flow__name">AfDs politiske budskap</span></li>
+                <li class="flow__stop flow__stop--historie"><span class="flow__name">Regional historie</span></li>
+                <li class="flow__stop flow__stop--representasjon"><span class="flow__name">Politisk representasjon</span></li>
+                <li class="flow__stop flow__stop--misnoye"><span class="flow__name">Misnøye med de etablerte partiene</span></li>
+              </ol>
+            </div>
+            <figcaption class="flow__note">Ikke ett forhold alene, men flere som virker sammen.</figcaption>
+          </figure>
           <div class="ending__next">
             <h2 id="ending-ask" class="ending__ask">Hva skjer videre?</h2>
             <div class="prose prose--on-dark">
@@ -378,19 +385,16 @@
 
   <footer class="site-footer">
     <div class="site-footer__inner">
-      <div>
-        <a class="logo" href="index.html">
-          <img class="logo__img" src="images/sixthsense-black.png" alt="Sixth Sense">
-        </a>
-        <p class="site-footer__note">Placeholder colophon. Replace this with your name, the course, and the year.</p>
-      </div>
+      <a class="logo" href="index.html">
+        <img class="logo__img" src="images/sixthsense-black.png" width="1488" height="901" alt="Sixth Sense">
+      </a>
       <nav aria-label="Footer">
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="article1.html">Article 1</a></li>
-          <li><a href="article2.html">Article 2</a></li>
-          <li><a href="article3.html">Article 3</a></li>
-          <li><a href="xl-story.html">XL Story</a></li>
+          <li><a href="index.html">Forside</a></li>
+          <li><a href="article1.html">Samfunn</a></li>
+          <li><a href="article2.html">Mote</a></li>
+          <li><a href="article3.html">Underholdning</a></li>
+          <li><a href="xl-story.html">Reportasje</a></li>
         </ul>
       </nav>
     </div>

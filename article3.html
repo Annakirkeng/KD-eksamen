@@ -1,27 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nb">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>GVI — Article 3</title>
-  <meta name="description" content="Placeholder short article. Replace the headline and body before submission.">
-  <meta name="theme-color" content="#ffffff">
+  <title>GVI — GTA 6: Hvor dyrt kan et spill bli?</title>
+  <meta name="description" content="GTA VI koster 949 kroner på PlayStation Store. Gamer og streamer Fredrik Siegel mener prisen er verdt det, men han kommer ikke til å streame spillet.">
+  <meta name="theme-color" content="#1a1033">
   <link rel="icon" href="images/logo-mark.png">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/article3.css">
+  <!--
+    Adds "js" before the page paints, so the price
+    and the scroll fades can start from the first frame.
+  -->
+  <script>document.documentElement.classList.add("js");</script>
 </head>
 <!--
-  ARTICLE TEMPLATE
-  Same structure as article1.html. Replace the words, keep the layout.
-  Lead image: images/article-3.jpg
-  Inline image: images/article-3-inline.jpg
+  ARTICLE 3 — GTA 6 og prisen
+  Words: this file. Look: css/article3.css
+  Scroll fade, parallax, and the price reveal: js/article3.js
 -->
-<body>
+<body class="page-gta">
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">
     <div class="site-header__brand">
       <a class="logo logo--full" href="index.html" aria-label="Sixth Sense">
-        <img class="logo__img" src="images/sixthsense-black.png" alt="">
+        <img class="logo__img" src="images/sixthsense-black.png" width="1488" height="901" alt="">
       </a>
     </div>
     <div class="site-header__main">
@@ -32,11 +37,11 @@
       </a>
       <nav class="site-nav" id="site-nav" aria-label="Primary">
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="article1.html">Article 1</a></li>
-          <li><a href="article2.html">Article 2</a></li>
-          <li><a href="article3.html" aria-current="page">Article 3</a></li>
-          <li><a href="xl-story.html">XL Story</a></li>
+          <li><a href="index.html">Forside</a></li>
+          <li><a href="article1.html">Samfunn</a></li>
+          <li><a href="article2.html">Mote</a></li>
+          <li><a href="article3.html" aria-current="page">Underholdning</a></li>
+          <li><a href="xl-story.html">Reportasje</a></li>
         </ul>
       </nav>
     </div>
@@ -47,74 +52,312 @@
   </header>
 
   <main id="main" tabindex="-1">
-    <article class="article">
-      <header class="article__header">
-        <p class="kicker">Placeholder · Article 3</p>
-        <h1>The year the timetable moved</h1>
-        <p class="deck">A draft about a change small enough for a short article. Something used to work one way. Now it works another. The subject is still open.</p>
-        <p class="editor-note">Placeholder copy. Replace the headline, standfirst, captions, and body before you submit.</p>
-        <p class="byline">
-          <span>By Placeholder Author</span>
-          <time>Date placeholder</time>
-        </p>
+    <article>
+      <!-- 1. HERO -->
+      <header class="gta-hero">
+        <div class="gta-hero__photo"></div>
+
+        <div class="gta-hero__frieze">
+          <p>En sak om prisen</p>
+        </div>
+
+        <div class="gta-hero__content">
+          <p class="kicker gta-rise">Artikkel · Spill</p>
+          <h1 class="gta-rise">GTA 6: Hvor dyrt kan et spill bli?</h1>
+          <p class="deck gta-rise">I Norge koster spillet 949 kroner på PlayStation Store.</p>
+        </div>
+
+        <a class="gta-scroll" href="#innledning">
+          <span>Les videre</span>
+          <svg class="gta-scroll__chevron" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
+            <path d="M5 9l7 7 7-7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
       </header>
 
-      <figure class="figure article__hero">
-        <div class="frame frame--wide">
-          <img src="images/article-3.jpg" alt="Placeholder: the lead photograph for article 3">
+      <!-- 2. INTRODUCTION -->
+      <section class="gta-intro" id="innledning" aria-labelledby="intro-title">
+        <div class="wrap gta-intro__grid">
+          <div data-reveal>
+            <p class="kicker">Ventetiden</p>
+            <h2 id="intro-title">Har ventet lenge</h2>
+          </div>
+          <div class="gta-prose" data-reveal data-delay="1">
+            <p class="gta-lede">Det er hele 13 år siden forrige GTA ble lansert. Siden den gang har fansen ventet på en oppfølger. Mange spillere har aldri sluttet å spille det.</p>
+            <h3>Utsatt, utsatt og utsatt igjen</h3>
+            <p>Opprinnelig skulle spillet komme høsten 2025. Før dette ble datoen endret til 26. mai 2026. Deretter ble den endret igjen til nåværende dato, 19. november 2026. Både Rockstar og Take-Two-sjef Strauss Zelnick har beklaget sterkt overfor spillere og investorer. Selv om frykten for enda en utsettelse eksisterer, har det ennå ikke kommet en ny melding, og Rockstar står fast ved datoen.</p>
+          </div>
         </div>
-        <figcaption>Placeholder caption. Show the present, so the reader knows where they are standing.</figcaption>
+      </section>
+
+      <!-- 3. PRICE -->
+      <section class="gta-price" id="prisen" data-price aria-labelledby="price-title">
+        <!--
+          Geometric color field only. It is not the GTA logo.
+          Leave it out if a later image needs the whole frame.
+        -->
+        <div class="gta-mark" data-parallax="0.12" aria-hidden="true"></div>
+
+        <div class="gta-price__stage">
+          <p class="kicker">Prisen</p>
+          <h2 id="price-title" class="gta-price__amount">
+            <span class="gta-price__value">949</span>
+            <span class="gta-price__unit">KR</span>
+          </h2>
+          <p class="gta-price__hint">PlayStation Store i Norge.</p>
+        </div>
+
+        <div class="wrap gta-price__copy">
+          <div data-reveal>
+            <h3>Ti dollar over vanlig pris</h3>
+            <div class="gta-prose">
+              <p>Prisen har vært noe av det mest kontroversielle med spillet, og mange spillere har vært misfornøyde. Spillet forhåndsselges allerede. Standardutgaven koster 79,99 dollar, 10 dollar mer enn vanlig konsollpris. Ultimate Edition koster 99,99 dollar.</p>
+              <p>Hos tek-kjeder kan grunnspillet finnes noe billigere enn på PlayStation Store.</p>
+            </div>
+          </div>
+
+          <ul class="gta-compare">
+            <li data-reveal>
+              <p class="gta-compare__label">Standardutgave</p>
+              <p class="gta-compare__value">949 kr</p>
+              <p>PlayStation Store i Norge.</p>
+            </li>
+            <li data-reveal data-delay="1">
+              <p class="gta-compare__label">Ultimate Edition</p>
+              <p class="gta-compare__value">1.189 kr</p>
+              <p>I Norge.</p>
+            </li>
+            <li data-reveal data-delay="2">
+              <p class="gta-compare__label">Standardutgave</p>
+              <p class="gta-compare__value">79,99 dollar</p>
+              <p>Amerikansk lanseringspris.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 4. PRICE DISCUSSION -->
+      <section class="gta-chapter" aria-labelledby="debate-title">
+        <div class="wrap gta-chapter__grid">
+          <div data-reveal>
+            <p class="kicker">Utgivelsen</p>
+            <h2 id="debate-title">Kun konsoll og ingen disk</h2>
+          </div>
+          <div class="gta-prose" data-reveal data-delay="1">
+            <p>GTA VI kommer i første omgang kun til PS5 og Xbox Series X/S. PC er ekskludert foreløpig, og spillet blir ikke solgt på disk ennå. Fysiske kjøp i butikk kommer med nedlastingskode. Mange er ikke fornøyde, fordi de ønsker seg en fysisk kopi. Årsaken er trolig at Rockstar vil hindre lekkasje, og at alle skal kunne starte samtidig.</p>
+            <h3>Kun enkeltspiller</h3>
+            <p>Rockstar har foreløpig kun annonsert enkeltspiller ved lansering. Mange gleder seg i hovedsak til flerspiller, men det har ikke kommet noe ord om det ennå.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. LAUNCH-PRICE TIMELINE -->
+      <figure class="gta-bleed gta-timeline-wrap">
+        <div class="gta-timeline" data-timeline>
+          <h2 id="gta-timeline-title" class="gta-timeline__title">Fra GTA III til GTA VI: Hva kostet spillene?</h2>
+          <ol class="gta-timeline__track" aria-labelledby="gta-timeline-title">
+            <li class="gta-timeline__stop">
+              <button type="button" class="gta-timeline__card" aria-expanded="false">
+                <span class="gta-timeline__year">2001</span>
+                <span class="gta-timeline__name">
+                  <svg class="gta-timeline__tag" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">
+                    <path fill="currentColor" d="M3.1 12.4 11.4 4.1A2 2 0 0 1 12.8 3.5H19a1.7 1.7 0 0 1 1.7 1.7v6.2a2 2 0 0 1-.6 1.4l-8.3 8.3a1.8 1.8 0 0 1-2.5 0l-6.2-6.2a1.8 1.8 0 0 1 0-2.5Zm12.4-4.8a1.35 1.35 0 1 0 0-2.7 1.35 1.35 0 0 0 0 2.7Z"/>
+                  </svg>
+                  GTA III
+                </span>
+                <span class="gta-timeline__more" aria-hidden="true"></span>
+                <span class="gta-timeline__reveal"><span class="gta-timeline__price">$49.99</span></span>
+              </button>
+              <span class="gta-timeline__node" aria-hidden="true"></span>
+            </li>
+            <li class="gta-timeline__stop">
+              <button type="button" class="gta-timeline__card" aria-expanded="false">
+                <span class="gta-timeline__year">2002</span>
+                <span class="gta-timeline__name">
+                  <svg class="gta-timeline__tag" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">
+                    <path fill="currentColor" d="M3.1 12.4 11.4 4.1A2 2 0 0 1 12.8 3.5H19a1.7 1.7 0 0 1 1.7 1.7v6.2a2 2 0 0 1-.6 1.4l-8.3 8.3a1.8 1.8 0 0 1-2.5 0l-6.2-6.2a1.8 1.8 0 0 1 0-2.5Zm12.4-4.8a1.35 1.35 0 1 0 0-2.7 1.35 1.35 0 0 0 0 2.7Z"/>
+                  </svg>
+                  GTA: Vice City
+                </span>
+                <span class="gta-timeline__more" aria-hidden="true"></span>
+                <span class="gta-timeline__reveal"><span class="gta-timeline__price">$49.99</span></span>
+              </button>
+              <span class="gta-timeline__node" aria-hidden="true"></span>
+            </li>
+            <li class="gta-timeline__stop">
+              <button type="button" class="gta-timeline__card" aria-expanded="false">
+                <span class="gta-timeline__year">2004</span>
+                <span class="gta-timeline__name">
+                  <svg class="gta-timeline__tag" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">
+                    <path fill="currentColor" d="M3.1 12.4 11.4 4.1A2 2 0 0 1 12.8 3.5H19a1.7 1.7 0 0 1 1.7 1.7v6.2a2 2 0 0 1-.6 1.4l-8.3 8.3a1.8 1.8 0 0 1-2.5 0l-6.2-6.2a1.8 1.8 0 0 1 0-2.5Zm12.4-4.8a1.35 1.35 0 1 0 0-2.7 1.35 1.35 0 0 0 0 2.7Z"/>
+                  </svg>
+                  GTA: San Andreas
+                </span>
+                <span class="gta-timeline__more" aria-hidden="true"></span>
+                <span class="gta-timeline__reveal"><span class="gta-timeline__price">$49.99</span></span>
+              </button>
+              <span class="gta-timeline__node" aria-hidden="true"></span>
+            </li>
+            <li class="gta-timeline__stop">
+              <button type="button" class="gta-timeline__card" aria-expanded="false">
+                <span class="gta-timeline__year">2008</span>
+                <span class="gta-timeline__name">
+                  <svg class="gta-timeline__tag" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">
+                    <path fill="currentColor" d="M3.1 12.4 11.4 4.1A2 2 0 0 1 12.8 3.5H19a1.7 1.7 0 0 1 1.7 1.7v6.2a2 2 0 0 1-.6 1.4l-8.3 8.3a1.8 1.8 0 0 1-2.5 0l-6.2-6.2a1.8 1.8 0 0 1 0-2.5Zm12.4-4.8a1.35 1.35 0 1 0 0-2.7 1.35 1.35 0 0 0 0 2.7Z"/>
+                  </svg>
+                  GTA IV
+                </span>
+                <span class="gta-timeline__more" aria-hidden="true"></span>
+                <span class="gta-timeline__reveal"><span class="gta-timeline__price">$59.99</span></span>
+              </button>
+              <span class="gta-timeline__node" aria-hidden="true"></span>
+            </li>
+            <li class="gta-timeline__stop">
+              <button type="button" class="gta-timeline__card" aria-expanded="false">
+                <span class="gta-timeline__year">2013</span>
+                <span class="gta-timeline__name">
+                  <svg class="gta-timeline__tag" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">
+                    <path fill="currentColor" d="M3.1 12.4 11.4 4.1A2 2 0 0 1 12.8 3.5H19a1.7 1.7 0 0 1 1.7 1.7v6.2a2 2 0 0 1-.6 1.4l-8.3 8.3a1.8 1.8 0 0 1-2.5 0l-6.2-6.2a1.8 1.8 0 0 1 0-2.5Zm12.4-4.8a1.35 1.35 0 1 0 0-2.7 1.35 1.35 0 0 0 0 2.7Z"/>
+                  </svg>
+                  GTA V
+                </span>
+                <span class="gta-timeline__more" aria-hidden="true"></span>
+                <span class="gta-timeline__reveal"><span class="gta-timeline__price">$59.99</span></span>
+              </button>
+              <span class="gta-timeline__node" aria-hidden="true"></span>
+            </li>
+            <li class="gta-timeline__stop">
+              <button type="button" class="gta-timeline__card" aria-expanded="false">
+                <span class="gta-timeline__year">2026</span>
+                <span class="gta-timeline__name">
+                  <svg class="gta-timeline__tag" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">
+                    <path fill="currentColor" d="M3.1 12.4 11.4 4.1A2 2 0 0 1 12.8 3.5H19a1.7 1.7 0 0 1 1.7 1.7v6.2a2 2 0 0 1-.6 1.4l-8.3 8.3a1.8 1.8 0 0 1-2.5 0l-6.2-6.2a1.8 1.8 0 0 1 0-2.5Zm12.4-4.8a1.35 1.35 0 1 0 0-2.7 1.35 1.35 0 0 0 0 2.7Z"/>
+                  </svg>
+                  GTA VI
+                </span>
+                <span class="gta-timeline__more" aria-hidden="true"></span>
+                <span class="gta-timeline__reveal"><span class="gta-timeline__price">$79.99<span class="gta-timeline__edition">Standard Edition</span></span></span>
+              </button>
+              <span class="gta-timeline__node" aria-hidden="true"></span>
+            </li>
+          </ol>
+        </div>
+        <figcaption>Kilde: <a href="https://www.gameshub.com/news/features/what-if-you-bought-take-two-stock-instead-of-every-gta-game/">GamesHub</a> for tidligere spill, <a href="https://www.rockstargames.com/">Rockstar Games</a> for GTA VI. Prisene viser amerikanske lanseringspriser for standardutgavene, oppgitt i USD og ikke justert for inflasjon.</figcaption>
       </figure>
 
-      <div class="article__body">
-        <p>On the new timetable the morning bus arrives eight minutes earlier, which is not a history and not a crisis. It is the kind of change a short article can actually hold. This draft uses the bus so the template has a before and an after. Your story might be a building, a job, a rule, or a habit. The shape can stay even if the bus goes.</p>
-        <p>Open in the present if that picture is clearer, and let the past arrive once the reader knows the stop, the shelter, and who is usually there. A woman with a flask. A student who never looks up. The driver who used to wait and now does not. Placeholder faces, until you have real ones.</p>
-        <p>The piece should be felt in one ordinary morning, not explained across ten years. If the history needs more room than this column, it belongs in a longer story. Here, one altered habit is enough.</p>
-
-        <h2>How it used to run</h2>
-        <p>Use this stretch for the earlier arrangement, told through one example rather than a catalogue of differences. The old time. The shop that opened because of it. The person who built a walk around the later bus and now misses the connection, or no longer has to hurry. Keep the comparison inside a scene.</p>
-        <p>If you explain the whole background, the short article will swell. Readers can follow one street, one shift, one object. They do not need every reason the timetable changed, unless one of those reasons is the actual story. In that case, promote it and cut the rest.</p>
-
-        <blockquote class="pull">
-          <p>Eight minutes is nothing, until it is the difference between two lives of a morning.</p>
-        </blockquote>
-
-        <h2>Who has to change with it</h2>
-        <p>The photograph here should belong to the old arrangement or the new one, and the caption should say which. A general picture of a road will not do the work. A printed timetable in a window, a queue in the dark, an empty stop at the old time: choose the frame that makes the change visible.</p>
-
-        <figure class="figure">
-          <div class="frame frame--wide">
-            <img src="images/article-3-inline.jpg" alt="Placeholder: a second photograph inside article 3">
+      <!-- 6. TRAILERS -->
+      <section class="gta-split" aria-labelledby="split-title">
+        <div class="wrap gta-split__grid">
+          <div class="gta-stat" data-reveal>
+            <p class="kicker">Første døgn</p>
+            <p class="gta-stat__num">93 mill.</p>
+            <p class="gta-stat__text">Visninger på YouTube. Ny rekord for en ikke-musikkvideo.</p>
+            <p class="gta-stat__source">Første trailer, desember 2023</p>
           </div>
-          <figcaption>Placeholder caption. Say whether this is the earlier arrangement or the new one.</figcaption>
-        </figure>
+          <div data-reveal data-delay="1">
+            <p class="kicker">Trailerne</p>
+            <h2 id="split-title">Rekordtrailere</h2>
+            <div class="gta-prose">
+              <p>Den første traileren ble sluppet i desember 2023. Ifølge Rockstar selv fikk den neste nesten 500 millioner visninger på tvers av plattformer i løpet av 24 timer. Den originale traileren, som ble lekket før slipp, har i dag 299 millioner visninger på YouTube. Trailerne etterlater ingen tvil om omfanget spillet har.</p>
+              <h3>Vice City er tilbake</h3>
+              <p>Spillet kommer med forventninger om både nytt materiale og nostalgi. I det nye spillet er delstaten Leonida, en fiktiv tolkning av Florida. GTA er kjent for å gjengi virkelige steder tett på virkeligheten. I Leonida ligger storbyen Vice City, som spillere kjenner fra tidligere spill.</p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-        <p>Close on the human cost or the human gain, still inside that ordinary morning. Who has to do something differently, and what do they do with their hands while they wait? This ending is a placeholder for that scene. You can remove the heading if the scene does not need a label.</p>
-        <p>Headings are optional. A specific day is not. When the day is written, the draft sentences can leave, including this one. Stop when the reader can feel the eight minutes without being told what they mean.</p>
-      </div>
+      <!-- 7. INTERVIEW
+           Portrett: images/FredrikSiegel.jpg
+           Bildet ligger i samme bilderute som resten av saken. -->
+      <section class="gta-chapter" id="intervju" aria-labelledby="interview-title">
+        <div class="wrap gta-split__grid">
+          <figure data-reveal>
+            <div class="frame gta-frame gta-frame--story">
+              <img src="images/FredrikSiegel.jpg" alt="Portrett av Fredrik Siegel, gamer og streamer, med hodetelefoner og mikrofon.">
+              <p class="gta-shot__label">Portrett<span>Fredrik Siegel</span></p>
+            </div>
+            <figcaption>Fredrik Siegel, gamer og streamer.</figcaption>
+          </figure>
+          <div data-reveal data-delay="1">
+            <p class="kicker">Intervju</p>
+            <h2 id="interview-title">Fredrik Siegel</h2>
+            <div class="gta-prose">
+              <p class="gta-lede">Siegel er gamer og streamer. Vi spurte hva han forventer av GTA VI, om prisen er verdt det, og hvordan han tror lanseringsdagen blir.</p>
+              <p class="gta-said"><span class="gta-quote">«Forventer tusenvis av timer med galskap og en god story. Er mest spent på hvor detaljert det hele blir!»</span>, sier han.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="wrap gta-reading">
+          <div class="gta-prose" data-reveal>
+            <h3>Verdt prisen</h3>
+            <p>Standardutgaven koster 79,99 dollar, og 949 kroner på PlayStation Store i Norge. Siegel er ikke i tvil. <span class="gta-quote">«100 % verdt det. Call of Duty-spillene er regenerert søppel hvert eneste år og koster så å si like mye. Dette spillet er 13 år in the works og kommer til å bli et håndverk som snakkes om i sikkert 100 år fremover. Så ja, verdt det.»</span></p>
+            <h3>Uten disk og uten flerspiller</h3>
+            <p>Rockstar har bare annonsert enkeltspiller, og spillet kommer uten disk. <span class="gta-quote">«Tenker det er greit. GTA Online kom jo heller ikke samtidig med GTA V, så jeg utelukker ikke at vi får flerspiller senere. Om det kommer, er det fett, men hvis ikke så går det bra også.»</span></p>
+            <h3>Ikke på stream</h3>
+            <p>Selv kommer han ikke til å streame spillet. <span class="gta-quote">«Jeg tør ikke å la folk se hva jeg finner på. Det blir mellom meg og de digitale stripperne»</span>, sier han. <span class="gta-quote">«Synes det er litt rart å skulle se på andre spille GTA, med mindre man bare vil få med seg hypen uten å spille selv.»</span></p>
+            <h3>På jobb 19. november</h3>
+            <p>Mange ventes å ta fri den dagen. Det gjør ikke Siegel. <span class="gta-quote">«Nei. Blir å jobbe, og så hjem til PlayStation og jobbe hardt.»</span> Om selve dagen sier han: <span class="gta-quote">«Tror at verdensøkonomien kommer til å bli påvirket. Sikkert en ny cryptocoin gjennom spillet. Mange par slår opp.»</span></p>
+            <p>Den eneste frykten hans er hvem som får spille. <span class="gta-quote">«Eneste frykten min er at foreldre lar barn spille det. Det er såpass bra grafikk at det blir farlige inntrykk.»</span></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8. LAUNCH DAY -->
+      <section class="gta-chapter gta-chapter--after" aria-labelledby="more-title">
+        <div class="wrap gta-reading">
+          <div data-reveal>
+            <p class="kicker">19. november</p>
+            <h2 id="more-title">Alle holder pusten</h2>
+          </div>
+          <div class="gta-prose" data-reveal data-delay="1">
+            <p>Rundt ham er stemningen en annen. Det er forventet at mange sykemelder seg eller tar ut ferie for å bli hjemme og spille. Andre spillutgivere er trolig litt nervøse, særlig for å slippe egne spill rundt denne dagen. Det kan slå dårlig an, ettersom GTA VI er årets, kanskje tiårets, mest etterlengtede spill.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 9. CLOSE -->
+      <section class="gta-close" aria-labelledby="close-title">
+        <div class="gta-close__inner" data-reveal>
+          <p class="kicker">Avslutning</p>
+          <h2 id="close-title">Endelig</h2>
+          <div class="gta-prose">
+            <p>19. november er ventetiden endelig over. Vi sitter igjen med spørsmål vi ikke får svar på før da. Vil det leve opp til forventningene? Vil alle ha råd til det? Hvordan utvikler misnøyen seg? Men vi får snart svarene.</p>
+          </div>
+          <div class="gta-close__choice" data-ending>
+            <p class="gta-close__ask" id="ending-question">Kommer du til å spille spillet?</p>
+            <div class="gta-close__answers" role="group" aria-labelledby="ending-question">
+              <button class="gta-close__answer" type="button" data-answer="yes" aria-pressed="false">Ja, selvfølgelig!</button>
+              <button class="gta-close__answer" type="button" data-answer="no" aria-pressed="false">Nei, ikke denne gangen.</button>
+            </div>
+            <div class="gta-close__replies" aria-live="polite">
+              <p class="gta-close__reply" data-reply="yes" aria-hidden="true">Da er det bare å gjøre seg klar! Finn frem kontrolleren, avlys planene og kos deg i Leonida. Vi sees i Vice City!</p>
+              <p class="gta-close__reply" data-reply="no" aria-hidden="true">Du går ikke glipp av alt! Noen må jo holde hjulene i gang mens resten av verden spiller. Vi sees kanskje i neste GTA!</p>
+            </div>
+          </div>
+        </div>
+      </section>
     </article>
   </main>
 
   <footer class="site-footer">
     <div class="site-footer__inner">
-      <div>
-        <a class="logo" href="index.html">
-          <img class="logo__img" src="images/sixthsense-black.png" alt="Sixth Sense">
-        </a>
-        <p class="site-footer__note">Placeholder colophon. Replace this with your name, the course, and the year.</p>
-      </div>
+      <a class="logo" href="index.html">
+        <img class="logo__img" src="images/sixthsense-black.png" width="1488" height="901" alt="Sixth Sense">
+      </a>
       <nav aria-label="Footer">
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="article1.html">Article 1</a></li>
-          <li><a href="article2.html">Article 2</a></li>
-          <li><a href="article3.html">Article 3</a></li>
-          <li><a href="xl-story.html">XL Story</a></li>
+          <li><a href="index.html">Forside</a></li>
+          <li><a href="article1.html">Samfunn</a></li>
+          <li><a href="article2.html">Mote</a></li>
+          <li><a href="article3.html">Underholdning</a></li>
+          <li><a href="xl-story.html">Reportasje</a></li>
         </ul>
       </nav>
     </div>
   </footer>
 
   <script src="js/script.js"></script>
+  <script src="js/article3.js"></script>
 </body>
 </html>

@@ -1,0 +1,709 @@
+/*
+  Article 2 — høstmoten 2026
+  --------------------------
+  Loaded only by article2.html, after css/style.css.
+
+  Warm paper, Fraunces headlines, and the shared burgundy accent.
+  The carousel is a sideways scroller. It never listens to the wheel.
+
+  Image slots are .frame blocks. Drop a photo in by replacing the
+  FINAL IMAGE comment in article2.html with an <img>. The shared
+  .frame > img rule covers the label.
+*/
+
+.page-fashion {
+  --fashion-paper: #f6f1ea;
+  /* Same reading scale as article 1: one headline size, one section size, one body. */
+  --fashion-title: clamp(1.85rem, 3.1vw, 2.95rem);
+  --fashion-h2: clamp(1.9rem, 2.45vw, 2.5rem);
+  --fashion-quote: clamp(1.18rem, 1.35vw, 1.38rem);
+  --fashion-feature: clamp(1.55rem, 2.15vw, 1.95rem);
+  --fashion-body: 1.125rem;
+  --fashion-caption: 0.8125rem;
+  --fashion-gap: 1.35rem;
+  --fashion-section: clamp(2.2rem, 4.8vh, 3.5rem);
+  background: var(--fashion-paper);
+}
+
+.page-fashion .site-header,
+.page-fashion .nav-toggle,
+.page-fashion .site-nav,
+.page-fashion .site-header.is-menu-open {
+  background: #ffffff;
+  color: var(--ink);
+}
+
+.page-fashion .site-footer {
+  margin-top: 0;
+  background: #ffffff;
+  color: var(--ink);
+}
+
+/* --------------------------------------------
+   Picture slots
+   A quiet mount until the photograph is in place.
+-------------------------------------------- */
+
+.page-fashion .frame {
+  --mount: rgba(28, 23, 20, 0.16);
+  background-color: #e4d5c8;
+  background-image: none;
+}
+
+.page-fashion .frame:not(:has(img))::after {
+  content: "";
+  position: absolute;
+  inset: 0.7rem;
+  border: 1px solid var(--mount);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.fashion-shot__label {
+  position: absolute;
+  z-index: 2;
+  left: 1.15rem;
+  right: 1.15rem;
+  bottom: 1rem;
+  margin: 0;
+  color: var(--ink-soft);
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+.fashion-shot__label span {
+  display: block;
+  margin-top: 0.28rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: 0.01em;
+  text-transform: none;
+}
+
+.page-fashion .frame--ink {
+  --mount: rgba(247, 243, 236, 0.34);
+}
+
+.page-fashion .frame--ink .fashion-shot__label {
+  color: #f7f3ec;
+}
+
+.page-fashion .frame--ink .fashion-shot__label span {
+  color: rgba(247, 243, 236, 0.78);
+}
+
+
+.page-fashion .frame--person {
+  aspect-ratio: 4 / 5;
+  background-color: #d9cdc2;
+}
+
+.page-fashion .frame--still {
+  aspect-ratio: 3 / 4;
+  background-color: transparent;
+}
+
+.page-fashion .frame--trend {
+  aspect-ratio: 4 / 5;
+}
+
+.page-fashion .frame--lilla {
+  background-color: #b7a3b6;
+}
+
+.page-fashion .frame--burgunder {
+  background-color: #7d3a44;
+}
+
+.page-fashion .frame--plaid {
+  background-color: #c4a48a;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0 17px,
+      rgba(122, 46, 58, 0.55) 17px 19px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 17px,
+      rgba(90, 42, 36, 0.38) 17px 19px
+    );
+}
+
+.page-fashion .frame--coat {
+  background-color: #cbb79a;
+}
+
+.page-fashion .frame--boot {
+  background-color: #6d5648;
+}
+
+.page-fashion .frame--story {
+  aspect-ratio: 3 / 4;
+  background-color: transparent;
+}
+
+.page-fashion .frame--pair {
+  aspect-ratio: 3 / 4;
+  background-color: transparent;
+}
+
+.page-fashion .frame--pair > img {
+  object-position: center center;
+}
+
+.fashion-pair figure:first-child .frame--pair > img {
+  object-position: center top;
+}
+
+.page-fashion .frame > img {
+  z-index: 3;
+}
+
+.page-fashion .frame--person > img {
+  object-position: center 18%;
+}
+
+.page-fashion .frame--trend > img {
+  object-position: center;
+}
+
+.page-fashion .frame--still > img,
+.page-fashion .frame--story > img {
+  object-fit: contain;
+  object-position: center;
+}
+
+/* --------------------------------------------
+   Shared editorial type inside this article
+   Headings share one size. Body copy stays on
+   one measure, the way article 1 is set.
+-------------------------------------------- */
+
+.page-fashion h2 {
+  max-width: 16em;
+  margin-top: 0.95rem;
+  color: var(--ink);
+  font-size: var(--fashion-h2);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.18;
+  text-wrap: balance;
+}
+
+.fashion-prose {
+  max-width: 38rem;
+  color: var(--ink);
+  font-size: var(--fashion-body);
+  font-weight: 400;
+  line-height: 1.65;
+}
+
+.fashion-prose p + p {
+  margin-top: 1.08em;
+}
+
+.fashion-prose h2 + p,
+.page-fashion h2 + .fashion-prose {
+  margin-top: var(--fashion-gap);
+}
+
+.fashion-lead {
+  max-width: 38rem;
+  margin-top: var(--fashion-gap);
+  color: var(--ink);
+  font-size: var(--fashion-body);
+  font-weight: 400;
+  line-height: 1.65;
+}
+
+.page-fashion figcaption,
+.fashion-hero__credit,
+.trend-card__credit {
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: var(--fashion-caption);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+.page-fashion figcaption {
+  padding-top: 0.7rem;
+}
+
+.page-fashion .pull {
+  max-width: 28rem;
+  margin: 1.2rem 0 0;
+  font-size: var(--fashion-quote);
+  line-height: 1.42;
+  letter-spacing: -0.02em;
+}
+
+.page-fashion .pull p {
+  text-wrap: balance;
+}
+
+.pull__credit {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.7rem;
+  margin-top: 0.85rem;
+  color: var(--accent);
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.pull__credit cite {
+  font-style: normal;
+}
+
+/* --------------------------------------------
+   Scroll fade
+   Hidden only after html.js is set, so a page
+   without JavaScript still shows the text.
+-------------------------------------------- */
+
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.8s var(--ease),
+    transform 0.9s var(--ease);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.js [data-reveal][data-delay="1"] {
+  --reveal-delay: 110ms;
+}
+
+.js [data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* --------------------------------------------
+   1. Hero
+-------------------------------------------- */
+
+.fashion-hero__stage {
+  position: relative;
+  /* The sketches begin at 45% of the drawing. Stay left of that. */
+  --hero-safe: 43%;
+  --hero-gap: clamp(1rem, 2vw, 2.25rem);
+}
+
+/* The drawing sits on the right. The headline uses the blank paper
+   on the left. The picture is full width and is never tinted. */
+.fashion-hero__image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.fashion-hero__title {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  bottom: 0;
+  left: max(var(--gutter), calc((100% - var(--page)) / 2));
+  display: flex;
+  align-items: center;
+  width: calc(var(--hero-safe) - var(--hero-gap) - max(var(--gutter), (100% - var(--page)) / 2));
+  padding-block: clamp(0.7rem, 2.4vw, 2.2rem);
+  container-type: inline-size;
+}
+
+.fashion-hero__text {
+  padding-top: clamp(0.95rem, 2.2vh, 1.35rem);
+  padding-bottom: var(--fashion-section);
+}
+
+.fashion-hero__credit {
+  margin: 0;
+}
+
+.fashion-hero .kicker {
+  margin-top: 1.2rem;
+}
+
+.fashion-hero h1 {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(1.28rem, 9.2cqi, 2.85rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+  text-wrap: balance;
+  hyphens: none;
+}
+
+.fashion-hero h1 em {
+  display: block;
+  margin-top: 0.14em;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.fashion-hero .editor-note {
+  max-width: 40rem;
+}
+
+.fashion-hero__lower {
+  display: grid;
+  margin-top: 1.05rem;
+}
+
+.fashion-hero__standfirst {
+  max-width: 32em;
+  color: var(--ink-soft);
+  font-family: var(--sans);
+  font-size: 1.2rem;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 0;
+  line-height: 1.5;
+}
+
+.fashion-insight .fashion-prose .pull {
+  max-width: 28rem;
+  margin: 1.2rem 0 0;
+}
+
+/* --------------------------------------------
+   2. Insight
+-------------------------------------------- */
+
+.fashion-insight {
+  padding-bottom: var(--fashion-section);
+}
+
+.fashion-split {
+  display: grid;
+  gap: clamp(1.5rem, 2.8vw, 2.75rem);
+  align-items: start;
+}
+
+.fashion-split > * {
+  min-width: 0;
+}
+
+.fashion-follow h2 {
+  margin-top: 0;
+}
+
+.fashion-follow {
+  margin-top: clamp(2.35rem, 5vh, 3.5rem);
+}
+
+@media (min-width: 860px) {
+  .fashion-split {
+    grid-template-columns: minmax(14rem, 0.72fr) minmax(0, 1.2fr);
+  }
+
+  .fashion-split--flip {
+    grid-template-columns: minmax(0, 1.2fr) minmax(14rem, 0.78fr);
+  }
+}
+
+/* --------------------------------------------
+   3. Trends
+   The track is the only sideways scroller.
+   touch-action stays at the browser default, so a
+   vertical gesture still moves the page.
+-------------------------------------------- */
+
+.fashion-trends {
+  border-top: 1px solid var(--line-soft);
+  padding-top: clamp(1.35rem, 2.5vh, 1.85rem);
+  padding-bottom: clamp(1.65rem, 3vh, 2.25rem);
+}
+
+.fashion-style {
+  border-top: 1px solid var(--line-soft);
+  padding-top: clamp(1.45rem, 2.8vh, 2.1rem);
+  padding-bottom: clamp(1.45rem, 2.8vh, 2.1rem);
+}
+
+/* The four paragraphs stay on the same wide measure as the rest
+   of the article. The heading sits close to the first paragraph,
+   and the carousel follows without a large empty band. */
+.fashion-trends__intro {
+  margin-bottom: clamp(0.95rem, 1.8vh, 1.25rem);
+}
+
+.fashion-trends__intro h2 + .fashion-prose {
+  margin-top: 0.7rem;
+}
+
+.fashion-trends__intro .fashion-prose p + p {
+  margin-top: 0.82em;
+}
+
+.fashion-trends__bar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: clamp(0.8rem, 1.5vh, 1.05rem);
+}
+
+/* On a wide screen the controls sit in the open space beside the
+   text, on the same line as the last paragraph, so the cards can
+   follow the copy directly. The text column stays at its full measure. */
+@media (min-width: 960px) {
+  .fashion-trends {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .fashion-trends > * {
+    grid-column: 1;
+  }
+
+  .fashion-trends__intro,
+  .fashion-trends__bar {
+    grid-row: 1;
+    width: min(var(--page), calc(100% - (2 * var(--gutter))));
+    margin-inline: auto;
+  }
+
+  .fashion-trends__intro {
+    margin-bottom: 1.45rem;
+  }
+
+  .fashion-trends__bar {
+    align-self: end;
+    margin-bottom: 1.45rem;
+    pointer-events: none;
+  }
+
+  .fashion-trends__controls {
+    pointer-events: auto;
+  }
+
+  .fashion-trends > .trend-track {
+    min-width: 0;
+  }
+}
+
+.fashion-trends__controls {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.fashion-trends__count {
+  margin: 0;
+  color: var(--ink);
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.14em;
+}
+
+.fashion-trends__buttons {
+  display: flex;
+  gap: 0.45rem;
+}
+
+.trend-btn {
+  display: grid;
+  place-items: center;
+  width: 3.35rem;
+  height: 2.55rem;
+  border: 1px solid var(--ink);
+  transition: background-color 0.25s var(--ease), color 0.25s var(--ease), opacity 0.25s var(--ease);
+}
+
+.trend-btn:disabled {
+  opacity: 0.32;
+  cursor: default;
+}
+
+.trend-btn:active:not(:disabled) {
+  background: var(--ink);
+  color: var(--fashion-paper);
+}
+
+.trend-track {
+  --card: min(78vw, 17.5rem);
+  /* Same left edge as .wrap, so the active card lines up with the headline. */
+  --edge: max(var(--gutter), calc((100% - var(--page)) / 2));
+  display: flex;
+  gap: clamp(0.85rem, 1.6vw, 1.35rem);
+  margin: 0;
+  /* Only the content margin. Extra end padding was a blank scroll runway. */
+  padding: 0 var(--edge) 1.1rem var(--edge);
+  list-style: none;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--edge);
+  scrollbar-width: thin;
+  scrollbar-color: #c9b8aa transparent;
+}
+
+.trend-track::-webkit-scrollbar {
+  height: 6px;
+}
+
+.trend-track::-webkit-scrollbar-thumb {
+  background: #c9b8aa;
+  border-radius: 999px;
+}
+
+.trend-card {
+  flex: 0 0 var(--card);
+  scroll-snap-align: start;
+}
+
+.trend-card:last-child {
+  scroll-snap-align: end;
+}
+
+.trend-card article h3 {
+  margin-top: 0.28rem;
+  color: var(--ink);
+  font-size: clamp(1.28rem, 1.45vw, 1.5rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.trend-card article .trend-card__credit {
+  margin-top: 0.65rem;
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: var(--fashion-caption);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+.trend-card .frame > img {
+  transition: transform 0.8s var(--ease);
+}
+
+@media (hover: hover) {
+  .trend-btn:hover:not(:disabled) {
+    background: var(--ink);
+    color: var(--fashion-paper);
+  }
+
+  .trend-card:hover .frame > img {
+    transform: scale(1.03);
+  }
+}
+
+@media (min-width: 760px) {
+  .trend-track {
+    --card: clamp(15.5rem, 22vw, 20.5rem);
+  }
+}
+
+/* --------------------------------------------
+   5. Personal style
+   The quote stays in the reading column.
+   The photographs sit beside that column.
+-------------------------------------------- */
+
+.fashion-style {
+  padding-bottom: clamp(1.8rem, 3.5vh, 2.6rem);
+}
+
+.fashion-style__grid {
+  display: grid;
+  gap: clamp(1.35rem, 2.6vw, 2.15rem);
+  align-items: center;
+}
+
+.fashion-style__copy {
+  display: grid;
+  gap: clamp(1.05rem, 2.1vh, 1.45rem);
+  align-content: center;
+}
+
+.fashion-style .pull {
+  margin: 0;
+}
+
+.fashion-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: clamp(0.85rem, 2vw, 1.35rem);
+  align-items: start;
+}
+
+.fashion-pair .frame {
+  width: 100%;
+}
+
+.fashion-pair figcaption {
+  max-width: 22em;
+}
+
+@media (max-width: 800px) {
+  .page-fashion {
+    --fashion-body: 1.08rem;
+  }
+}
+
+@media (max-width: 720px) {
+  /* Trim only the blank margin past the last figure, so the
+     sketches read a little larger without losing a foot or a sleeve. */
+  .fashion-hero__stage {
+    overflow: hidden;
+    --hero-safe: 43%;
+    --hero-gap: 0.7rem;
+  }
+
+  .fashion-hero__image {
+    width: 105%;
+    max-width: none;
+  }
+
+  .fashion-hero__title {
+    padding-block: 0.7rem;
+  }
+
+  .fashion-hero h1 {
+    font-size: clamp(1.2rem, 8.4cqi, 1.65rem);
+    line-height: 1.12;
+  }
+}
+
+@media (min-width: 900px) {
+  .fashion-style__grid {
+    grid-template-columns: minmax(0, 1.08fr) minmax(17rem, 0.92fr);
+    column-gap: clamp(1.75rem, 3vw, 2.85rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .trend-btn,
+  .trend-card .frame > img {
+    transition: none;
+  }
+
+  .trend-card:hover .frame > img {
+    transform: none;
+  }
+
+}

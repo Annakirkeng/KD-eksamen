@@ -3,12 +3,14 @@
   ---------------
   Loaded only by xl-story.html, after css/style.css.
 
-  The story is seven sections. Three of them are pinned to the screen
-  while the page keeps scrolling vertically:
+  The story is read as one historical arc. The map and the before/after
+  wipe stay together, after the temporary station and before today.
+  The map scrolls with the page. It is not pinned.
+  Three sections are pinned to the screen while the page keeps scrolling:
 
-  1. Hook
-  4. Before / after
-  6. Short journey
+    1. Hook
+    8. Before / after
+       Short journey, between today and the new generation
 
   Change --scene-hook, --scene-compare, and --scene-journey if a scene
   feels too long or too short. The JavaScript reads the real height of
@@ -44,6 +46,8 @@
 
 .page-story .site-footer {
   margin-top: 0;
+  background: #ffffff;
+  color: var(--ink);
 }
 
 /* The header stays white over dark scenes so the black wordmark stays readable. */
@@ -59,11 +63,15 @@
 .scene--history,
 .scene--struggle,
 .scene--today,
-.scene--ending {
+.scene--ending,
+.scene--changes,
+.scene--coop,
+.scene--generation {
   padding: clamp(4.5rem, 12vh, 8rem) 0;
 }
 
-.scene--history {
+/* Only the first paper chapter needs to clear the fixed header. */
+.scene--open {
   padding-top: calc(var(--header-h) + clamp(2.5rem, 8vh, 5.5rem));
 }
 
@@ -88,7 +96,7 @@
 /* Text fades in once, then stays put so it can be read. */
 .js .reveal {
   opacity: 0;
-  transform: translateY(0.85rem);
+  transform: translateY(0.45rem);
   transition: opacity var(--fade) var(--ease), transform var(--fade) var(--ease);
 }
 
@@ -115,6 +123,7 @@
 .scene--hook .scene__pin {
   display: flex;
   align-items: center;
+  align-items: safe center;
   justify-content: center;
   padding: var(--header-h) var(--gutter) 2rem;
 }
@@ -123,10 +132,17 @@
   position: relative;
   z-index: 1;
   width: min(16em, 100%);
+  max-width: 100%;
   font-family: var(--serif);
   font-style: italic;
   font-weight: 500;
+  /*
+    Four lines, each wrapping once, have to sit below the fixed header.
+    4.7vw is the large size. The dvh term only wins on a short laptop,
+    where that size is taller than the space under the masthead.
+  */
   font-size: clamp(1.85rem, 4.7vw, 4.15rem);
+  font-size: clamp(1.85rem, min(4.7vw, calc((100dvh - var(--header-h) - 3.5rem) / 9.5)), 4.15rem);
   line-height: 1.18;
   letter-spacing: -0.025em;
 }
@@ -154,6 +170,17 @@
   --shown: 1;
 }
 
+/* The credit is part of the hook, but it should not read as a fourth quote. */
+.hook__cite {
+  margin-top: 1.35rem;
+  font-family: var(--sans);
+  font-style: normal;
+  font-weight: 500;
+  font-size: clamp(0.95rem, 0.38em, 1.15rem);
+  letter-spacing: 0;
+  line-height: 1.4;
+}
+
 /* --------------------------------------------
    2. Before the city
 -------------------------------------------- */
@@ -179,6 +206,203 @@
 .history__text {
   width: min(var(--measure), calc(100% - (2 * var(--gutter))));
   margin-inline: auto;
+}
+
+.history__text .kicker {
+  margin-top: clamp(3.2rem, 9vh, 5.5rem);
+}
+
+.history__text h2 {
+  max-width: 12em;
+  margin-top: 0.7rem;
+  margin-bottom: 0.85rem;
+  font-size: clamp(2.1rem, 4vw, 3.4rem);
+  line-height: 1.02;
+}
+
+/* A spread already separates the sections, so the next kicker does not need the extra gap. */
+.spread + .history__text > .kicker:first-child {
+  margin-top: 0;
+}
+
+/* --------------------------------------------
+   Picture slots
+   Empty mounts until a photograph is dropped in.
+   Add an <img> inside .photo-slot. The label hides,
+   and the shared rule below covers the slot.
+-------------------------------------------- */
+
+.photo-slot {
+  position: relative;
+  width: 100%;
+  background-color: #e3dbd1;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, 0.35) 0 10px,
+    rgba(70, 54, 40, 0.05) 10px 11px
+  );
+  overflow: hidden;
+}
+
+.photo-slot__label {
+  position: absolute;
+  z-index: 1;
+  left: 1rem;
+  bottom: 0.9rem;
+  margin: 0;
+  color: #5c4d3f;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  line-height: 1.3;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+.photo-slot > img {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-slot:has(img) .photo-slot__label {
+  display: none;
+}
+
+/* --------------------------------------------
+   Image spreads
+   Text stays in the narrow column. These pictures
+   break out wider, in the rhythm of an XL story:
+   a full-width photograph, a wide one, a pair,
+   and a three-image gallery.
+-------------------------------------------- */
+
+.spread {
+  margin-block: clamp(2.75rem, 8vh, 5.25rem);
+}
+
+.spread figure {
+  margin: 0;
+  min-width: 0;
+}
+
+.spread img {
+  display: block;
+  width: 100%;
+  /* Overrides the file's height attribute, so the frame — not the pixel size — sets the box. */
+  height: auto;
+  object-fit: cover;
+  color: transparent;
+  background: #d9d0c6;
+}
+
+/* A photograph inside a slot should fill the slot, so object-position can crop it. */
+.spread .photo-slot > img {
+  height: 100%;
+}
+
+.spread__img--building {
+  object-position: center 34%;
+}
+
+.spread__img--sign {
+  object-position: 22% center;
+}
+
+.spread--full {
+  width: 100%;
+}
+
+.spread--full > img,
+.spread--full > .photo-slot {
+  height: min(86vh, 66vw);
+}
+
+.spread--banner > img,
+.spread--banner > .photo-slot {
+  height: min(74vh, 52vw);
+}
+
+.spread--full > figcaption,
+.spread--wide > figcaption {
+  width: min(var(--measure), calc(100% - (2 * var(--gutter))));
+  margin-inline: auto;
+}
+
+.spread--wide {
+  width: min(84rem, calc(100% - (2 * var(--gutter))));
+  margin-inline: auto;
+}
+
+.spread--wide > img,
+.spread--wide > .photo-slot {
+  aspect-ratio: 4 / 3;
+  max-height: 82vh;
+}
+
+/* The alarm photograph is tall. A squarer frame shows more of the boxes. */
+.spread--varsel {
+  width: min(40rem, calc(100% - (2 * var(--gutter))));
+}
+
+.spread--varsel > .photo-slot {
+  aspect-ratio: 1 / 1;
+  max-height: none;
+}
+
+/* The helmet photograph is a wide shelf. Keep both rows visible. */
+.spread--helmets > .photo-slot {
+  aspect-ratio: 1925 / 817;
+}
+
+/* On a wide screen the Vestgård photo is mostly sky. Crop down to the building.
+   Phones keep the full 4:3 frame, set again in the max-width: 700px block. */
+@media (min-width: 701px) {
+  .spread--vestgard > .photo-slot {
+    aspect-ratio: 2.2 / 1;
+  }
+
+  .spread--vestgard img {
+    object-position: center bottom;
+  }
+}
+
+.spread--pair,
+.spread--gallery {
+  display: grid;
+  gap: 0.55rem;
+  width: 100%;
+  padding-inline: clamp(0.65rem, 1.6vw, 1.35rem);
+}
+
+.spread--pair {
+  grid-template-columns: 1fr;
+}
+
+.spread--gallery {
+  grid-template-columns: 1fr 1fr;
+}
+
+.spread--gallery figure:first-child:nth-last-child(n + 3) {
+  grid-column: 1 / -1;
+}
+
+.spread--pair figure > img,
+.spread--gallery figure > img,
+.spread--pair figure > .photo-slot,
+.spread--gallery figure > .photo-slot {
+  aspect-ratio: 3 / 2;
+}
+
+.spread--pair figcaption,
+.spread--gallery figcaption {
+  padding-right: 0.15rem;
+  padding-left: 0.15rem;
+  font-size: 0.92rem;
 }
 
 /* --------------------------------------------
@@ -218,6 +442,283 @@
 }
 
 /* --------------------------------------------
+   Everyday life
+   Text opens the chapter. The photograph sticks
+   beside it on a wide screen and follows it on a phone.
+-------------------------------------------- */
+
+.life-split {
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 4.5rem);
+  align-items: start;
+  width: min(var(--page), calc(100% - (2 * var(--gutter))));
+  margin-inline: auto;
+}
+
+.life-split__copy h2 {
+  max-width: 12em;
+  margin-top: 0.7rem;
+  margin-bottom: 0.85rem;
+  font-size: clamp(2.1rem, 4vw, 3.4rem);
+  line-height: 1.02;
+}
+
+.life-split__copy .prose {
+  margin-top: 1.2rem;
+}
+
+.life-break {
+  width: min(68rem, calc(100% - (2 * var(--gutter))));
+  margin: clamp(3.5rem, 10vh, 6.5rem) auto 0;
+}
+
+.life-break h2 {
+  max-width: 12em;
+  margin-top: 0.7rem;
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+}
+
+.life-break .struggle__blocks {
+  gap: 1.5rem;
+  margin-top: 1.35rem;
+}
+
+.life-break .struggle__block {
+  max-width: 22em;
+}
+
+/* --------------------------------------------
+   The struggle to move
+   A grey chapter. The attempts sit wider than the title.
+-------------------------------------------- */
+
+.attempt-list {
+  display: grid;
+  gap: clamp(1.35rem, 3vw, 2rem);
+  width: min(var(--page), calc(100% - (2 * var(--gutter))));
+  margin: clamp(2.75rem, 8vh, 4.5rem) auto 0;
+  padding: 0;
+  list-style: none;
+}
+
+.attempt-list li {
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(35, 33, 30, 0.28);
+}
+
+.attempt-list li p {
+  margin: 0;
+  max-width: 36rem;
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+/* --------------------------------------------
+   Changes in the service
+   One fact per row: the name, then the note.
+-------------------------------------------- */
+
+.scene--changes {
+  background: var(--today-bg);
+  color: var(--ink);
+}
+
+.fact-list {
+  width: min(var(--page), calc(100% - (2 * var(--gutter))));
+  margin: clamp(2.5rem, 7vh, 4.25rem) auto 0;
+}
+
+.fact-list div {
+  display: grid;
+  gap: 0.35rem 2.5rem;
+  padding: 1.2rem 0;
+  border-top: 1px solid rgba(35, 33, 30, 0.16);
+}
+
+.fact-list div:last-child {
+  border-bottom: 1px solid rgba(35, 33, 30, 0.16);
+}
+
+.fact-list dd {
+  margin: 0;
+}
+
+.fact-list dt {
+  font-family: var(--serif);
+  font-size: clamp(1.55rem, 2.4vw, 2.15rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.fact-list .editor-note {
+  margin-top: 0;
+}
+
+/* --------------------------------------------
+   Cooperation
+   The quote takes the wider side. The note and
+   the picture follow it, and stack under it on a phone.
+-------------------------------------------- */
+
+.scene--coop {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.coop-grid {
+  display: grid;
+  gap: clamp(1.75rem, 4vw, 4rem);
+  align-items: start;
+  width: min(var(--page), calc(100% - (2 * var(--gutter))));
+  margin-inline: auto;
+}
+
+.coop-grid .pull {
+  max-width: 16em;
+  margin: 0;
+  font-size: clamp(1.85rem, 3.4vw, 2.85rem);
+  line-height: 1.18;
+}
+
+.coop-grid__copy h2 {
+  max-width: 12em;
+  margin-top: 0.65rem;
+  font-size: clamp(2.1rem, 4vw, 3.4rem);
+  line-height: 1.02;
+}
+
+.coop-grid__copy .figure {
+  margin-top: 1.5rem;
+}
+
+/* --------------------------------------------
+   A new generation
+   Two roles, side by side, then room for a quote.
+   The ending below uses the same paper.
+-------------------------------------------- */
+
+.scene--generation {
+  background: var(--ending-bg);
+  color: var(--ink);
+}
+
+.role-row {
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  width: min(var(--page), calc(100% - (2 * var(--gutter))));
+  margin: clamp(2.25rem, 6vh, 3.5rem) auto 0;
+}
+
+.role-row h3 {
+  margin-top: 0.45rem;
+  font-size: clamp(1.45rem, 2.2vw, 1.9rem);
+  line-height: 1.15;
+}
+
+.role-row p:not(.kicker) {
+  max-width: 34rem;
+  margin-top: 0.75rem;
+  line-height: 1.6;
+}
+
+.generation__quote {
+  width: min(44rem, calc(100% - (2 * var(--gutter))));
+  margin: clamp(2.75rem, 8vh, 4.5rem) auto 0;
+}
+
+.generation__quote .pull {
+  margin: 0;
+}
+
+.chapter-head {
+  width: min(var(--measure), calc(100% - (2 * var(--gutter))));
+  margin-inline: auto;
+}
+
+.chapter-head h2,
+.scene--changes .chapter-head h2,
+.scene--coop .chapter-head h2,
+.scene--generation .chapter-head h2 {
+  max-width: 14em;
+  margin-top: 0.7rem;
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  line-height: 1.02;
+}
+
+.chapter-head .prose {
+  margin-top: 1.2rem;
+}
+
+.struggle__inner .prose {
+  margin-top: 1.25rem;
+}
+
+.today__copy .pull {
+  max-width: 16em;
+  margin: 1.25rem 0 1.4rem;
+  font-size: clamp(1.45rem, 2.4vw, 1.95rem);
+}
+
+.story-band {
+  width: min(var(--measure), calc(100% - (2 * var(--gutter))));
+  margin-inline: auto;
+}
+
+.story-band h3 {
+  margin-top: 0;
+}
+
+.coop-grid__copy .prose {
+  margin-top: 1.15rem;
+}
+
+.generation__bridge {
+  margin-top: clamp(2.5rem, 7vh, 4rem);
+}
+
+.generation__bridge h3 {
+  max-width: 14em;
+  font-size: clamp(1.7rem, 3vw, 2.45rem);
+  line-height: 1.08;
+}
+
+.generation__more {
+  width: min(var(--measure), calc(100% - (2 * var(--gutter))));
+  margin: clamp(2.75rem, 8vh, 4.5rem) auto 0;
+}
+
+.generation__more h3 {
+  max-width: 14em;
+  margin-top: 0.55rem;
+  font-size: clamp(1.7rem, 3vw, 2.45rem);
+  line-height: 1.08;
+}
+
+.generation__more .prose {
+  margin-top: 1rem;
+}
+
+.scene--generation .fact-list {
+  margin-top: clamp(1.75rem, 5vh, 2.75rem);
+}
+
+.prose h3 {
+  margin-top: 1.75rem;
+  font-size: clamp(1.35rem, 2vw, 1.7rem);
+  line-height: 1.15;
+}
+
+.prose h3 + p,
+.prose h3 + .editor-note {
+  margin-top: 0.45rem;
+}
+
+.page-story .pull p {
+  margin: 0;
+}
+
+/* --------------------------------------------
    4. Before / after
    No visible text on the photographs.
    --p is 0 at the start (old photo) and 1 at the end (new photo).
@@ -240,7 +741,9 @@
   inset: 0;
   width: 100%;
   height: 100%;
+  /* Fill the frame so the section color does not show beside the photos. */
   object-fit: cover;
+  object-position: center;
   /* Alt text stays out of the way until the photograph file exists. */
   color: transparent;
 }
@@ -252,6 +755,8 @@
 
 .compare__new {
   background: #2a3338;
+  /* Keep the building, and let extra pavement be the part that is cropped. */
+  object-position: center 30%;
 }
 
 .compare__new {
@@ -337,6 +842,8 @@
 .journey__frame {
   position: absolute;
   inset: 0;
+  display: flex;
+  flex-direction: column;
   margin: 0;
   overflow: hidden;
   background: #1a1613;
@@ -350,6 +857,19 @@
   --shown: 1;
 }
 
+.journey__frame .photo-slot {
+  position: relative;
+  flex: 1 1 auto;
+  height: auto;
+  min-height: 0;
+}
+
+.journey__frame .photo-slot__label {
+  top: 46%;
+  bottom: auto;
+  left: var(--gutter);
+}
+
 .journey__frame img {
   width: 100%;
   height: 100%;
@@ -358,14 +878,22 @@
   transform: scale(calc(1.045 - (var(--shown, 1) * 0.045)));
 }
 
+/* Desktop: keep the whole hose tower in frame, a little further back than the tight crop. */
+.journey__frame--sentrum img {
+  object-position: 64% 10%;
+}
+
+/* Between the high crop and the centre, so the building stays up without losing its base. */
+.journey__frame--remmen img {
+  object-position: center 36%;
+}
+
 .journey__caption {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  position: relative;
+  flex: 0 0 auto;
   margin: 0;
-  padding: 5rem var(--gutter) clamp(1.4rem, 4vw, 2.5rem);
-  background: linear-gradient(to top, rgba(10, 8, 7, 0.84), rgba(10, 8, 7, 0));
+  padding: 1.15rem var(--gutter) 1.45rem;
+  background: #1a1613;
   color: var(--night-text);
   font-size: clamp(1.08rem, 2vw, 1.35rem);
   font-style: normal;
@@ -413,14 +941,40 @@
   max-width: 22rem;
 }
 
+.ending__portrait img {
+  object-position: center 62%;
+  transform: scale(1.36);
+  transform-origin: center 62%;
+}
+
 .ending__copy h2 {
-  max-width: 10em;
+  max-width: 12em;
   margin-top: 0.65rem;
-  font-size: clamp(2.3rem, 4.5vw, 4rem);
+  font-size: clamp(2.15rem, 4vw, 3.4rem);
 }
 
 .ending__copy .prose {
   margin-top: 1.3rem;
+}
+
+.ending__quote {
+  grid-column: 1 / -1;
+  width: min(40rem, 100%);
+  margin-bottom: clamp(1.5rem, 4vh, 2.5rem);
+}
+
+.ending__quote .pull {
+  margin: 0;
+  font-size: clamp(1.85rem, 3.2vw, 2.7rem);
+}
+
+/* The generation chapter and the ending share one paper. */
+.scene--history + .scene--history {
+  padding-top: clamp(2rem, 6vh, 3.5rem);
+}
+
+.scene--generation + .scene--ending {
+  padding-top: clamp(2.5rem, 6vh, 4rem);
 }
 
 /* --------------------------------------------
@@ -437,7 +991,69 @@
   }
 }
 
+@media (min-width: 800px) {
+  .spread--pair {
+    grid-template-columns: 1.45fr 0.9fr;
+    gap: 0.7rem;
+  }
+
+  .spread--pair figure > img,
+  .spread--pair figure > .photo-slot {
+    height: min(72vh, 44rem);
+    aspect-ratio: auto;
+  }
+}
+
+@media (min-width: 800px) {
+  .attempt-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem 2.5rem;
+  }
+
+  .fact-list div {
+    grid-template-columns: minmax(11rem, 18rem) minmax(0, 36rem);
+    align-items: baseline;
+  }
+}
+
 @media (min-width: 900px) {
+  .life-split {
+    grid-template-columns: minmax(0, 0.92fr) minmax(16rem, 1.05fr);
+  }
+
+  .life-split__figure {
+    position: sticky;
+    top: calc(var(--header-h) + 1.25rem);
+  }
+
+  .life-split .frame--portrait {
+    max-height: calc(100dvh - var(--header-h) - 2.5rem);
+  }
+
+  .coop-grid {
+    grid-template-columns: minmax(0, 1.15fr) minmax(16rem, 0.85fr);
+  }
+
+  .role-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem 4rem;
+  }
+
+  .spread--gallery {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.7rem;
+  }
+
+  .spread--gallery figure:first-child {
+    grid-column: auto;
+  }
+
+  .spread--gallery figure > img,
+  .spread--gallery figure > .photo-slot {
+    height: min(74vh, 38rem);
+    aspect-ratio: auto;
+  }
+
   .today__grid {
     grid-template-columns: minmax(0, 1.05fr) minmax(18rem, 0.9fr);
   }
@@ -463,6 +1079,12 @@
     aspect-ratio: 3 / 2;
     max-height: none;
   }
+
+  /* The two gallery pictures stay tall enough to read. */
+  .spread--gallery figure > img,
+  .spread--gallery figure > .photo-slot {
+    aspect-ratio: 4 / 5;
+  }
 }
 
 /* Shorter runways on phones. The motion is the same, the distance is not. */
@@ -472,11 +1094,107 @@
     --scene-compare: 210vh;
     --scene-journey: 260vh;
   }
-}
 
-@media (max-height: 700px) {
-  .hook__quote {
-    font-size: clamp(1.35rem, 4.2vh, 2.1rem);
+  .spread {
+    margin-block: clamp(1.75rem, 6vh, 2.5rem);
+  }
+
+  .spread--full > img,
+  .spread--full > .photo-slot,
+  .spread--banner > img,
+  .spread--banner > .photo-slot {
+    height: auto;
+    aspect-ratio: 4 / 3;
+    max-height: 78vh;
+  }
+
+  .spread--wide {
+    width: calc(100% - (2 * var(--gutter)));
+  }
+
+  .spread--wide > img,
+  .spread--wide > .photo-slot {
+    max-height: none;
+    aspect-ratio: 4 / 3;
+  }
+
+  .spread--varsel > .photo-slot {
+    aspect-ratio: 1 / 1;
+  }
+
+  .spread--helmets > .photo-slot {
+    aspect-ratio: 1925 / 817;
+  }
+
+  /*
+    The before/after photos are wide. On a phone a full-screen
+    frame crops them too tightly, so the picture sits in a
+    wider frame and the buildings stay readable.
+  */
+  .scene--compare .scene__pin {
+    display: flex;
+    align-items: center;
+  }
+
+  .compare {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+  }
+
+  /* Keep the name on the jacket inside the short phone frame. */
+  .spread__img--klaer {
+    object-position: center 28%;
+  }
+
+  /*
+    On a phone the three journey pictures share one size.
+    The dark area under each one is only the caption.
+  */
+  .journey__frame {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .journey__frame .photo-slot {
+    position: relative;
+    flex: 1 1 auto;
+    height: auto;
+    min-height: 0;
+    background: transparent;
+  }
+
+  .journey__frame .photo-slot > img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    object-fit: cover;
+    transform: none;
+  }
+
+  .journey__frame--sentrum img {
+    object-position: 68% 40%;
+  }
+
+  .journey__frame--vestgard .photo-slot > img {
+    object-position: center 62%;
+  }
+
+  .journey__frame--remmen .photo-slot > img {
+    object-position: center top;
+    transform: scale(1.38);
+    transform-origin: center top;
+  }
+
+  .journey__caption {
+    position: relative;
+    flex: 0 0 9.25rem;
+    padding: 0.85rem var(--gutter) 1rem;
+    background: transparent;
   }
 }
 
@@ -548,7 +1266,8 @@
 
   .compare__old,
   .compare__new,
-  .journey__frame img {
+  .journey__frame img,
+  .journey__frame .photo-slot {
     height: 72vh;
     transform: none;
   }
@@ -632,7 +1351,8 @@ html:not(.js) .journey__frame {
 
 html:not(.js) .compare__old,
 html:not(.js) .compare__new,
-html:not(.js) .journey__frame img {
+html:not(.js) .journey__frame img,
+html:not(.js) .journey__frame .photo-slot {
   height: 72vh;
 }
 
@@ -676,5 +1396,1267 @@ html:not(.js) .journey__support {
   .site-header.is-on-dark.is-menu-open {
     background: #ffffff;
     color: var(--ink);
+  }
+}
+
+/* --------------------------------------------
+   Map — three fire station locations
+   Between section 3 and section 4.
+   Marker positions and popup text are set in js/xl-story-map.js.
+   The map image keeps its own proportions. It is not cropped.
+-------------------------------------------- */
+
+.scene--locations {
+  position: relative;
+  z-index: 0;
+  --muted: #5c564e;
+  background: var(--paper);
+  color: var(--ink);
+  padding: clamp(4.5rem, 12vh, 8rem) 0;
+}
+
+.locations__intro h2 {
+  max-width: 12em;
+  margin-top: 0.7rem;
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+}
+
+.station-map {
+  position: relative;
+  z-index: 0;
+  margin-top: clamp(1.75rem, 5vh, 2.75rem);
+}
+
+.station-map__scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  overscroll-behavior-y: auto;
+  touch-action: pan-x pan-y;
+  background: #e7e4de;
+}
+
+.station-map__stage {
+  position: relative;
+  width: min(100%, 1764px);
+  margin-inline: auto;
+}
+
+.station-map__image {
+  width: 100%;
+  height: auto;
+  max-width: none;
+}
+
+.station-map__hint {
+  display: none;
+  margin: 0.65rem var(--gutter) 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.station-map__credit {
+  margin: 0.45rem var(--gutter) 0;
+  color: var(--muted);
+  font-size: 0.75rem;
+  line-height: 1.3;
+  text-align: right;
+}
+
+.station-map__credit a {
+  color: inherit;
+}
+
+.station-marker {
+  position: absolute;
+  z-index: 2;
+  left: var(--x);
+  top: var(--y);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 44px;
+  height: 48px;
+  color: var(--accent);
+  transform: translate(-50%, -100%);
+  cursor: pointer;
+}
+
+.station-marker__shape {
+  display: block;
+  width: 28px;
+  height: 40px;
+  overflow: visible;
+  filter: drop-shadow(0 0 1px #fff) drop-shadow(0 1px 2px rgba(28, 23, 20, 0.45));
+  transform-origin: center bottom;
+  transition: transform 0.15s var(--ease);
+}
+
+.station-marker:hover .station-marker__shape,
+.station-marker:focus-visible .station-marker__shape {
+  transform: translateY(-2px);
+}
+
+.station-marker:focus {
+  outline: none;
+}
+
+.station-marker:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.station-popup {
+  position: fixed;
+  z-index: 30;
+  width: min(188px, calc(100vw - 20px));
+  background: #fff;
+  color: var(--ink);
+  border-radius: 3px;
+  box-shadow: 0 8px 22px rgba(28, 23, 20, 0.16);
+}
+
+.station-popup[hidden] {
+  display: none;
+}
+
+.station-popup::after {
+  content: "";
+  position: absolute;
+  left: var(--arrow, 50%);
+  bottom: -7px;
+  transform: translateX(-50%);
+  border-width: 7px 7px 0;
+  border-style: solid;
+  border-color: #fff transparent transparent;
+  pointer-events: none;
+}
+
+.station-popup.is-below::after {
+  top: -7px;
+  bottom: auto;
+  border-width: 0 7px 7px;
+  border-color: transparent transparent #fff;
+}
+
+.station-popup__photo {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 3px 3px 0 0;
+  background-color: #e3dbd1;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, 0.35) 0 8px,
+    rgba(70, 54, 40, 0.05) 8px 9px
+  );
+}
+
+.station-popup__photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  color: transparent;
+  font-size: 0;
+}
+
+.station-popup__placeholder {
+  display: none;
+  position: absolute;
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0.45rem 0.55rem;
+  text-align: center;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+  text-transform: uppercase;
+  color: #5c564e;
+}
+
+.station-popup.is-placeholder .station-popup__placeholder {
+  display: flex;
+}
+
+.station-popup.is-placeholder .station-popup__photo img[hidden],
+.station-popup__photo img.is-missing {
+  display: none;
+}
+
+.station-popup__photo img.is-broken {
+  opacity: 0;
+}
+
+.station-popup__body {
+  padding: 0.45rem 0.6rem 0.55rem;
+}
+
+.station-popup__name {
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.station-popup__years {
+  margin-top: 0.22rem;
+  color: #5c564e;
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.3;
+}
+
+/* On a narrow screen the full map would become too small to use.
+   Keep it large and let the reader move sideways. The page still scrolls vertically. */
+@media (max-width: 639px) {
+  .station-map__stage {
+    width: 52rem;
+    margin-inline: 0;
+  }
+
+  .station-map__hint {
+    display: block;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .station-marker__shape,
+  .station-marker:hover .station-marker__shape,
+  .station-marker:focus-visible .station-marker__shape {
+    transform: none;
+    transition: none;
+  }
+}
+
+/* --------------------------------------------
+   Desktop reading
+   Phone and small-tablet styles above stay as they are.
+   From 900px the story gets a tighter editorial scale:
+   one title, one chapter size, quieter subheads,
+   and centered type only for short pauses.
+-------------------------------------------- */
+
+@media (min-width: 900px) {
+  .scene--history,
+  .scene--struggle,
+  .scene--today,
+  .scene--ending,
+  .scene--changes,
+  .scene--coop,
+  .scene--generation,
+  .scene--locations {
+    padding: clamp(2.6rem, 5vh, 4rem) 0;
+  }
+
+  .scene--open {
+    padding-top: calc(var(--header-h) + clamp(1.6rem, 3.5vh, 2.75rem));
+    padding-bottom: clamp(1.6rem, 3.4vh, 2.4rem);
+  }
+
+  /* After the hook the header is the compact bar, so the title
+     does not need to clear the full masthead. */
+  .js .scene--open {
+    padding-top: calc(var(--header-compact) + clamp(2rem, 4.5vh, 3.25rem));
+  }
+
+  .scene--history + .scene--history {
+    padding-top: clamp(1.5rem, 3.2vh, 2.35rem);
+  }
+
+  .scene--generation + .scene--ending {
+    min-height: 0;
+    align-items: stretch;
+    padding-top: clamp(1.35rem, 3vh, 2.15rem);
+    padding-bottom: clamp(2.6rem, 5vh, 3.75rem);
+  }
+
+  .page-story .kicker {
+    letter-spacing: 0.18em;
+  }
+
+  .page-story .prose p {
+    font-size: 1.125rem;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+
+  .page-story .prose p + p {
+    margin-top: 1.05em;
+  }
+
+  .history__intro .kicker + h2,
+  .history__text h2,
+  .life-split__copy h2,
+  .life-break h2,
+  .struggle__inner h2,
+  .chapter-head h2,
+  .coop-grid__copy h2,
+  .today__copy h2,
+  .ending__copy h2,
+  .locations__intro h2 {
+    max-width: 16em;
+    margin-top: 0.8rem;
+    margin-bottom: 0;
+    font-size: clamp(2.05rem, 2.7vw, 2.7rem);
+    line-height: 1.14;
+    text-wrap: balance;
+    hyphens: none;
+  }
+
+  .history__intro {
+    text-align: center;
+  }
+
+  .history__intro .kicker + h2 {
+    max-width: 12em;
+    margin-inline: auto;
+    font-size: clamp(2.85rem, 4.2vw, 3.7rem);
+    line-height: 1.08;
+  }
+
+  .locations__intro {
+    text-align: center;
+  }
+
+  .locations__intro h2 {
+    margin-inline: auto;
+  }
+
+  .chapter-head .prose,
+  .life-split__copy .prose,
+  .struggle__inner .prose,
+  .coop-grid__copy .prose,
+  .today__copy .prose,
+  .ending__copy .prose,
+  .generation__more .prose {
+    margin-top: 1.15rem;
+  }
+
+  .history__text h2 {
+    margin-bottom: 0.95rem;
+  }
+
+  .history__figure {
+    margin-block: clamp(1.75rem, 3.6vh, 2.5rem);
+  }
+
+  /* Two short sentences between the opening photograph and the story. */
+  .scene--open .history__text.prose > p:first-child {
+    max-width: 28rem;
+    margin-inline: auto;
+    color: #2b2118;
+    text-align: center;
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(1.28rem, 1.65vw, 1.5rem);
+    line-height: 1.42;
+  }
+
+  .scene--open .history__text.prose > p:first-child + p {
+    margin-top: 1.85rem;
+  }
+
+  .spread {
+    margin-block: clamp(1.85rem, 4.2vh, 3.15rem);
+  }
+
+  .history__text .kicker {
+    margin-top: clamp(2.15rem, 4.8vh, 3.35rem);
+  }
+
+  .life-split {
+    gap: clamp(1.75rem, 3vw, 3.25rem);
+  }
+
+  .life-break,
+  .struggle__inner {
+    width: min(var(--measure), calc(100% - (2 * var(--gutter))));
+  }
+
+  .life-break {
+    margin-top: clamp(2.15rem, 4.8vh, 3.35rem);
+  }
+
+  .life-break .struggle__blocks {
+    margin-top: 1.05rem;
+  }
+
+  .life-break .struggle__block {
+    max-width: 36rem;
+    font-size: clamp(1.4rem, 1.75vw, 1.7rem);
+    line-height: 1.4;
+  }
+
+  .attempt-list {
+    margin-top: clamp(1.65rem, 3.6vh, 2.5rem);
+    gap: 1.15rem 2.25rem;
+  }
+
+  .attempt-list li p {
+    font-size: 1.125rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+
+  .fact-list {
+    margin-top: clamp(1.5rem, 3.4vh, 2.35rem);
+  }
+
+  .fact-list div {
+    padding: 0.9rem 0;
+    gap: 0.35rem 2rem;
+  }
+
+  .fact-list dt {
+    font-size: clamp(1.32rem, 1.5vw, 1.5rem);
+    line-height: 1.2;
+  }
+
+  .fact-list dd {
+    font-size: 1.125rem;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+
+  .scene--generation .fact-list {
+    margin-top: clamp(1.35rem, 3vh, 2rem);
+  }
+
+  .coop-grid {
+    grid-template-columns: minmax(0, 0.92fr) minmax(18rem, 1fr);
+    gap: clamp(1.75rem, 3vw, 3.25rem);
+  }
+
+  .coop-grid .pull {
+    max-width: 13.5em;
+    font-size: clamp(1.65rem, 2.05vw, 2.05rem);
+    line-height: 1.24;
+  }
+
+  .coop-grid__copy .frame--portrait {
+    max-width: 24rem;
+  }
+
+  .prose h3,
+  .story-band h3 {
+    margin-top: 1.65rem;
+    font-size: clamp(1.28rem, 1.45vw, 1.45rem);
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+
+  .prose h3 + p {
+    margin-top: 0.5rem;
+  }
+
+  .story-band h3 {
+    margin-top: 0;
+  }
+
+  .story-band {
+    padding-top: 0.65rem;
+  }
+
+  .today__copy .pull {
+    max-width: 18em;
+    margin: 1.15rem 0 1.2rem;
+    font-size: clamp(1.38rem, 1.6vw, 1.6rem);
+    line-height: 1.32;
+  }
+
+  .today__copy .figure {
+    margin-block: 1.35rem;
+  }
+
+  .generation__quote {
+    width: min(36rem, calc(100% - (2 * var(--gutter))));
+    margin-top: clamp(1.85rem, 4.2vh, 2.85rem);
+    text-align: center;
+  }
+
+  .generation__quote .pull {
+    margin-inline: auto;
+    font-size: clamp(1.65rem, 2.05vw, 2.05rem);
+    line-height: 1.28;
+  }
+
+  .generation__quote .pull p::before,
+  .ending__quote .pull p::before {
+    margin-inline: auto;
+  }
+
+  .generation__bridge {
+    margin-top: clamp(1.75rem, 4vh, 2.65rem);
+  }
+
+  .generation__bridge h3,
+  .generation__more h3 {
+    max-width: 18em;
+    font-size: clamp(1.48rem, 1.8vw, 1.8rem);
+    line-height: 1.16;
+    text-wrap: balance;
+  }
+
+  .role-row {
+    margin-top: clamp(1.25rem, 3vh, 1.85rem);
+    gap: 1.5rem 3rem;
+  }
+
+  .role-row h3 {
+    font-size: clamp(1.35rem, 1.55vw, 1.55rem);
+    line-height: 1.18;
+  }
+
+  .generation__more {
+    margin-top: clamp(1.85rem, 4.2vh, 2.85rem);
+  }
+
+  .station-map {
+    margin-top: clamp(1.15rem, 2.6vh, 1.85rem);
+  }
+
+  .ending__grid {
+    width: min(64rem, calc(100% - (2 * var(--gutter))));
+    grid-template-columns: minmax(16rem, 22rem) minmax(0, 1fr);
+    gap: clamp(1.5rem, 3vw, 3.25rem);
+  }
+
+  .ending__quote {
+    justify-self: center;
+    width: min(32rem, 100%);
+    margin-bottom: clamp(0.35rem, 1.6vh, 1rem);
+    text-align: center;
+  }
+
+  .ending__quote .pull {
+    margin-inline: auto;
+    font-size: clamp(1.75rem, 2.2vw, 2.2rem);
+    line-height: 1.24;
+  }
+}
+
+/* --------------------------------------------
+   Editorial captions
+   Directly under the photograph. Smaller than
+   the body, left-aligned, and in the same sans.
+-------------------------------------------- */
+
+.caption {
+  margin: 0.65rem 0 0;
+  color: var(--muted, #5f564e);
+  font-family: var(--sans);
+  font-size: 0.92rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.45;
+  text-align: left;
+}
+
+.spread--full > .caption,
+.figure:has(> .frame--wide) > .caption,
+.caption--map {
+  width: min(var(--measure), calc(100% - (2 * var(--gutter))));
+  margin-inline: auto;
+}
+
+/* Wide photographs are already inset. Keep the caption in the reading column. */
+.spread--wide > .caption {
+  width: min(var(--measure), 100%);
+  margin-inline: auto;
+}
+
+.caption--map {
+  margin-top: 1.05rem;
+}
+
+/* The opening photograph's margin sits on the frame. Move the lower gap
+   below the caption so the line stays directly under the picture. */
+.figure:has(> .history__figure) > .history__figure {
+  margin-bottom: 0;
+}
+
+.figure:has(> .history__figure) {
+  margin-bottom: clamp(2rem, 6vh, 3.5rem);
+}
+
+@media (min-width: 900px) {
+  .figure:has(> .history__figure) {
+    margin-bottom: clamp(1.75rem, 3.6vh, 2.5rem);
+  }
+}
+
+@media (max-width: 700px) {
+  .caption {
+    margin-top: 0.5rem;
+    font-size: 0.84rem;
+    line-height: 1.4;
+  }
+
+  .caption--map {
+    margin-top: 0.95rem;
+  }
+}
+
+/* --------------------------------------------
+   Desktop layout
+   From 900px only. Phone and tablet rules above
+   are left as they are.
+
+   One type scale, one reading width, and the same
+   wide measure wherever a section pairs text with
+   a second column or a row.
+     Kicker     0.75rem
+     Title      the opening headline only
+     Section    clamp(2.05rem, 2.7vw, 2.7rem)
+     Pull       1.7rem
+     Subhead    1.5rem
+     Row label  1.35rem
+     Body       1.125rem / 1.65
+   Body stays left. A quote is centered only when
+   it stands alone, as in the close.
+-------------------------------------------- */
+
+@media (min-width: 900px) {
+  .page-story {
+    --story-wide: min(61rem, calc(100% - (2 * var(--gutter))));
+  }
+
+  .page-story .prose p,
+  .page-story .attempt-list li p,
+  .page-story .role-row p,
+  .page-story .fact-list dd,
+  .page-story .struggle__block {
+    text-align: left;
+  }
+
+  .page-story .prose p {
+    max-width: 38rem;
+    font-size: 1.125rem;
+    line-height: 1.65;
+  }
+
+  .page-story .prose p + p {
+    margin-top: 1.05em;
+  }
+
+  /* The opening lines read with the column under them. */
+  .page-story .scene--open .history__text.prose > p:first-child {
+    max-width: 38rem;
+    margin-inline: 0;
+    color: var(--ink-soft);
+    text-align: left;
+    font-family: var(--sans);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.125rem;
+    line-height: 1.65;
+  }
+
+  .page-story .scene--open .history__text.prose > p:first-child + p {
+    margin-top: 1.05em;
+  }
+
+  .page-story .history__text h2,
+  .page-story .life-split__copy h2,
+  .page-story .life-break h2,
+  .page-story .struggle__inner h2,
+  .page-story .chapter-head h2,
+  .page-story .coop-grid__copy h2,
+  .page-story .today__copy h2,
+  .page-story .ending__copy h2,
+  .page-story .scene--changes .chapter-head h2,
+  .page-story .scene--generation .chapter-head h2 {
+    max-width: 16em;
+    margin-top: 0.7rem;
+    margin-bottom: 0;
+    color: inherit;
+    font-size: clamp(2.05rem, 2.7vw, 2.7rem);
+    font-weight: 500;
+    line-height: 1.14;
+    letter-spacing: -0.03em;
+    text-align: left;
+    text-wrap: balance;
+  }
+
+  .page-story .prose h3,
+  .page-story .story-band h3,
+  .page-story .generation__bridge h3,
+  .page-story .generation__more h3,
+  .page-story .role-row h3 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  .page-story .prose h3 {
+    margin-top: 1.75rem;
+  }
+
+  .page-story .prose h3 + p {
+    margin-top: 0.55rem;
+  }
+
+  .page-story .story-band h3,
+  .page-story .generation__bridge h3 {
+    margin-top: 0;
+  }
+
+  .page-story .generation__more h3,
+  .page-story .role-row h3 {
+    margin-top: 0.55rem;
+  }
+
+  .page-story .coop-grid .pull,
+  .page-story .today__copy .pull,
+  .page-story .generation__quote .pull,
+  .page-story .ending__quote .pull {
+    font-size: 1.7rem;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+  }
+
+  .page-story .fact-list dt {
+    font-size: 1.35rem;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
+  .page-story .fact-list dd,
+  .page-story .attempt-list li p {
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+
+  .page-story .chapter-head .prose,
+  .page-story .life-split__copy .prose,
+  .page-story .struggle__inner .prose,
+  .page-story .coop-grid__copy .prose,
+  .page-story .today__copy .prose,
+  .page-story .ending__copy .prose,
+  .page-story .generation__more .prose {
+    margin-top: 1.15rem;
+  }
+
+  /* Flytting: title, note, the two rows and the photograph
+     share one frame. The photograph sits beside the introduction. */
+  .scene--struggle {
+    display: grid;
+    grid-template-columns: minmax(0, 40rem) 17rem;
+    column-gap: 2.5rem;
+    row-gap: 1.35rem;
+    justify-content: center;
+    align-items: start;
+    padding-inline: var(--gutter);
+  }
+
+  .scene--struggle .struggle__inner {
+    grid-column: 1;
+    grid-row: 1;
+    width: auto;
+    margin: 0;
+  }
+
+  .scene--struggle .struggle__inner .prose p {
+    max-width: none;
+  }
+
+  .scene--struggle .spread--varsel {
+    grid-column: 2;
+    grid-row: 1;
+    width: auto;
+    margin: 0;
+  }
+
+  .scene--struggle .spread--varsel > .photo-slot {
+    aspect-ratio: 1 / 1;
+    max-height: none;
+  }
+
+  .scene--struggle .spread--varsel > .caption {
+    width: auto;
+    margin-inline: 0;
+  }
+
+  .scene--struggle .attempt-list {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: auto;
+    margin: 0;
+  }
+
+  /* Grensen: the quotation and the portrait share the left
+     column. The text runs beside both, so the column does
+     not end in an empty field. The text wrapper is unstyled
+     below 900px, so the phone order stays quote, text, portrait. */
+  .coop-grid {
+    display: grid;
+    width: var(--story-wide);
+    margin-inline: auto;
+    grid-template-columns: 16.5rem minmax(0, 1fr);
+    column-gap: 2.35rem;
+    row-gap: 1.15rem;
+    align-items: start;
+  }
+
+  .coop-grid > div:first-child {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .coop-grid__copy {
+    display: contents;
+  }
+
+  .coop-grid__text {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: start;
+  }
+
+  .coop-grid .pull {
+    max-width: none;
+    width: auto;
+  }
+
+  .coop-grid__copy .figure {
+    grid-column: 1;
+    grid-row: 2;
+    width: auto;
+    margin: 0;
+  }
+
+  .coop-grid__copy .frame--portrait {
+    max-width: none;
+    width: 100%;
+  }
+
+  /* Changes: the heading and the rows share a left edge. */
+  .scene--changes .chapter-head,
+  .scene--changes .fact-list {
+    width: var(--story-wide);
+  }
+
+  .scene--changes .fact-list {
+    margin-top: 1.35rem;
+  }
+
+  /* Generations through the close. One frame:
+     introduction beside its quote, the comparison as one
+     ruled block, then the student text beside the two rows.
+     The closing quote leads the conclusion in the text column. */
+  .scene--generation {
+    display: grid;
+    grid-template-columns: minmax(0, 36rem) minmax(16rem, 22rem);
+    column-gap: 2.5rem;
+    row-gap: 0;
+    justify-content: center;
+    align-items: center;
+    padding-inline: var(--gutter);
+    padding-bottom: 0.35rem;
+  }
+
+  .scene--generation .chapter-head:not(.generation__bridge) {
+    grid-column: 1;
+    grid-row: 1;
+    width: auto;
+    margin: 0;
+  }
+
+  .scene--generation .chapter-head:not(.generation__bridge) .prose p,
+  .scene--generation .generation__more .prose p {
+    max-width: none;
+  }
+
+  .scene--generation .generation__quote {
+    grid-column: 2;
+    grid-row: 1;
+    width: auto;
+    margin: 0;
+    text-align: left;
+    align-self: center;
+  }
+
+  .scene--generation .generation__quote .pull {
+    max-width: 12em;
+    margin: 0;
+  }
+
+  .scene--generation .generation__quote .pull p::before {
+    margin-inline: 0;
+  }
+
+  .scene--generation .generation__bridge {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: auto;
+    margin: 1.85rem 0 0;
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  .scene--generation .role-row {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    width: auto;
+    margin: 0;
+    gap: 1rem 2.5rem;
+  }
+
+  .scene--generation .role-row article {
+    padding-top: 0.9rem;
+    border-top: 0;
+  }
+
+  .scene--generation .role-row h3 {
+    margin-top: 0.4rem;
+  }
+
+  .scene--generation .role-row p:not(.kicker) {
+    max-width: none;
+    margin-top: 0.55rem;
+    font-size: 1.125rem;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    text-align: left;
+  }
+
+  .scene--generation .generation__more {
+    grid-column: 1;
+    grid-row: 4;
+    width: auto;
+    margin: 1.85rem 0 0;
+    align-self: start;
+  }
+
+  .scene--generation .fact-list {
+    grid-column: 2;
+    grid-row: 4;
+    width: auto;
+    margin: 1.85rem 0 0;
+    align-self: center;
+  }
+
+  .scene--generation .fact-list div {
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
+    padding: 0.8rem 0;
+  }
+
+  .scene--generation .fact-list dt {
+    font-size: 1.35rem;
+    line-height: 1.2;
+  }
+
+  .scene--generation .fact-list dd {
+    font-size: 1.125rem;
+    line-height: 1.55;
+    text-align: left;
+  }
+
+  .scene--generation + .scene--ending {
+    padding-top: 1.5rem;
+    padding-bottom: clamp(2.75rem, 5.5vh, 4.25rem);
+  }
+
+  .scene--ending .ending__grid {
+    width: min(60.5rem, calc(100% - (2 * var(--gutter))));
+    grid-template-columns: minmax(15rem, 18.5rem) minmax(0, 1fr);
+    column-gap: 2.5rem;
+    row-gap: 0;
+    align-items: start;
+  }
+
+  .scene--ending .ending__quote {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: start;
+    width: auto;
+    max-width: 16em;
+    margin: 0 0 1rem;
+    text-align: left;
+  }
+
+  .scene--ending .ending__quote .pull {
+    margin: 0;
+  }
+
+  .scene--ending .ending__quote .pull p::before {
+    margin-inline: 0;
+  }
+
+  .scene--ending .ending__portrait {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    align-self: start;
+    width: 100%;
+    max-width: none;
+  }
+
+  .scene--ending .ending__copy {
+    grid-column: 2;
+    grid-row: 2;
+  }
+}
+
+/* --------------------------------------------
+   Læring begge veier
+   Two choices, one panel. The same component
+   is used on the phone and on the desktop.
+-------------------------------------------- */
+
+.role-row:has(.learn-tabs) {
+  display: block;
+}
+
+.learn-tabs__bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.75rem;
+  border-bottom: 1px solid rgba(35, 33, 30, 0.16);
+}
+
+.learn-tabs__tab {
+  position: relative;
+  min-height: 44px;
+  margin: 0;
+  padding: 0.7rem 0.15rem 0.75rem;
+  border: 0;
+  background: none;
+  color: var(--muted, #5f564e);
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.learn-tabs__tab::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.28s var(--ease);
+}
+
+.learn-tabs__tab[aria-selected="true"] {
+  color: var(--accent);
+}
+
+.learn-tabs__tab[aria-selected="true"]::after {
+  transform: scaleX(1);
+}
+
+.learn-tabs__tab:hover {
+  color: var(--ink);
+}
+
+.learn-tabs__tab:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.learn-tabs__tab[aria-selected="true"]:hover {
+  color: var(--accent);
+}
+
+.learn-tabs__stage {
+  padding-top: 1.15rem;
+}
+
+.learn-tabs__panel h3 {
+  margin: 0 0 0.55rem;
+  font-family: var(--serif);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+.role-row .learn-tabs__panel p {
+  max-width: 40rem;
+  margin: 0;
+  line-height: 1.65;
+  text-align: left;
+}
+
+.js .learn-tabs__panel {
+  display: none;
+}
+
+.js .learn-tabs__panel.is-active,
+.js .learn-tabs__panel.is-leaving {
+  display: block;
+}
+
+.js .learn-tabs__panel.is-active {
+  animation: learn-tab-in 0.32s var(--ease);
+}
+
+.js .learn-tabs__panel.is-leaving {
+  opacity: 0;
+  transition: opacity 0.18s var(--ease);
+}
+
+@keyframes learn-tab-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.35rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (min-width: 900px) {
+  .learn-tabs__tab {
+    letter-spacing: 0.18em;
+  }
+
+  .scene--generation .learn-tabs__panel h3 {
+    margin: 0 0 0.55rem;
+    font-size: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .scene--generation .learn-tabs__panel p {
+    max-width: 40rem;
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    text-align: left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .learn-tabs__tab::after,
+  .learn-tabs__panel,
+  .js .learn-tabs__panel.is-active,
+  .js .learn-tabs__panel.is-leaving {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* --------------------------------------------
+   From "Student med ansvar" to the close.
+   Each beat fades in as it reaches the reading line.
+-------------------------------------------- */
+
+.js .story-step {
+  opacity: 0;
+  transform: translateY(0.45rem);
+  transition: opacity var(--fade) var(--ease), transform var(--fade) var(--ease);
+}
+
+.js .story-step.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.scene--generation .generation__more .prose {
+  margin-top: 1.35rem;
+}
+
+.scene--generation .generation__more .prose p + p {
+  margin-top: 3.25rem;
+}
+
+.scene--generation .fact-list {
+  margin-top: clamp(3.25rem, 8vh, 4.5rem);
+}
+
+.scene--generation .fact-list div + div {
+  margin-top: 3.25rem;
+}
+
+.scene--ending .ending__copy .prose {
+  margin-top: 2.75rem;
+}
+
+.scene--ending .ending__copy .prose p + p {
+  margin-top: 3rem;
+}
+
+.scene--ending {
+  align-items: flex-start;
+}
+
+@media (min-width: 900px) {
+  .scene--generation .generation__more {
+    grid-column: 1 / -1;
+    grid-row: 4;
+    width: min(38rem, 100%);
+    margin: 3rem 0 0;
+    justify-self: start;
+  }
+
+  .scene--generation .fact-list {
+    grid-column: 1 / -1;
+    grid-row: 5;
+    width: min(38rem, 100%);
+    margin: 3.25rem 0 0;
+    justify-self: start;
+    align-self: start;
+  }
+
+  .scene--generation .fact-list div {
+    padding: 1.15rem 0 0.15rem;
+  }
+
+  .scene--generation + .scene--ending {
+    padding-top: 3.25rem;
+  }
+
+  .scene--ending .ending__portrait {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: start;
+  }
+
+  .scene--ending .ending__quote {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: center;
+    margin: 0;
+  }
+
+  .scene--ending .ending__copy {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: min(38rem, 100%);
+    margin-top: 3rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .story-step,
+  .js .story-step.is-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }

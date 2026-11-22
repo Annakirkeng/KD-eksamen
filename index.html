@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nb">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,7 +19,7 @@
   - index.html       this homepage
   - article1.html    Story 1, AfD in Sachsen-Anhalt
   - article2.html    short story template
-  - article3.html    short story template
+  - article3.html    GTA 6 and the price debate
   - xl-story.html    the long scroll story
 
   Photographs live in images/. The src on each <img> is the file name to add.
@@ -30,7 +30,7 @@
   <header class="site-header">
     <div class="site-header__brand">
       <a class="logo logo--full" href="index.html" aria-label="Sixth Sense">
-        <img class="logo__img" src="images/sixthsense-black.png" alt="">
+        <img class="logo__img" src="images/sixthsense-black.png" width="1488" height="901" alt="">
       </a>
     </div>
     <div class="site-header__main">
@@ -41,11 +41,11 @@
       </a>
       <nav class="site-nav" id="site-nav" aria-label="Primary">
         <ul>
-          <li><a href="index.html" aria-current="page">Home</a></li>
-          <li><a href="article1.html">Article 1</a></li>
-          <li><a href="article2.html">Article 2</a></li>
-          <li><a href="article3.html">Article 3</a></li>
-          <li><a href="xl-story.html">XL Story</a></li>
+          <li><a href="index.html" aria-current="page">Forside</a></li>
+          <li><a href="article1.html">Samfunn</a></li>
+          <li><a href="article2.html">Mote</a></li>
+          <li><a href="article3.html">Underholdning</a></li>
+          <li><a href="xl-story.html">Reportasje</a></li>
         </ul>
       </nav>
     </div>
@@ -57,17 +57,12 @@
 
   <main id="main" tabindex="-1">
     <section class="cover" aria-labelledby="cover-title">
-      <div class="wrap cover__grid">
-        <div>
-          <p class="kicker">Issue 01 · Placeholder edition</p>
-          <h1 id="cover-title">Stories with a<br> street address.</h1>
-          <p class="deck">A placeholder journal for this exam. Replace this line with the sentence that introduces your publication.</p>
+      <div class="wrap cover__intro">
+        <h1 id="cover-title">Det finnes alltid mer enn det øyet ser.</h1>
+        <p class="cover__lead">Den sjette sansen handler om å oppfatte det som ikke alltid er åpenbart. I Sixth Sense utforsker vi historier, perspektiver og detaljer som gir oss nye måter å se verden på.</p>
+        <div class="cover__mark" aria-hidden="true">
+          <img src="images/ss-black.png" alt="">
         </div>
-        <ul class="cover__aside">
-          <li>Four stories</li>
-          <li>One long read</li>
-          <li>Placeholder edition</li>
-        </ul>
       </div>
     </section>
 
@@ -75,14 +70,13 @@
       <div class="wrap">
         <a class="featured__link" href="xl-story.html">
           <div class="frame frame--feature">
-            <!-- Add images/station-history.jpg later. Do not change this path unless you rename the file. -->
-            <img src="images/station-history.jpg" alt="Placeholder: an early photograph of the fire station">
+            <img src="images/IMG_7676.jpeg" width="4284" height="5712" alt="Den nye brannstasjonen i Halden, en mørk bygning med skiltet Halden brannstasjon, porter og Sivilforsvaret.">
           </div>
           <div class="featured__text">
-            <p class="kicker">XL story</p>
-            <h2 id="featured-title">Placeholder headline: a fire station from 1911 to today</h2>
-            <p>The long story follows one station, the equipment inside it, and the people who kept it going. The final text is not written yet.</p>
-            <span class="text-link">Read the XL story</span>
+            <p class="kicker">Reportasje</p>
+            <h2 id="featured-title">Utviklingen av Halden brannvesen</h2>
+            <p>Møt tidligere brannsjef Jens og dagens ansatte Andreas og <span class="nobr">Ole Jørgen</span>. Gjennom historiske bilder og deres erfaringer får du et innblikk i hvordan Halden brannvesen har forandret seg.</p>
+            <span class="text-link">Les historien her</span>
           </div>
         </a>
       </div>
@@ -90,18 +84,18 @@
 
     <section class="index-list" aria-labelledby="index-title">
       <div class="wrap">
-        <h2 id="index-title">In this issue</h2>
+        <h2 id="index-title">Siste nytt</h2>
         <ol>
           <li>
             <a class="story-row" href="article1.html">
               <span class="story-row__num">01</span>
               <div class="story-row__text">
-                <h3>43,8 prosent i Sachsen-Anhalt</h3>
-                <p>AfD ble største parti i delstatsvalget, uten absolutt flertall. Saken spør hvorfor.</p>
-                <span class="text-link">Read article</span>
+                <h3>Et høyreekstremt parti vant valget <span class="nobr">i Sachsen-Anhalt</span></h3>
+                <p>Hvordan kunne AfD bli den største politiske kraften i Sachsen-Anhalt?</p>
+                <span class="text-link">Les artikkelen</span>
               </div>
               <div class="frame frame--wide">
-                <img src="images/article-1.jpg" alt="Placeholder: lead photograph for article 1">
+                <img src="images/Ulrich.webp" alt="Ulrich Siegmund, AfDs toppkandidat i Sachsen-Anhalt, taler fra en talerstol med tyske flagg i bakgrunnen.">
               </div>
             </a>
           </li>
@@ -109,12 +103,12 @@
             <a class="story-row" href="article2.html">
               <span class="story-row__num">02</span>
               <div class="story-row__text">
-                <h3>Placeholder headline — a short story about a person</h3>
-                <p>A portrait template: a name, a habit, and one scene. Replace this with the premise of article 2.</p>
-                <span class="text-link">Read article</span>
+                <h3>Dette er høstens største trender, men hvor lenge varer de?</h3>
+                <p>I en moteverden hvor det stadig dukker opp nye trender, er det verdt å spørre hvor lenge de egentlig varer.</p>
+                <span class="text-link">Les artikkelen</span>
               </div>
-              <div class="frame frame--wide">
-                <img src="images/article-2.jpg" alt="Placeholder: lead photograph for article 2">
+              <div class="frame frame--wide frame--varighet">
+                <img src="images/MoteVarighet.png" alt="Tolv moteskisser av høstplagg: kåper, dresser, kjoler, jeans og støvler.">
               </div>
             </a>
           </li>
@@ -122,25 +116,15 @@
             <a class="story-row" href="article3.html">
               <span class="story-row__num">03</span>
               <div class="story-row__text">
-                <h3>Placeholder headline — a short story about a change</h3>
-                <p>A before and an after, small enough to finish in a few minutes. Replace this with the premise of article 3.</p>
-                <span class="text-link">Read article</span>
+                <h3>GTA 6: Hvor dyrt kan et spill bli?</h3>
+                <p>GTA VI koster 949 kroner. Gamer og streamer Fredrik Siegel mener prisen er verdt det.</p>
+                <span class="text-link">Les artikkelen</span>
               </div>
-              <div class="frame frame--wide">
-                <img src="images/article-3.jpg" alt="Placeholder: lead photograph for article 3">
-              </div>
-            </a>
-          </li>
-          <li>
-            <a class="story-row" href="xl-story.html">
-              <span class="story-row__num">04</span>
-              <div class="story-row__text">
-                <h3>Placeholder headline — from 1911 to today</h3>
-                <p>Seven scroll sections, from a dark opening line to a quiet ending. This is the XL story.</p>
-                <span class="text-link">Read the XL story</span>
-              </div>
-              <div class="frame frame--wide">
-                <img src="images/station-today.jpg" alt="Placeholder: the fire station as it looks today">
+              <div class="frame frame--wide frame--gta" aria-hidden="true">
+                <div class="frame-gta">
+                  <p class="frame-gta__label">Prisen</p>
+                  <p class="frame-gta__price"><span>949</span><span>kr</span></p>
+                </div>
               </div>
             </a>
           </li>
@@ -151,19 +135,16 @@
 
   <footer class="site-footer">
     <div class="site-footer__inner">
-      <div>
-        <a class="logo" href="index.html">
-          <img class="logo__img" src="images/sixthsense-black.png" alt="Sixth Sense">
-        </a>
-        <p class="site-footer__note">Placeholder colophon. Replace this with your name, the course, and the year.</p>
-      </div>
+      <a class="logo" href="index.html">
+        <img class="logo__img" src="images/sixthsense-black.png" width="1488" height="901" alt="Sixth Sense">
+      </a>
       <nav aria-label="Footer">
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="article1.html">Article 1</a></li>
-          <li><a href="article2.html">Article 2</a></li>
-          <li><a href="article3.html">Article 3</a></li>
-          <li><a href="xl-story.html">XL Story</a></li>
+          <li><a href="index.html">Forside</a></li>
+          <li><a href="article1.html">Samfunn</a></li>
+          <li><a href="article2.html">Mote</a></li>
+          <li><a href="article3.html">Underholdning</a></li>
+          <li><a href="xl-story.html">Reportasje</a></li>
         </ul>
       </nav>
     </div>

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nb">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>GVI — The station, 1911 to today</title>
-  <meta name="description" content="Placeholder XL story. A local fire station from 1911 to today, told in seven scrolling sections.">
+  <title>GVI — Brannstasjonen i Halden sentrum</title>
+  <meta name="description" content="Jens, tidligere brannsjef i Halden, om stasjonen i sentrum, årene på Vestgård og den nye stasjonen mellom E6 og byen.">
   <meta name="theme-color" content="#110e0c">
   <link rel="icon" href="images/logo-mark.png">
   <link rel="stylesheet" href="css/style.css">
@@ -16,26 +16,32 @@
   <script>document.documentElement.classList.add("js");</script>
 </head>
 <!--
-  XL STORY — seven sections, in this order:
-  1. Hook
-  2. Before the city
-  3. Change / struggle
-  4. Before / after
-  5. Today
-  6. The short journey
-  7. Ending
+  XL STORY — the historical arc, in this order:
+    1. Hook — three lines from Jens, then the title and an opening image
+    2. The old station in sentrum, then the years so far
+    3. Everyday life — the watch, the equipment, the cost of the job
+    4. The struggle for a new station
+    5. Changes in the service — ambulance, the 110 centre, organisation
+    6. Cooperation across the border
+    7. The temporary station at Vestgård
+     Map of the three locations
+     Before / after — the two photographs. Do not edit this pair or the map.
+    8. The station today
+     Short journey — three photographs
+    9. A new generation
+    10. Ending
 
-  Do not write over the class names. Replace the placeholder sentences.
-  The final story can be much longer. Text sections are normal columns,
-  so extra paragraphs will simply make the page taller.
+  Do not write over the class names on the map or the before/after.
+  Article text comes from Story-Brannstasjon-2.pdf.
 
-  Images, dropped into the images/ folder:
-  - images/station-history.jpg       section 2, and journey photo 1
-  - images/station-old.jpg           before/after, old photo, and journey photo 2
-  - images/station-new.jpg           before/after, new photo
-  - images/station-today.jpg         section 5, and journey photo 3
-  - images/fire-equipment.jpg        section 5, equipment
-  - images/firefighter-portrait.jpg  ending
+  Picture slots are .photo-slot. Put a photograph in later by adding
+  an <img> inside the slot. The "Foto kommer" label hides once the
+  image is there.
+
+  Left as photographs:
+  - the map, images/halden-map-dark.png
+  - the two pictures under the map, which wipe sideways as you scroll:
+    images/OldStation.PNG and images/IMG_7675-2.jpg
 -->
 <body class="page-story">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -43,7 +49,7 @@
   <header class="site-header is-on-dark">
     <div class="site-header__brand">
       <a class="logo logo--full" href="index.html" aria-label="Sixth Sense">
-        <img class="logo__img" src="images/sixthsense-black.png" alt="">
+        <img class="logo__img" src="images/sixthsense-black.png" width="1488" height="901" alt="">
       </a>
     </div>
     <div class="site-header__main">
@@ -54,11 +60,11 @@
       </a>
       <nav class="site-nav" id="site-nav" aria-label="Primary">
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="article1.html">Article 1</a></li>
-          <li><a href="article2.html">Article 2</a></li>
-          <li><a href="article3.html">Article 3</a></li>
-          <li><a href="xl-story.html" aria-current="page">XL Story</a></li>
+          <li><a href="index.html">Forside</a></li>
+          <li><a href="article1.html">Samfunn</a></li>
+          <li><a href="article2.html">Mote</a></li>
+          <li><a href="article3.html">Underholdning</a></li>
+          <li><a href="xl-story.html" aria-current="page">Reportasje</a></li>
         </ul>
       </nav>
     </div>
@@ -70,153 +76,453 @@
 
   <main id="main" tabindex="-1">
     <article>
-      <h1 class="visually-hidden">Placeholder title: a local fire station, 1911 to today</h1>
+      <h1 class="visually-hidden">Brannstasjonen i Halden sentrum</h1>
 
       <!-- SECTION 1 — HOOK
            One sentence per .hook__line. Keep the lines short.
            Scroll progress reveals them, then fades the screen to black. -->
       <section class="scene scene--hook" data-scene="hook" data-header="dark" aria-labelledby="hook-title">
-        <h2 id="hook-title" class="visually-hidden">Hook</h2>
+        <h2 id="hook-title" class="visually-hidden">Innledning</h2>
         <div class="scene__pin">
           <blockquote class="hook__quote">
-            <span class="hook__line">Placeholder — a bell, before there was a siren.</span>
-            <span class="hook__line">Placeholder — a door the whole street could find.</span>
-            <span class="hook__line">Placeholder — a job that outlasted the building.</span>
-            <span class="hook__line">Placeholder — and then the picture goes dark.</span>
+            <span class="hook__line">«Du skulle ha kaktus under armene.»</span>
+            <span class="hook__line">«Da visste du at du var brannmann.»</span>
+            <span class="hook__line">«Og ingenting skulle stoppe deg.»</span>
+            <cite class="hook__line hook__cite">Jens Lindstrøm, tidligere brannsjef i Halden.</cite>
           </blockquote>
           <div class="hook__blackout" aria-hidden="true"></div>
         </div>
       </section>
 
-      <!-- SECTION 2 — BEFORE THE CITY -->
-      <section class="scene scene--history" data-header="light" aria-labelledby="history-title">
+      <!-- 2. THE OLD STATION
+           The opening image sits under the title. The founding years
+           are in the paragraphs below. More can be added in .history__text. -->
+      <section class="scene scene--history scene--open" data-header="light" aria-labelledby="history-title">
         <div class="history__intro wrap">
-          <p class="kicker">Before the city</p>
-          <h2 id="history-title" class="reveal">Placeholder — before the streets caught up</h2>
-          <p class="editor-note">Placeholder section. Replace this copy with the early history, from 1911, in the words your interviews support.</p>
+          <p class="kicker reveal">Sentrum</p>
+          <h2 id="history-title" class="reveal">Brannstasjonen i Halden sentrum</h2>
         </div>
 
         <figure class="figure">
-          <div class="frame frame--wide history__figure parallax" data-parallax>
-            <img src="images/station-history.jpg" alt="Placeholder: a large historical photograph of the early fire station">
+          <div class="frame frame--wide history__figure photo-slot parallax" data-parallax>
+            <img src="images/Byen.jpg" width="4032" height="3024" alt="Den gamle brannstasjonen i Halden sentrum, med slangetårn og porter ut mot plassen.">
+            <p class="photo-slot__label">Foto kommer</p>
           </div>
+          <figcaption class="caption">Brannstasjonen i Halden sentrum, med det karakteristiske slangetårnet som en del av bybildet.</figcaption>
         </figure>
 
         <div class="history__text prose">
-          <p class="reveal">In 1911 the station is still more agreement than architecture. This paragraph is placeholder history: a shed, a bell, neighbours who came when they were called. The final version should say where the first engine was kept, and who was expected to run.</p>
-          <p class="reveal">The photograph is standing in for the earliest picture you have. Let it stay large. Warmth in this part of the story belongs to the paper and the picture, not to nostalgia written in advance of the research.</p>
-          <p class="reveal">What the town was then, and what it asked of the people who answered the bell, is the substance this opening has to earn. Two or three concrete details will do more than a century summarized in one breath. Leave the difficulty of the later years for the next section.</p>
+          <p class="reveal">Brannstasjonen lå midt i Halden sentrum. Den hadde slangetårn og krakker utenfor døra.</p>
+          <p class="reveal">Jens, tidligere brannsjef i Halden, vokste opp hundre meter fra stasjonen. «Alle små gutter ville bli brannmann», sier han. «Jeg vokste aldri fra det». Han startet som reservebrannmann i 1977 og ble senere fast ansatt i 1980.</p>
+          <p class="reveal">Siden 1911, da stasjonen i byen ble grunnlagt og Halden brannvesen oppstod, hadde den vært der. Før den tid hadde brannberedskapen tilhørt soldatene på festningen.</p>
+        </div>
+
+        <figure class="spread spread--full">
+          <div class="photo-slot">
+            <img src="images/ambulanse.jpg" width="2400" height="1632" alt="Jens i rød jakke sitter på panseret til ambulansen merket 01-1, foran garasjeportene.">
+            <p class="photo-slot__label">Foto kommer</p>
+          </div>
+          <figcaption class="caption">I deler av perioden Jens jobbet ved brannstasjonen, hadde brannvesenet også ansvar for ambulansetjenesten.</figcaption>
+        </figure>
+      </section>
+
+      <!-- 3. EVERYDAY LIFE
+           A split, then a narrow column, then one wide quotation.
+           More paragraphs can be added in the prose blocks. -->
+      <section class="scene scene--history" data-header="light" aria-labelledby="nerve-title">
+        <div class="life-split">
+          <div class="life-split__copy">
+            <p class="kicker reveal">Vakt</p>
+            <h2 id="nerve-title" class="reveal">Byens nervesenter</h2>
+            <div class="prose">
+              <p class="reveal">De var åtte mann på vakt da Jens begynte, og jobben var mye mer enn bare å slokke branner. Stasjonen var som byens nervesenter. Det var telefonvakt som tok imot alarmer med egen 110-sentral. Alarmene fra hjemmesykepleien, overvåking av strømnettet og varsler om lekkasjer på vannverket kom alle inn hit. Også legevakta ringte til stasjonen. Og fysiske brannmeldere stod rundt i byen som meldte rett inn til vaktrommet.</p>
+              <p class="reveal">De hadde i tillegg ambulansen. Og den gikk fra rundt 800 oppdrag i året (1980) til nesten 2400 (midten av 90-tallet). Jens kjørte ambulansen i nesten 15 år og sier det er de beste årene i sitt arbeidsliv. «Man kjente folk, og man kjente jentene i mottaket på sykehuset. Det ble en gjeng», forteller han.</p>
+            </div>
+          </div>
+          <figure class="life-split__figure">
+            <div class="frame frame--portrait photo-slot">
+              <img src="images/jens.jpg" width="1823" height="2431" alt="Portrett av Jens, tidligere brannsjef i Halden, i uniform og lue.">
+              <p class="photo-slot__label">Foto kommer</p>
+            </div>
+            <figcaption class="caption">Jens Lindstrøm</figcaption>
+          </figure>
+        </div>
+
+        <div class="history__text prose">
+          <p class="kicker reveal">Utstyr</p>
+          <h2 id="times-title" class="reveal">Andre tider</h2>
+          <p class="reveal">Utstyret var helt annerledes enn i dag. Jens fikk som reservebrannmann gummistøvler, regnbukse og regnjakke. Faste ansatte fikk ulljakker, men også regnbukser. Regnbuksene ble værende lenge.</p>
+          <p class="reveal">«Tommy-hjelmen», hjelmen med hanekam, ble brukt til ca. 1992. De vasket uniformen sin én gang i året. Og de gikk rett til spisesalen etter store branner. Med klærne fulle av røyk.</p>
+          <p class="reveal">Når det var mindre å gjøre, fant de noe annet å bruke tiden på. De hadde jo stigebil, så de kunne vaske vinduene på rådhuset, de feide fortau og gikk kveldsrunde som vaktmester. «Vi kunne like godt gjøre noe i stedet for å sitte med hendene i fanget», sier Jens.</p>
+        </div>
+
+        <figure class="spread spread--wide spread--helmets">
+          <div class="photo-slot">
+            <img src="images/hjelmer.PNG" width="1925" height="817" alt="Hjelmer og luer fra brannvesenet, stilt opp i to rader på hyller.">
+            <p class="photo-slot__label">Foto kommer</p>
+          </div>
+          <figcaption class="caption">Ulik hjelmer oppp gjennom årene</figcaption>
+        </figure>
+
+        <div class="life-break">
+          <p class="kicker reveal">Alvor</p>
+          <h2 id="struggle-title" class="reveal">Byens helter</h2>
+          <div class="struggle__blocks">
+            <p class="struggle__block reveal">Men det var også et stort alvor i jobben som de alltid hadde med seg. Seks måneder etter Jens ble fast ansatt var det den første dødsulykken og eneste hittil. En av Haldens brannmenn falt 15 meter i lasterommet på en båt ved brygga under en brann. En påminnelse om at de virkelig setter sine egne liv i fare for andre.</p>
+          </div>
         </div>
       </section>
 
-      <!-- SECTION 3 — CHANGE / STRUGGLE -->
-      <section class="scene scene--struggle" data-header="light" aria-labelledby="struggle-title">
+      <!-- 4. THE STRUGGLE FOR A NEW STATION -->
+      <section class="scene scene--struggle" data-header="light" aria-labelledby="relocate-title">
         <div class="struggle__inner">
-          <p class="kicker reveal">Change / struggle</p>
-          <h2 id="struggle-title" class="reveal">Placeholder — the years the station had to argue for itself</h2>
-          <div class="struggle__blocks">
-            <p class="struggle__block reveal">There is a long middle in which the old arrangement no longer fits and the new one is not yet allowed. Use this passage for delay, resistance, and the arguments that were not only about a building.</p>
-            <p class="struggle__block reveal">Money belongs here if money was the lever. So does politics, if politics was why a decision stalled. Tie each claim to something a person can remember: a meeting, a refusal, a winter when the equipment was already wrong for the work.</p>
-            <p class="struggle__block reveal">The job itself was changing while the argument went on. Fires, roads, training, and what counted as safe were not the same as in 1911. Tell that shift from inside the work, not only as a list of dates.</p>
-            <p class="struggle__block reveal">The move, when it comes, should feel like the result of that pressure. If the relocation was forced, the interviews will know the difference between a choice and a corner. Say it plainly. Then let the photographs take over.</p>
+          <p class="kicker reveal">Flytting</p>
+          <h2 id="relocate-title" class="reveal">Endring over tid</h2>
+          <div class="prose">
+            <p class="reveal">I sentrum levde brannstasjonen på lånt tid. Rundt fem prosjekter for å bygge nytt bidro Jens til, men ingen av forsøkene ble noe av. De manglet både penger og vilje. Stadig konflikt mellom enkeltpolitikere og tillitsvalgte sto i veien. Jens sier at for politikerne ble brannvesenet «hår i suppa». De ville ikke bruke ressurser på dem.</p>
           </div>
         </div>
+        <ol class="attempt-list">
+          <li class="reveal">
+            <p>Tomtene som ble vurdert: Tistedal-området, det gamle meieriet, en gammel «jungle-fabrikk» ved elva og Noak-bygningen.</p>
+          </li>
+          <li class="reveal">
+            <p>Hindringen: Lite politisk vilje og konflikt mellom enkeltpolitikere og de tillitsvalgte.</p>
+          </li>
+        </ol>
+        <figure class="spread spread--wide spread--varsel">
+          <div class="photo-slot">
+            <img src="images/varsel.jpg" width="1800" height="2400" alt="Gammelt brannvarslingsutstyr på veggen: en rød Brand Alarm-kasse, et signalreglement og en brandmelder.">
+            <p class="photo-slot__label">Foto kommer</p>
+          </div>
+          <figcaption class="caption">Tidligere brannalarmer som ble brukt til å varsle brannvesenet når ulykken var ute.</figcaption>
+        </figure>
+      </section>
+
+      <!-- 5. CHANGES IN THE FIRE SERVICE -->
+      <section class="scene scene--changes" data-header="light" aria-labelledby="changes-title">
+        <div class="chapter-head">
+          <p class="kicker reveal">Organisering</p>
+          <h2 id="changes-title" class="reveal">Jobbene forsvinner</h2>
+          <div class="prose">
+            <p class="reveal">Ambulansetjenesten forsvinner på midten av 90-tallet. Den ble overført til sykehuset, og på stasjonen gikk vaktlaget fra åtte til fem. Og da forsvant også telefonvakten. Og 110-sentralen ble flyttet ut av byen, til Moss og senere til Ski. Da mistet brannstasjonen sin rolle som byens nervesenter.</p>
+          </div>
+        </div>
+        <dl class="fact-list">
+          <div class="reveal">
+            <dt>Vaktlaget</dt>
+            <dd>Fra åtte til fem mann.</dd>
+          </div>
+          <div class="reveal">
+            <dt>Telefonvakta</dt>
+            <dd>Borte, sammen med mye av den gamle «altmuligfunksjonen» som overvåkingen.</dd>
+          </div>
+          <div class="reveal">
+            <dt>110-sentralen</dt>
+            <dd>Flyttet først til Moss, siden til Ski.</dd>
+          </div>
+        </dl>
+      </section>
+
+      <!-- 6. COOPERATION ACROSS THE BORDER -->
+      <section class="scene scene--coop" data-header="light" aria-labelledby="coop-title">
+        <div class="coop-grid">
+          <div>
+            <blockquote class="pull reveal">
+              <p>«Hvis vi trykket på den store knappen, fikk vi egentlig like stort brannvesen som Oslo», sier Jens.</p>
+            </blockquote>
+          </div>
+          <div class="coop-grid__copy">
+            <div class="coop-grid__text">
+              <p class="kicker reveal">Grensen</p>
+              <h2 id="coop-title" class="reveal">På tvers av grenser</h2>
+              <div class="prose">
+                <p class="reveal">Nå måtte de finne andre veier. Gjennom et prosjekt med Strømstad og Tanum startet de et samarbeid som krysset grensene. Jens fortsatte og bygget avtaler videre med Sarpsborg, Rakkestad og Aremark.</p>
+                <p class="reveal">Andreas Stenmark Berger sier at i dag hjelper stasjonene hverandre uten å sende regning de første to timene.</p>
+                <p class="reveal">Avtalene holdt liv i stasjonen i Halden og uten dem hang stasjonens overlevelse i en tynn tråd. I Sarpsborg ble Jens innkalt til rådmannen som ville si opp avtalen. Jens mente det var på grunn av frykt for tapt overtid. Men to dager før møtet, hell i uhell, så slukker Haldens mannskap en skogbrann på Sarpsborgs område, da Sarpsborgs egne var opptatt. Slik overlevde avtalen deres.</p>
+              </div>
+            </div>
+            <figure class="figure">
+              <div class="frame frame--portrait photo-slot">
+                <img src="images/andreas.jpg" width="1555" height="1932" alt="Portrett av Andreas i uniform og lue.">
+                <p class="photo-slot__label">Foto kommer</p>
+              </div>
+              <figcaption class="caption">Andreas Stenmark Berger</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. THE TEMPORARY STATION -->
+      <section class="scene scene--history" data-header="light" aria-labelledby="vestgard-title">
+        <div class="chapter-head">
+          <p class="kicker reveal">Vestgård</p>
+          <h2 id="vestgard-title" class="reveal">Stasjonen må stenges</h2>
+          <div class="prose">
+            <p class="reveal">Arbeidstilsynet kom til slutt og tok saken. De stengte den gamle stasjonen. Da måtte Haldens brannvesen til et midlertidig lokale på Vestgård. Gjennom mange forsøk over flere tiår hadde det fortsatt ikke blitt noe av en ny stasjon.</p>
+          </div>
+        </div>
+        <figure class="spread spread--wide spread--vestgard">
+          <div class="photo-slot">
+            <img src="images/vestgard.jpg" width="2400" height="1800" alt="Det midlertidige lokalet på Vestgård, en lav bygning med Scania-skilt og porter langs fasaden.">
+            <p class="photo-slot__label">Foto kommer</p>
+          </div>
+          <figcaption class="caption">Bygget som tidligere var en midlertidig brannstasjon.</figcaption>
+        </figure>
+        <div class="history__text prose">
+          <p class="reveal">Andreas har jobbet i Halden brannvesen siden 2004 og husker ventetiden godt. «Man tryller jo ikke opp en brannstasjon», sier han. De visste at Vestgård var midlertidig og det ga en følelse av å vente på noe bedre. Underveis ble bemanningen kuttet ned til fire mann av økonomiske årsaker. I dag er de fem på hvert vaktlag.</p>
+        </div>
+      </section>
+
+      <!-- MAP — THREE LOCATIONS
+           Between section 3 and section 4. The map is its own section.
+           Edit marker positions, names, years, and photographs in js/xl-story-map.js.
+           The visible map is images/halden-map-dark.png. -->
+      <section class="scene scene--locations" data-header="light" aria-labelledby="locations-title">
+        <div class="locations__intro wrap">
+          <p class="kicker reveal">Steder</p>
+          <h2 id="locations-title" class="reveal">Hvor stasjonen har stått</h2>
+        </div>
+        <div id="station-map" class="station-map" role="region" aria-label="Kart over Halden med den eldste, den midlertidige og den nåværende brannstasjonen" aria-describedby="station-map-caption">
+          <div class="station-map__scroll">
+            <div class="station-map__stage">
+              <img class="station-map__image" src="images/halden-map-dark.png" width="1764" height="700" alt="Kart over Halden og området vestover mot Berg.">
+            </div>
+          </div>
+          <p class="station-map__hint">Dra sidelengs for å utforske kartet.</p>
+          <p class="station-map__credit">© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors</p>
+        </div>
+        <p id="station-map-caption" class="caption caption--map">Kartet viser hvor brannstasjonene i Halden har vært plassert gjennom historien. Trykk på markørene for å utforske de ulike plasseringene og få mer informasjon om hver enkelt stasjon.</p>
       </section>
 
       <!-- SECTION 4 — BEFORE / AFTER
            No text on top of the images.
-           Scroll progress wipes station-old.jpg into station-new.jpg. -->
+           Scroll progress wipes OldStation.PNG into IMG_7675-2.jpg. -->
       <section class="scene scene--compare" data-scene="compare" data-header="dark" aria-labelledby="compare-title">
-        <h2 id="compare-title" class="visually-hidden">Before and after</h2>
+        <h2 id="compare-title" class="visually-hidden">Før og etter</h2>
         <div class="scene__pin">
           <div class="compare">
-            <img class="compare__old" src="images/station-old.jpg" alt="Placeholder: the fire station in an earlier building">
-            <p class="compare__label">Earlier building</p>
-            <img class="compare__new" src="images/station-new.jpg" alt="Placeholder: the fire station in its later building">
-            <p class="compare__label">Later building</p>
+            <img class="compare__old" src="images/OldStation.PNG" width="1548" height="1016" alt="Den gamle brannstasjonen i Halden, med brannmenn og brannbiler foran de åpne portene.">
+            <p class="compare__label">Tidligere bygg</p>
+            <img class="compare__new" src="images/IMG_7675-2.jpg" width="4281" height="3211" alt="Den nye brannstasjonen i Halden, en mørk bygning med nummererte porter og brannbiler på plassen foran.">
+            <p class="compare__label">Senere bygg</p>
             <div class="compare__edge" aria-hidden="true"></div>
           </div>
         </div>
       </section>
 
-      <!-- SECTION 5 — TODAY -->
+      <!-- 9. THE STATION TODAY -->
       <section class="scene scene--today" data-header="light" aria-labelledby="today-title">
         <div class="today__grid wrap">
           <figure class="figure today__figure">
-            <div class="frame frame--today parallax" data-parallax>
-              <img src="images/station-today.jpg" alt="Placeholder: the fire station as it is used today">
+            <div class="frame frame--today photo-slot parallax" data-parallax>
+              <img src="images/andreas-ole.jpg" width="1800" height="2400" alt="Andreas og Ole Jørgen foran brannbilen merket D.1.1.2, med BRANN OG REDNING på bakdørene.">
+              <p class="photo-slot__label">Foto kommer</p>
             </div>
+            <figcaption class="caption">Ole Jørgen Enger (til venstre) og Andreas (til høyre), foran et av brannvesenets utrykningskjøretøy.</figcaption>
           </figure>
           <div class="today__copy">
-            <p class="kicker">Today</p>
-            <h2 id="today-title" class="reveal">Placeholder — the station as it is now</h2>
+            <p class="kicker reveal">I dag</p>
+            <h2 id="today-title" class="reveal">Brannstasjonen i dag</h2>
             <div class="prose">
-              <p class="reveal">The current station gets a cleaner page because the story has arrived in the present. This is placeholder copy for the rooms, the equipment, and the way people speak to each other on an ordinary shift. It should sound different from the historical sections.</p>
-              <p class="reveal">The final text can draw on the firefighter who works here now: what the watch looks like, which habits are non-negotiable, and which parts of the job would be unrecognisable to the crew of 1911.</p>
+              <h3 class="reveal">Mellom E6 og byen</h3>
+              <p class="reveal">I dag ligger den nye stasjonen på Remmen rett ved Høgskolen i Østfold. Denne plasseringen gir bedre responstid enn både sentrum og Vestgård. Mange hendelser trekker dem stadig mot E6, så Andreas mener de ligger veldig fint til.</p>
+              <h3 class="reveal">Fra gammel stasjon til ren sone</h3>
+              <p class="reveal">Ifølge Andreas har arbeidsmiljøet blitt et helt annet i dag.</p>
             </div>
-            <figure class="figure reveal">
-              <div class="frame frame--equipment">
-                <img src="images/fire-equipment.jpg" alt="Placeholder: equipment used at the station today">
+            <blockquote class="pull reveal">
+              <p>«Vi har et bygg vi bryr oss om. Det er moderne, og vi blir tatt vare på på en helt annen måte.»</p>
+            </blockquote>
+            <div class="prose">
+              <p class="reveal">Stasjonen skiller mellom skitten og ren sone. Røyklukten blir ikke med dem inn i spisesalen lenger. Jens peker på at det har vært mye kreft blant brannmenn, men at det nå endelig tas på alvor. Det er stor kontrast til den tidligere «kaktus under armene»-kulturen.</p>
+              <h3 class="reveal">Fra 1000 til 3000 liter</h3>
+              <p class="reveal">Utstyret har også fulgt utviklingen. De hadde bensinbiler med 1000 liters tank da Jens begynte. Nå har de biler med 3000 liter og ny stigebil. Utvendig slokking gir plass til mer røykdykking og bedre muligheter til å gå inn i brannene. Hjelmene blir byttet ofte og uniformen vaskes etter hver brann.</p>
+            </div>
+            <figure class="figure">
+              <div class="frame frame--equipment photo-slot">
+                <img src="images/stigebil.jpg" width="1800" height="2400" alt="Den nye stigebilen til Halden brannvesen, parkert inne på stasjonen.">
+                <p class="photo-slot__label">Foto kommer</p>
               </div>
-              <figcaption>Placeholder caption. A piece of kit, and what it says about how the crew works.</figcaption>
+              <figcaption class="caption">Brannvesenets stigebil brukes ved oppdrag som krever innsats i høyden.</figcaption>
             </figure>
-            <div class="prose">
-              <p class="reveal">Choose the picture that makes the safety culture visible without a lecture. A labeled rack, a map, a helmet that has clearly been used. Explain only what the picture cannot.</p>
-              <p class="reveal">Staffing belongs in this chapter too. Who is on the watch, who is still learning, and which jobs no longer exist. Generational difference can be named here if it helps. Save the last look forward for the ending.</p>
-            </div>
           </div>
+        </div>
+
+        <div class="spread spread--pair">
+          <figure>
+            <div class="photo-slot">
+              <img src="images/biler2.jpg" width="1800" height="2400" alt="En stigebil og en rød stasjonsvogn merket Brannvesen, parkert inne på stasjonen.">
+              <p class="photo-slot__label">Foto kommer</p>
+            </div>
+          </figure>
+          <figure>
+            <div class="photo-slot">
+              <img class="spread__img--klaer" src="images/klaer.jpg" width="1800" height="2400" alt="Gul jakke merket Halden brannvesen og mørk bukse med reflekser, hengt opp ved skapene.">
+              <p class="photo-slot__label">Foto kommer</p>
+            </div>
+          </figure>
+        </div>
+
+        <div class="story-band prose">
+          <h3 class="reveal">Mer beredskap, mindre vaktmester</h3>
+          <p class="reveal">I dag er oppgavene på stasjonen mer rendyrket mot reell beredskap. De gjør ikke lenger vindusvask for eksempel. Men de henger opp julepynt i julegater og kontrollerer slokkeapparat på kommunale bygg. De får inntekt og kjennskap til bedrifter rundt omkring.</p>
+        </div>
+
+        <figure class="spread spread--full spread--banner">
+          <div class="photo-slot">
+            <img src="images/front.jpg" width="1800" height="2400" alt="To brannbiler inne på stasjonen, den ene merket Halden brann og redning og 110.">
+            <p class="photo-slot__label">Foto kommer</p>
+          </div>
+          <figcaption class="caption">Moderne utrykningskjøretøy er utstyrt for å håndtere ulike typer beredskapsoppdrag.</figcaption>
+        </figure>
+
+        <div class="story-band prose">
+          <h3 class="reveal">Kan ikke bo for langt unna</h3>
+          <p class="reveal">Hvor brannmennene kan bo er regulert. De kan ikke bo mer enn tjue minutter unna stasjonen. I Jens' tid var det fem. En nylig ansatt måtte flytte fire minutter nærmere for å få jobben.</p>
+        </div>
+
+        <div class="spread spread--gallery" role="group" aria-label="To bilder fra brannstasjonen">
+          <figure>
+            <div class="photo-slot">
+              <img src="images/brannlogo.jpg" width="1800" height="2400" alt="Brannvesenets logo på tårnet til den nye brannstasjonen i Halden.">
+              <p class="photo-slot__label">Foto kommer</p>
+            </div>
+          </figure>
+          <figure>
+            <div class="photo-slot">
+              <img src="images/stang.jpg" width="1800" height="2400" alt="Brannstangen sett nedenfra, gjennom en rund åpning i taket.">
+              <p class="photo-slot__label">Foto kommer</p>
+            </div>
+            <figcaption class="caption">Brannstangen på den nye stasjonen er tatt med fra stasjonen i byen.</figcaption>
+          </figure>
         </div>
       </section>
 
       <!-- SECTION 6 — THE SHORT JOURNEY
            Three photographs. Vertical scroll crossfades them. No buttons. -->
       <section class="scene scene--journey" data-scene="journey" data-header="dark" aria-labelledby="journey-title">
-        <h2 id="journey-title" class="visually-hidden">The short journey</h2>
+        <h2 id="journey-title" class="visually-hidden">Den korte reisen</h2>
         <div class="scene__pin">
           <div class="journey__stage">
-            <figure class="journey__frame">
-              <img src="images/station-history.jpg" alt="Placeholder: the earliest stage of the station">
+            <figure class="journey__frame journey__frame--sentrum">
+              <div class="photo-slot">
+                <img src="images/gammehalden.jpg" width="2400" height="1800" alt="Den gamle brannstasjonen i Halden sentrum, en grønn bygning med slangetårn.">
+                <p class="photo-slot__label">Foto kommer</p>
+              </div>
               <figcaption class="journey__caption">
-                <span class="kicker">01 — Early</span>
-                Placeholder caption. The first moment on the timeline, closest to 1911.
-                <span class="journey__support">Replace with one sentence about what this picture shows.</span>
+                <span class="kicker">01 — Sentrum</span>
+                Brannstasjonen lå midt i Halden sentrum.
+                <span class="journey__support">Den hadde slangetårn og krakker utenfor døra.</span>
               </figcaption>
             </figure>
-            <figure class="journey__frame">
-              <img src="images/station-old.jpg" alt="Placeholder: a middle stage of the station">
+            <figure class="journey__frame journey__frame--vestgard">
+              <div class="photo-slot">
+                <img src="images/vestgard.jpg" width="2400" height="1800" alt="Det midlertidige lokalet på Vestgård, en lav bygning med Scania-skilt og porter langs fasaden.">
+                <p class="photo-slot__label">Foto kommer</p>
+              </div>
               <figcaption class="journey__caption">
-                <span class="kicker">02 — Between</span>
-                Placeholder caption. A middle stage, after the first years and before now.
-                <span class="journey__support">Replace with one sentence about what had changed.</span>
+                <span class="kicker">02 — Vestgård</span>
+                Da måtte Haldens brannvesen til et midlertidig lokale på Vestgård.
+                <span class="journey__support">«Man tryller jo ikke opp en brannstasjon», sier Andreas.</span>
               </figcaption>
             </figure>
-            <figure class="journey__frame">
-              <img src="images/station-today.jpg" alt="Placeholder: the station in the present">
+            <figure class="journey__frame journey__frame--remmen">
+              <div class="photo-slot">
+                <img src="images/halden.jpg" width="1800" height="2400" alt="Den nye brannstasjonen på Remmen, en mørk bygning med skiltet Halden brannstasjon.">
+                <p class="photo-slot__label">Foto kommer</p>
+              </div>
               <figcaption class="journey__caption">
-                <span class="kicker">03 — Now</span>
-                Placeholder caption. The station in its present form.
-                <span class="journey__support">Replace with one sentence about what remains.</span>
+                <span class="kicker">03 — Remmen</span>
+                I dag ligger den nye stasjonen på Remmen rett ved Høgskolen i Østfold.
+                <span class="journey__support">Mellom E6 og byen.</span>
               </figcaption>
             </figure>
           </div>
         </div>
       </section>
 
-      <!-- SECTION 7 — ENDING -->
-      <section class="scene scene--ending" data-header="light" aria-labelledby="ending-title">
-        <div class="ending__grid reveal">
-          <figure class="figure ending__portrait">
-            <div class="frame frame--portrait">
-              <img src="images/firefighter-portrait.jpg" alt="Placeholder: a portrait to close the story">
+      <!-- 10. A NEW GENERATION -->
+      <section class="scene scene--generation" data-header="light" aria-labelledby="generation-title">
+        <div class="chapter-head">
+          <p class="kicker reveal">Generasjoner</p>
+          <h2 id="generation-title" class="reveal">Skolegangen skaper endring</h2>
+          <div class="prose">
+            <p class="reveal">Brann- og redningsskolen ble en toårig utdanning for rundt to år siden. Siden da har det kommet nye brannkonstabler inn med mer teori under beltet. Siden de har mer teori fra skolen, pusher de de erfarne til å henge med.</p>
+            <p class="reveal">Jens etterlyste en utdanning i mange år og er ikke i tvil. Brannmenn hadde et grunnkurs på seks uker tidligere, med lite teori om lover, regler og forebygging. I tillegg må et brannvesen med få branner øve ofte for å holde seg skarpt. Da kommer en lengre god utdanning godt med.</p>
+          </div>
+        </div>
+        <div class="generation__quote">
+          <blockquote class="pull reveal">
+            <p>«De pusher oss på en veldig god måte», sier Andreas.</p>
+          </blockquote>
+        </div>
+        <div class="chapter-head generation__bridge">
+          <h3 class="reveal">Læring begge veier</h3>
+        </div>
+        <div class="role-row">
+          <div class="learn-tabs reveal" data-learn-tabs>
+            <div class="learn-tabs__bar" role="tablist" aria-label="Læring begge veier">
+              <button class="learn-tabs__tab" type="button" role="tab" id="learn-tab-erfaring" aria-controls="learn-panel-erfaring" aria-selected="true">Erfaring</button>
+              <button class="learn-tabs__tab" type="button" role="tab" id="learn-tab-utdanning" aria-controls="learn-panel-utdanning" aria-selected="false" tabindex="-1">Utdanning</button>
             </div>
+            <div class="learn-tabs__stage">
+              <div class="learn-tabs__panel is-active" id="learn-panel-erfaring" role="tabpanel" aria-labelledby="learn-tab-erfaring">
+                <p>De erfarne har praktisk erfaring fra mange år i tjeneste. De har opparbeidet seg kunnskap gjennom arbeid innenfor yrket. Selv om de har erfaringen, er det de yngre som kommer inn med mer teoretisk kunnskap.</p>
+              </div>
+              <div class="learn-tabs__panel" id="learn-panel-utdanning" role="tabpanel" aria-labelledby="learn-tab-utdanning">
+                <h3>Nye i yrket</h3>
+                <p>De unge er nysgjerrige og stiller spørsmål. «Hvorfor er det sånn? Kan du lære meg det?», sier Andreas. Han sier de lærer like mye av hverandre.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="generation__more">
+          <div class="story-step">
+            <p class="kicker">Student</p>
+            <h3 id="student-title">Student med ansvar</h3>
+          </div>
+          <div class="prose">
+            <p class="story-step">Ole Jørgen studerer ved Brannskolen. Han bor i Sarpsborg og har vikarjobb i Halden. Han sier han valgte dette yrket fordi han ønsker å hjelpe de som er i sin verste livssituasjon. Han forventer mer dybde fra skolen enn det kortere kurs ga tidligere.</p>
+            <p class="story-step">Han var tidligere i praksis i Moss, der kunne han ikke gå først i linja på grunn av forsikringsregler. Men i Halden får han gjort det meste de faste ansatte gjør. Gå først og kjenne på reell risiko. Ole Jørgen sier hver person får et større selvstendig ansvar i Halden.</p>
+          </div>
+        </div>
+        <dl class="fact-list">
+          <div class="story-step">
+            <dt>Moss</dt>
+            <dd>Minimumsstyrke på elleve fordelt på tre stasjoner. Hjelp tar 10 minutter.</dd>
+          </div>
+          <div class="story-step">
+            <dt>Halden</dt>
+            <dd>Minimumsstyrke på stasjonen er fem. Hjelp kan ta 20 minutter.</dd>
+          </div>
+        </dl>
+      </section>
+
+      <!-- 11. ENDING -->
+      <section class="scene scene--ending" data-header="light" aria-labelledby="ending-title">
+        <div class="ending__grid">
+          <div class="ending__quote story-step">
+            <blockquote class="pull">
+              <p>«Det er andre tider», sier Jens.</p>
+            </blockquote>
+          </div>
+          <figure class="figure ending__portrait">
+            <div class="frame frame--portrait photo-slot">
+              <img src="images/brann.jpg" width="1800" height="2400" alt="Brannvesenets skjold med teksten Brannvesenet og Halden, på en rød brannbil.">
+              <p class="photo-slot__label">Foto kommer</p>
+            </div>
+            <figcaption class="caption">Halden brannvesens emblem.</figcaption>
           </figure>
           <div class="ending__copy">
-            <p class="kicker">Ending</p>
-            <h2 id="ending-title">Placeholder — the next watch</h2>
+            <div class="story-step">
+              <p class="kicker">Avslutning</p>
+              <h2 id="ending-title">Neste utfordring kommer fra naturen</h2>
+            </div>
             <div class="prose">
-              <p>The portrait is a placeholder for whichever face should close the story. It may be the trainee, the retired chief, or someone who has not been the focus yet. The page stays quiet so that choice can be simple.</p>
-              <p>What remains is a short look forward. The station is still answering the same streets, with different equipment and a different idea of what care requires. Replace these sentences with the hope, or the uncertainty, that the interviews actually support.</p>
-              <p>The story should end as if the reader is being set down gently. No last revelation, and no summary of the whole century. One person, and the work still ahead of them, is enough.</p>
+              <p class="story-step">I Halden har de fått den brannstasjonen de ønsket seg, og det er ikke lenger den som er en utfordring. Noe av det Andreas nevner som videre utfordringer er store skogbranner og strømbortfall. Store utfordringer som krever langt flere folk enn fem.</p>
+              <p class="story-step">Brannen tidligere i år ved Krokstadelva viser hva et lite brannvesen ikke er i stand til å håndtere. «Det gjelder ikke bare Halden», sier han. Ole Jørgen peker på at det kan bli mindre brann og mer helse og naturskader. Da må brannkonstablene spesialisere seg.</p>
+              <p class="story-step">Jens ser på stasjonen med litt avstand. «Det er andre tider», sier han. Han finner ikke noe negativt å si. Han kjenner ikke det interne godt nok til det nå. Kun det positive: bedre utdanning og bedre utstyr.</p>
+              <p class="story-step">Stasjonen mellom E6 og sentrum er kanskje det som ikke var mulig å planlegge for i første omgang. Den eldre kulturen har møtt en ny og begge lærer av hverandre. Erfarne gir erfaring og unge gir spørsmål. Den forrige generasjonen ser nå på at den nye tar med stasjonen videre.</p>
             </div>
           </div>
         </div>
@@ -226,19 +532,16 @@
 
   <footer class="site-footer">
     <div class="site-footer__inner">
-      <div>
-        <a class="logo" href="index.html">
-          <img class="logo__img" src="images/sixthsense-black.png" alt="Sixth Sense">
-        </a>
-        <p class="site-footer__note">Placeholder colophon. Replace this with your name, the course, and the year.</p>
-      </div>
+      <a class="logo" href="index.html">
+        <img class="logo__img" src="images/sixthsense-black.png" width="1488" height="901" alt="Sixth Sense">
+      </a>
       <nav aria-label="Footer">
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="article1.html">Article 1</a></li>
-          <li><a href="article2.html">Article 2</a></li>
-          <li><a href="article3.html">Article 3</a></li>
-          <li><a href="xl-story.html">XL Story</a></li>
+          <li><a href="index.html">Forside</a></li>
+          <li><a href="article1.html">Samfunn</a></li>
+          <li><a href="article2.html">Mote</a></li>
+          <li><a href="article3.html">Underholdning</a></li>
+          <li><a href="xl-story.html">Reportasje</a></li>
         </ul>
       </nav>
     </div>
@@ -246,5 +549,11 @@
 
   <script src="js/script.js"></script>
   <script src="js/xl-story.js"></script>
+  <script>
+    if (!document.documentElement.classList.contains("reveals-ready")) {
+      document.documentElement.classList.remove("js");
+    }
+  </script>
+  <script src="js/xl-story-map.js"></script>
 </body>
 </html>

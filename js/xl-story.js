@@ -31,6 +31,91 @@
   const journeyFrames = journey ? journey.querySelectorAll(".journey__frame") : [];
 
   /*
+    Læring begge veier. One panel is open at a time.
+    Without JavaScript both texts stay in the page.
+  */
+  function initLearnTabs() {
+    const root = document.querySelector("[data-learn-tabs]");
+    if (!root) {
+      return;
+    }
+
+    const tabs = Array.prototype.slice.call(root.querySelectorAll("[role='tab']"));
+    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    function panelFor(tab) {
+      return document.getElementById(tab.getAttribute("aria-controls"));
+    }
+
+    function activate(tab) {
+      tabs.forEach(function (item) {
+        const selected = item === tab;
+        const panel = panelFor(item);
+        item.setAttribute("aria-selected", selected ? "true" : "false");
+        item.tabIndex = selected ? 0 : -1;
+        if (!panel) {
+          return;
+        }
+        panel.classList.toggle("is-active", selected);
+        panel.setAttribute("aria-hidden", selected ? "false" : "true");
+        panel.inert = !selected;
+      });
+    }
+
+    function select(tab) {
+      const current = tabs.filter(function (item) {
+        return item.getAttribute("aria-selected") === "true";
+      })[0];
+      if (!current || current === tab) {
+        activate(tab || current);
+        return;
+      }
+
+      const currentPanel = panelFor(current);
+      if (motion.matches || !currentPanel) {
+        activate(tab);
+        return;
+      }
+
+      currentPanel.classList.add("is-leaving");
+      window.setTimeout(function () {
+        currentPanel.classList.remove("is-leaving");
+        activate(tab);
+      }, 180);
+    }
+
+    tabs.forEach(function (tab, index) {
+      tab.addEventListener("click", function () {
+        select(tab);
+      });
+
+      tab.addEventListener("keydown", function (event) {
+        let nextIndex = null;
+        if (event.key === "ArrowRight") {
+          nextIndex = (index + 1) % tabs.length;
+        } else if (event.key === "ArrowLeft") {
+          nextIndex = (index - 1 + tabs.length) % tabs.length;
+        } else if (event.key === "Home") {
+          nextIndex = 0;
+        } else if (event.key === "End") {
+          nextIndex = tabs.length - 1;
+        }
+        if (nextIndex === null) {
+          return;
+        }
+        event.preventDefault();
+        select(tabs[nextIndex]);
+        tabs[nextIndex].focus();
+      });
+    });
+
+    const initial = tabs.filter(function (tab) {
+      return tab.getAttribute("aria-selected") === "true";
+    })[0] || tabs[0];
+    activate(initial);
+  }
+
+  /*
     How far the reader has moved through a tall section.
     0 = the section has just reached the top of the screen.
     1 = the section is about to leave the screen.
@@ -200,9 +285,35 @@
 
   /* Fade story text in when it enters the viewport. Do not fade it back out. */
   let revealObserver = null;
+  let revealQueue = [];
+  let revealQueued = false;
+
+  function holdsPicture(node) {
+    return node.matches("figure, .spread, figcaption, .caption") || !!node.querySelector("img");
+  }
+
+  function flushReveals() {
+    revealQueued = false;
+    const batch = revealQueue.splice(0, revealQueue.length);
+    batch.forEach(function (node, index) {
+      const delay = Math.min(index, 3) * 80;
+      if (delay) {
+        node.style.transitionDelay = delay + "ms";
+      }
+      node.classList.add("is-visible");
+    });
+  }
+
+  function queueReveal(node) {
+    revealQueue.push(node);
+    if (!revealQueued) {
+      revealQueued = true;
+      requestAnimationFrame(flushReveals);
+    }
+  }
 
   function initReveals() {
-    const nodes = document.querySelectorAll(".reveal");
+    const nodes = document.querySelectorAll(".reveal, .story-step");
     if (!nodes.length) {
       return;
     }
@@ -225,17 +336,21 @@
           if (!entry.isIntersecting) {
             return;
           }
-          entry.target.classList.add("is-visible");
           revealObserver.unobserve(entry.target);
+          queueReveal(entry.target);
         });
       },
       {
-        threshold: 0.28,
-        rootMargin: "0px 0px -8% 0px"
+        threshold: 0.2,
+        rootMargin: "0px 0px -18% 0px"
       }
     );
 
     nodes.forEach(function (node) {
+      if (holdsPicture(node)) {
+        node.classList.add("is-visible");
+        return;
+      }
       revealObserver.observe(node);
     });
   }
@@ -253,8 +368,10 @@
     });
   }
 
+  initLearnTabs();
   initReveals();
   update();
+  document.documentElement.classList.add("reveals-ready");
 
   window.addEventListener("scroll", requestUpdate, { passive: true });
   window.addEventListener("resize", requestUpdate);
